@@ -783,7 +783,7 @@
 		D0C5DC2A193D9AD000B0E944 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = shuhei_ohono;
 				TargetAttributes = {
 					D0C5DC31193D9AD000B0E944 = {
