@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0620"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0C5DC31193D9AD000B0E944"
+               BuildableName = "Project.app"
+               BlueprintName = "Project"
+               ReferencedContainer = "container:Project.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Staging">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0C5DC4C193D9AD000B0E944"
+               BuildableName = "ProjectTests.xctest"
+               BlueprintName = "ProjectTests"
+               ReferencedContainer = "container:Project.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0C5DC31193D9AD000B0E944"
+            BuildableName = "Project.app"
+            BlueprintName = "Project"
+            ReferencedContainer = "container:Project.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Staging"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0C5DC31193D9AD000B0E944"
+            BuildableName = "Project.app"
+            BlueprintName = "Project"
+            ReferencedContainer = "container:Project.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Staging"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0C5DC31193D9AD000B0E944"
+            BuildableName = "Project.app"
+            BlueprintName = "Project"
+            ReferencedContainer = "container:Project.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Staging">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "StagingAdhoc"
+      customArchiveName = "staging"
+      revealArchiveInOrganizer = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "buildPlist=${INFOPLIST_FILE}&#10;newVersion=`/usr/libexec/PlistBuddy -c &quot;Print CFBundleVersion&quot; &quot;$buildPlist&quot; | /usr/bin/perl -pe &apos;s/(\d+\.\d+\.)(\d+)/$1.($2+1)/eg&apos;`&#10;#echo $newVersion;&#10;/usr/libexec/PListBuddy -c &quot;Set :CFBundleVersion $newVersion&quot; &quot;$buildPlist&quot;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "D0C5DC31193D9AD000B0E944"
+                     BuildableName = "Project.app"
+                     BlueprintName = "Project"
+                     ReferencedContainer = "container:Project.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
+   </ArchiveAction>
+</Scheme>
