@@ -1,0 +1,29 @@
+RewriteEngine On
+
+# フィルターを無効に
+SetEnv _filter_ 'false'
+SetEnv _availalefilter_ 'false'
+
+# All files with .something are skipped
+RewriteCond %{REQUEST_URI} \..+$
+RewriteCond %{REQUEST_URI} !$
+RewriteCond %{REQUEST_URI} !\.html$
+RewriteCond %{REQUEST_URI} !\.xml$
+RewriteCond %{REQUEST_URI} !\.json$
+
+# リライト
+# URL省略時のIndexFlowへのRewrite
+# XXX Indexはリソース指定が無いのでエラーなる！
+RewriteRule ^\/$ index.php?_c_=api/Rest&_a_=Execute&_deep_=0&_r_=&_o_=xml&_p_=$1 [QSA,L]
+# 標準のRestへのRewrite
+RewriteRule ([^\/]+)\/(.*)?\.(.*)$ index.php?_c_=api/Rest&_a_=Execute&_deep_=0&_r_=$2&_o_=$3&_p_=$1 [QSA,L]
+
+php_flag mbstring.encoding_translation off
+php_value mbstring.http_input pass
+php_value mbstring.internal_encoding UTF-8
+
+# エラーの表示設定
+# 全てのエラーを非表示
+#php_value error_reporting 1
+# 以下はPHP5環境用
+php_value error_reporting 24575

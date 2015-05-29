@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<xml>
+	<section id="Generatenewproject">
+		<execute>
+			<if condition="true === Auth::isCertification()">
+				<view flowpostformsection="generatenewproject-execute"/>
+			</if>
+			<else>
+				<flow section="login"/>
+			</else>
+		</execute>
+	</section>
+	<section id="Generatenewproject-execute">
+		<execute>
+			<if condition="true === Auth::isCertification()">
+				<if var="autoValidated" val="true">
+					<assign var="res" class="ProjectManager" method="createProject" arg1="Flow::$params['post']['project_name_must']"/>
+					<if var="res" val="true">
+						<view/>
+					</if>
+					<else>
+						<flowpostformsectionerror>プロジェクトの作成に失敗しました</flowpostformsectionerror>
+					</else>
+				</if>
+				<else>
+					<flowpostformsectionerror>プロジェクト名は必ず指定して下さい</flowpostformsectionerror>
+				</else>
+				<view section="Generatenewproject" flowpostformsection="generatenewproject-execute"/>
+			</if>
+			<else>
+				<flow section="login"/>
+			</else>
+		</execute>
+	</section>
+</xml>

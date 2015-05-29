@@ -1,0 +1,46 @@
+---
+layout: default
+title: GENERATE NEW PROJECT
+fa: fa-cube
+group: static navigation
+---
+{% include JB/setup %}
+			<!-- 専用のJS -->
+			<div class="maincontents">
+				<h2>GENERATE NEW PROJECT</h2>
+				<br/>
+				<h3>新たにプロジェクトを作成します。</h3>
+				<form flowpostformsection="generatenewproject-execute">
+					<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+						<input class="form-control" placeholder="プロジェクト名" type="text" name="project_name_must" value="" />
+					</div>
+					<br/>
+<!-- 					<br/>
+					<h3>アプリAPI用のURL初期設定</h3>
+					<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+						<input class="form-control" placeholder="ローカル環境ドメイン" type="text" name="project_local_domain_must" value="localhost" />
+					</div>
+					<br/>
+					<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+						<input class="form-control" placeholder="テスト環境ドメイン" type="text" name="project_test_domain_must" value="api.example.test" />
+					</div>
+					<br/>
+					<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+						<input class="form-control" placeholder="本番環境ドメイン" type="text" name="project_release_domain_must" value="api.example.release" />
+					</div>
+					<br/>
+					<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+						<input class="form-control" placeholder="ローカル環境ベースURL" type="text" name="project_local_baseurl_must" value="" />
+					</div>
+					<br/>
+					<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+						<input class="form-control" placeholder="サーバー環境ベースURL" type="text" name="project_server_baseurl_must" value="" />
+					</div>
+ -->					<br/>
+					<div class="buttonarea">
+						<input type="submit" class="btn btn-success" value="作成" />
+					</div>
+				</form>
+				<br/>
+				<div flowpostformsectionerror="generatenewproject-execute" class="red errormsg"></div>
+			</div>

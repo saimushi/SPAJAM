@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<xml>
+	<default>
+		<implement suffix=".class.php">class</implement>
+		<abstract suffix=".abstract.php">class</abstract>
+		<interface suffix=".interface.php">class</interface>
+		<!-- フレームワーク標準のMVCパターンを使用する場合のパス定義 -->
+		<controlmain suffix=".php">class/MVC/Controller</controlmain>
+		<modelmain suffix=".php">class/MVC/Model</modelmain>
+	</default>
+	<Session>
+		<package>DBO</package>
+		<link>default.interface.Session/SessionIO</link>
+		<link>default.abstract.Session/SessionDataDB</link>
+		<link mapfrom="SessionDB" mapto="Session">default.implement.Session/SessionDB</link>
+	</Session>
+</xml>

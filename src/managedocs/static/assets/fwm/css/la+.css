@@ -1,0 +1,117 @@
+
+*{
+	text-decoration: none;
+	/* 基準フォントカラー */
+	color: #FF8000;
+	word-wrap: break-word;
+}
+
+h1 {
+	font-size: 80px;
+}
+
+ul {
+	list-style: none;
+}
+
+table {
+	table-layout: fixed;
+	width: 100%;
+	background-color: transparent;
+}
+
+table th.t-header * {
+	/* style setting */
+	color: white;
+}
+
+table .configname {
+	/* style setting */
+	color: white;
+}
+
+table th.field strong {
+	/* style setting */
+	padding: 2px;
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+a:link {
+	color: #eeeeee;
+}
+
+a:visited {
+	color: #eeeeee;
+}
+
+a:hover {
+	color: #eeeeee;
+}
+
+a:active {
+	color: #eeeeee;
+}
+
+.background {
+	/* box setting */
+	z-index: -1;
+	position: fixed;
+	/* position setting */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	/* style setting */
+	background-color: black;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-image:
+		url(https://dl.dropboxusercontent.com/u/22810487/UNICORN/image/background1.jpg);
+}
+
+#wrapper.single-wrapper {
+  padding-left: 0;
+}
+
+.maincontents {
+	font-size: 1.5em;
+	/* box setting */
+	margin: 0;
+	height: 100%;
+	/* position setting */
+	padding: 10px;
+	padding-bottom: 30px;
+	/* style setting */
+	border: 2px solid #FF8000;
+	background-color: RGBA(0, 0, 0, 0.7);
+}
+
+.plojectlist-block {
+	padding: 15px;
+}
+
+.plojectlist-block li {
+	padding: 5px;
+	}
+
+.form-control {
+	color: #333333;
+}
+
+.has-error .help-block, .has-error .control-label{
+	color: red;
+	font-weight: bold;
+}
+
+.navbar {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.side-nav {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.selected {
+	border-left:7px solid #00FF40;
+}
+

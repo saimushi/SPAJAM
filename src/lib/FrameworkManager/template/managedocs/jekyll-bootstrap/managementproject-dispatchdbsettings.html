@@ -1,0 +1,46 @@
+---
+layout: default
+title: pagename
+fa: fa-sitemap
+group: Management
+---
+			<var selector="title#title" value="array(HtmlViewAssignor::PART_REPLACE_NODE_KEY => array('pagename' => 'Management '  . Flow::$params['get']['target_project'] . ' dispatch DBSettings'))" />
+			<div class="maincontents">
+					<h2 frowparamsection="target_project">_flow_target_project_の初期DB定義を適用します。</h2>
+					<br/>
+					<div flowpostformsectionerror="managementproject-dispatchdbsettings" class="red errormsg"></div>
+					<br/>
+					<form flowpostformsection="managementproject-dispatchdbsettings">
+						<h3>CREATE DB</h3>
+						<pre id="createdb"></pre>
+						<div class="buttonarea">
+							<a frowparamsection="target_project" href="./managementproject-modifydbsettings.html?target_project=_flow_target_project_"><input type="button" class="btn btn-success" value="初期DB定義変更"/></a>
+						</div>
+						<br/>
+						<label>DBホスト</label>
+						<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+							<input class="form-control" placeholder="DBホスト" type="text" name="dbhost_must" value="localhost" />
+						</div>
+						<br/>
+						<label>DBポート</label>
+						<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+							<input class="form-control" placeholder="DBポート" type="text" name="dbport_must" value=3306 />
+						</div>
+						<br/>
+						<label>CreateDB権限のあるユーザー名</label>
+						<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+							<input class="form-control" placeholder="DBユーザー名" type="text" name="dbuser_must" value="root" />
+						</div>
+						<br/>
+						<label>CreateDB権限のあるパスワード</label>
+						<div class="form-group" style="width: 340px; text-align: center; margin: 0;">
+							<input class="form-control" placeholder="DBパスワード" type="password" name="dbpass" value="root" />
+						</div>
+						<br/>
+						<div class="buttonarea">
+							<input type="submit" name="submit" class="btn btn-success" value="適用"/>
+						</div>
+						<input type="hidden" name="modify" value="1"/>
+					</form>
+					<br/>
+			</div>

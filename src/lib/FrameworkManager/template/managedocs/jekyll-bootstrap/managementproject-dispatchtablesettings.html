@@ -1,0 +1,32 @@
+---
+layout: default
+title: pagename
+fa: fa-sitemap
+group: Management
+---
+			<var selector="title#title" value="array(HtmlViewAssignor::PART_REPLACE_NODE_KEY => array('pagename' => 'Management '  . Flow::$params['get']['target_project'] . ' dispatch TableSettings'))" />
+			<div class="maincontents">
+					<h2 frowparamsection="target_project">_flow_target_project_の初期テーブル定義を適用します。</h2>
+					<br/>
+					<div flowpostformsectionerror="managementproject-dispatchtablesettings" class="red errormsg"></div>
+					<br/>
+					<form flowpostformsection="managementproject-dispatchtablesettings">
+						<h3>CREATE TABLE</h3>
+						<pre id="createtable"></pre>
+						<div class="buttonarea">
+							<a frowparamsection="target_project" href="./managementproject-modifydbsettings.html?target_project=_flow_target_project_"><input type="button" class="btn btn-success" value="初期テーブル定義変更"/></a>
+						</div>
+						<br/>
+						<h3>DB DSN(接続情報)</h3>
+						<h4 id="dbdsn"></h4>
+						<div class="buttonarea">
+							<a frowparamsection="target_project" href="./managementproject-modifyconfigure.html?target_project=_flow_target_project_"><input type="button" class="btn btn-success" value="DB接続情報定義変更"/></a>
+						</div>
+						<br/>
+						<div class="buttonarea">
+							<input type="submit" name="submit" class="btn btn-success" value="適用"/>
+						</div>
+						<input type="hidden" name="modify" value="1"/>
+					</form>
+					<br/>
+			</div>

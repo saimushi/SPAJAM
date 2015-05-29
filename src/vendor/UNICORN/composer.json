@@ -1,0 +1,85 @@
+{
+    "name": "UNICORN-Project",
+    "type": "project",
+    "description" : "Fast Start Project Framework.",
+    "keywords": ["application", "website", "development", "framework", "PHP", "iOS", "Android"],
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "lib",
+                "type": "unicorn-package",
+                "version": "1",
+                "dist": {
+                    "url": "https://github.com/UNICORN-Project/lib/archive/master.zip",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "https://github.com/UNICORN-project/lib.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
+    "require": {
+        "lib": "1",
+        "aws/aws-sdk-php": "*"
+    },
+    "config": {
+        "vendor-dir": "../UNICORN"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "cp -rf ./_tmp ../../",
+            "mkdir -p ../../lib 2>/dev/null",
+            "mkdir -p ../../lib/FrameworkPackage 2>/dev/null",
+            "mkdir -p ../../lib/FrameworkPackage/core 2>/dev/null",
+            "mkdir -p ../../lib/FrameworkManager 2>/dev/null",
+            "mkdir -p ../../lib/FrameworkManager/core 2>/dev/null",
+            "touch ../../lib/FrameworkPackage/core/config.xml 2>/dev/null",
+            "touch ../../lib/FrameworkPackage/core/package.xml 2>/dev/null",
+            "touch ../../lib/FrameworkManager/core/FrameworkManager.config.xml 2>/dev/null",
+            "touch ../../lib/FrameworkManager/core/FrameworkManager.package.xml 2>/dev/null",
+            "cp -f ../../lib/FrameworkPackage/core/config.xml ../../_tmp/config.xml.bak 2>/dev/null",
+            "cp -f ../../lib/FrameworkPackage/core/package.xml ../../_tmp/package.xml.bak 2>/dev/null",
+            "cp -f ../../lib/FrameworkManager/core/FrameworkManager.config.xml ../../_tmp/FrameworkManager.config.xml.bak 2>/dev/null",
+            "cp -f ../../lib/FrameworkManager/core/FrameworkManager.package.xml ../../_tmp/FrameworkManager.package.xml.bak 2>/dev/null",
+            "cp -rf ./lib/* ../../lib 2>/dev/null",
+            "cp -rf ./autoload.php ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./aws ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./composer ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./guzzle ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./symfony ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "rm -rf ./lib 2>/dev/null",
+            "rm -rf ./autoload.php 2>/dev/null",
+            "rm -rf ./aws 2>/dev/null",
+            "rm -rf ./composer 2>/dev/null",
+            "rm -rf ./guzzle 2>/dev/null",
+            "rm -rf ./symfony 2>/dev/null",
+            "php ../../lib/UNICORN"
+        ],
+        "post-update-cmd": [
+            "cp -rf ./log ../../",
+            "cp -rf ./_tmp ../../",
+            "mkdir -p ../../lib 2>/dev/null",
+            "cp -f ../../lib/FrameworkPackage/core/config.xml ../../_tmp/config.xml.bak 2>/dev/null",
+            "cp -f ../../lib/FrameworkPackage/core/package.xml ../../_tmp/package.xml.bak 2>/dev/null",
+            "cp -f ../../lib/FrameworkManager/core/FrameworkManager.config.xml ../../_tmp/FrameworkManager.config.xml.bak 2>/dev/null",
+            "cp -f ../../lib/FrameworkManager/core/FrameworkManager.package.xml ../../_tmp/FrameworkManager.package.xml.bak 2>/dev/null",
+            "cp -rf ./lib/* ../../lib 2>/dev/null",
+            "cp -rf ./autoload.php ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./aws ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./composer ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./guzzle ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "cp -rf ./symfony ../../lib/VendorPackage/AWSSDK 2>/dev/null",
+            "rm -rf ./lib 2>/dev/null",
+            "rm -rf ./autoload.php 2>/dev/null",
+            "rm -rf ./aws 2>/dev/null",
+            "rm -rf ./composer 2>/dev/null",
+            "rm -rf ./guzzle 2>/dev/null",
+            "rm -rf ./symfony 2>/dev/null"
+        ]
+    }
+}

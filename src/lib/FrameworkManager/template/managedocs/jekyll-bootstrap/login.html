@@ -1,0 +1,32 @@
+---
+layout: simple
+title: Log in
+group: login
+---
+{% include JB/setup %}
+			<div class="maincontents text-center v-center">
+					<h1>Log in</h1>
+					<br>
+					<p class="lead">Enter your email and password to Log in</p>
+					<br>
+					<form flowpostformsection="login-certfy">
+						<div class="form-group" style="width: 340px; text-align: center; margin: 0 auto;">
+							<input class="form-control" title="Confidential signup." placeholder="Enter your email address" type="text" name="mail">
+						</div>
+						<br>
+						<div class="form-group" style="width: 340px; text-align: center; margin: 0 auto;">
+							<input class="form-control" title="Confidential signup." placeholder="Enter your password" type="password" name="pass">
+						</div>
+						<br>
+						<br>
+						<div class="form-group has-error">
+							<div flowpostformsectionerror="login-certfy" class="red errormsg control-label" for="inputError"></div>
+						</div>
+						<div class="input-group" style="width: 340px; text-align: center; margin: 0 auto;">
+							<input type="submit" class="btn btn-warning btn-lg" type="submit" value="&nbsp;&nbsp;&nbsp;Log in&nbsp;&nbsp;&nbsp;">
+						</div>
+						<br>
+						<br>
+						<br>
+					</form>
+			</div>

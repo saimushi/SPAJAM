@@ -1,0 +1,48 @@
+---
+layout: default
+title: CRUD
+fa: fa-sitemap
+group: static navigation
+---
+{% include JB/setup %}
+			<script id="crud-js" src="./assets/fwm/js/crudjs/crud-ja.js"></script>
+			<script id="crud-datetimepicker-js" src="./assets/fwm/js/crudjs/jquery.datetimepicker.js"></script>
+			<script id="crud-validate-js" src="./assets/fwm/js/crudjs/jquery.validate.min.js"></script>
+			<link id="crud-css" rel="stylesheet" href="./assets/fwm/js/crudjs/crud.css" />
+			<link id="crud-datetimepicker-css" rel="stylesheet" href="./assets/fwm/js/crudjs/jquery.datetimepicker.css" />
+			<script id="crud-base" type="text/javascript">
+				var targetProject = getParameterByName("target_project");
+				$("#menu-tablelist").ready(function() {
+					$("#menu-tablelist").append("<div id=\"tablelist\"></div>");
+					$("#menu-tablelist").attr("style", "");
+					$("#tablelistss").ready(function(){
+						var crudBasePath = "crud/" + targetProject;
+						// crud.jsを動かす為の前準備のDOM操作を担う
+						var crudEnabled = true;
+						crud(crudBasePath, "target_project="+targetProject, function(mode){
+							// crudJS終了後に処理をしたい場合はココに記述
+							$("#crudmain input").attr("class", $("#crudmain input").attr("class") + " form-control");
+							$("#crudmain input[type='submit']").attr("class", $("#crudmain input").attr("class") + " btn btn-success");
+							if("tablelist" == mode){
+								$("#tablelist h2").parent().prepend("<p>" + $("#tablelist h2").text() + "</p>");
+								$("#tablelist h2").remove();
+							}
+							else {
+								$("title#title").text($("title#title").text() + " " + $("#crudmain h2").text() + " " + mode);
+							}
+							$("#crudmain form").append("<input type='hidden' name='target_project' value='" + targetProject + "'>");
+							if("submit" == mode){
+								// 元の一覧にリダイレクトする
+								if($(".list-link a").attr("href").length > 0){
+									location.href = $(".list-link a").attr("href");
+								}
+							}
+						});
+					});
+				});
+			</script>
+			<div id="crudmain" class="maincontents">
+				<h2>CRUD</h2>
+				<br />
+				<p>Table Listから操作したいテーブルを選んで下さい。</p>
+			</div>

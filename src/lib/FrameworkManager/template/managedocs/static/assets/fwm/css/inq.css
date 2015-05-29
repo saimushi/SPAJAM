@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+.panel-form {
+  background: #fff;
+  padding-top : 10px;
+}
+
+.panel-pageing {
+  padding: 0px 20px;
+}
+
+.panel-detail {
+  width: 100%;
+}
+
+.panel-detail .field {
+	font-size: 14px;
+}
+
+.panel-detail tr {
+	height: 50px;
+}
+
+.panel-detail th {
+	width: 20%;
+}
+
+.panel-detail td {
+	width: 80%;
+}
+
+.input-clear {
+	position: relative;
+	top: -30px;
+	right: 10px;
+}

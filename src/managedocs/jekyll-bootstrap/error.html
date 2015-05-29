@@ -1,0 +1,23 @@
+---
+layout: simple
+title: Error %error_code% %error_name%
+group: error
+---
+{% include JB/setup %}
+			<style>
+				table {
+					table-layout: auto;
+				}
+					div.line {
+					word-wrap: normal;
+				}
+				pre {
+					color: #FF8000;
+					background-color: #1b2426;
+				}
+			</style>
+			<script id="syntaxhighlight-js" type="text/javascript">SyntaxHighlighter.all();</script>
+			<div class="maincontents">
+				%error_title%
+				<div>%error_msg%</div>
+			</div>

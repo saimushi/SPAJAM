@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<xml>
+	<section id="Index">
+		<execute>
+			<if var="Auth::isCertification()" val="true">
+				<view/>
+			</if>
+			<else>
+				<flow section="login"/>
+			</else>
+		</execute>
+	</section>
+</xml>

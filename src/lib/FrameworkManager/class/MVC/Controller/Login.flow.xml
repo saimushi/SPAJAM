@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<xml>
+	<section id="Login">
+		<execute>
+			<if var="Auth::isCertification()" val="true">
+				<flow section="backflow"/>
+			</if>
+			<else>
+				<view flowpostformsection="login-certfy"/>
+			</else>
+		</execute>
+	</section>
+	<section id="Login-certfy">
+		<execute>
+			<if var="autoValidated" val="true">
+				<if var="Auth::certify()" val="true">
+					<flow section="backflow"/>
+				</if>
+				<else>
+					<flowpostformsectionerror>ログイン出来ませんでした</flowpostformsectionerror>
+				</else>
+			</if>
+			<else>
+				<flowpostformsectionerror>メールアドレスとパスワードが間違っています</flowpostformsectionerror>
+			</else>
+			<view section="Login" flowpostformsection="login-certfy"/>
+		</execute>
+	</section>
+</xml>

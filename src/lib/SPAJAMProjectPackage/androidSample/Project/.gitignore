@@ -1,0 +1,17 @@
+/.settings
+Thumbs.db
+.DS_Store
+/.project
+*~
+*.bak
+desktop.ini
+.buildpath
+.settings
+*.tmproj
+nbproject/
+.idea
+.local
+tmps/
+tmp/
+bin
+gen

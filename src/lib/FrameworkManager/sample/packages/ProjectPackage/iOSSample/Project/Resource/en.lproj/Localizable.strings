@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Project
+
+  Created by saimushi on 2014/10/01.
+  Copyright (c) 2014年 shuhei_ohono. All rights reserved.
+*/
+"MM/dd/yy, HH:mm" = "yyyy-MM-dd HH:mm";
+"Last Updated: %@" = "前回読み込み日時: %@";
+"Pull down to refresh..." = "下に引っ張って再読み込み";
+"Release to refresh..." = "指を離すと再読み込みを開始します";
+"Loading..." = "読み込み中...";
+
+"Cancel" = "キャンセル";
+"OK" = "完了";

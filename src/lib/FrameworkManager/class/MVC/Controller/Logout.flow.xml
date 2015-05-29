@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<xml>
+	<section id="Logout">
+		<execute>
+			<if var="Auth::isCertification()" val="true">
+				<view/>
+			</if>
+			<else>
+				<flow section="login"/>
+			</else>
+		</execute>
+	</section>
+	<section id="Logout-exec" type="web">
+		<execute>
+			<cancelthisbackflow/>
+			<execute class="Auth" method="unCertify"/>
+			<flow section="login"/>
+		</execute>
+	</section>
+</xml>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<xml>
+	<default>
+		<implement suffix=".class.php">class</implement>
+		<abstract suffix=".abstract.php">class</abstract>
+		<interface suffix=".interface.php">class</interface>
+		<!-- フレームワーク標準のMVCパターンを使用する場合のパス定義 -->
+		<controlmain suffix=".php">class/MVC/Controller</controlmain>
+	</default>
+	<Session>
+		<package>DBO</package>
+		<link>default.interface.Session/SessionIO</link>
+		<link>default.abstract.Session/SessionDataDB</link>
+		<link mapfrom="SessionDB" mapto="Session">default.implement.Session/SessionDB</link>
+	</Session>
+	<StaticPrependFilter>
+		<link>default.controlmain.Filter/StaticPrependFilter</link>
+	</StaticPrependFilter>
+	<WebFlowController>
+		<link>default.implement.MVC/Controller/web/WebFlowController</link>
+	</WebFlowController>
+	<Validations>
+		<link>default.implement.Utilities/GenericValidations</link>
+		<link>default.implement.Utilities/Validations</link>
+	</Validations>
+	<ProjectManager>
+		<link>default.implement.Project/ProjectManager</link>
+	</ProjectManager>
+</xml>
