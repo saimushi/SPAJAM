@@ -6,14 +6,13 @@
 //
 
 #import "FamiliarRegisterViewController.h"
-#import "SampleModel.h"
 #import "FamiliarRegisterView.h"
 #import "MCropImageView.h"
 
 @interface FamiliarRegisterViewController ()
 {
     // Private
-    FamiliarRegisterView *familiarRegisterView;
+    FamiliarRegisterView *view;
     UIImage *hestiaImage;
 }
 @end
@@ -40,9 +39,8 @@
 - (void)loadView
 {
     [super loadView];
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    familiarRegisterView = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 55, self.view.width, self.view.height)];
-    [self.view addSubview:familiarRegisterView];
+    view = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 30, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 64 - 5) WithDelegate:self];
+    [self.view addSubview:view];
 }
 
 - (void)viewDidLoad
@@ -106,6 +104,35 @@
     UIGraphicsEndImageContext();
     
     return image;
+}
+
+- (void)nameInput:(id)sender{
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarNameInputLabel.text :1 :0 :10 :self :@selector(updateNameText:)];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
+}
+
+- (void)infoInput:(id)sender{
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarInfoInputLabel.text :1 :0 :30 :self :@selector(updateInfoText:)];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
+}
+
+- (void)updateNameText:(NSString *)argText
+{
+    view.familiarNameInputLabel.text = argText;
+    
+    if (0 < view.familiarNameInputLabel.text.length && 0 < view.familiarNameInputLabel.text.length) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
+}
+
+- (void)updateInfoText:(NSString *)argText
+{
+    view.familiarInfoInputLabel.text = argText;
+    
+    if (0 < view.familiarNameInputLabel.text.length && 0 < view.familiarNameInputLabel.text.length) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
+
 }
 
 @end
