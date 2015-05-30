@@ -7,9 +7,12 @@
 
 #import "TopViewController.h"
 #import "SampleModel.h"
+#import "ActivityModel.h"
+#import "FamiliarModel.h"
 #import "FamiliarListViewController.h"
 #import "MyPageView.h"
 #import "DeviceModel.h"
+#import "ActivityCellView.h"
 
 @interface TopViewController ()
 {
@@ -17,7 +20,8 @@
     BOOL _loading;
     UITableView *dataListView;
     EGORefreshTableHeaderView *_refreshHeaderView;
-    SampleModel *data;
+    FamiliarModel *familiarData;
+    ActivityModel *activityData;
     MyPageView *myPageView;
 }
 @end
@@ -32,7 +36,8 @@
         // デフォルトのスクリーン名をセット
         screenName = @"arimoファミリア";
         // モデルクラス初期化
-        data = [[SampleModel alloc] init];
+        activityData = [[ActivityModel alloc] init];
+        familiarData = [[FamiliarModel alloc] init];
     }
     return self;
 }
@@ -41,7 +46,6 @@
 {
     [super loadView];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
     // TableView
     dataListView = [[UITableView alloc] init];
     // フレーム
@@ -80,18 +84,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // ユーザーをセットする
     DeviceModel *mydevice = [[DeviceModel alloc] init];
     [mydevice load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         if(YES == success){
             APPDELEGATE.ownerID = mydevice.owner_id;
-            // 正常終了時 テーブルView Refresh
-            [self dataListLoad];
+            // 最初にファミリアModelの情報を取得する
+            [self familiarDataLoad];
         }
         else {
             // エラー処理をするならココ
         }
     }];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -107,26 +113,55 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dataListLoad
+- (void)familiarDataLoad
 {
+    // ここで自分の所属ファミリアを取得する！
+    
     // デバイストークン取得
     [APPDELEGATE registerDeviceToken];
     _loading = YES;
     [APPDELEGATE showLoading];
     // 配列参照
-    [data list:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+    [familiarData list:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+        if(YES == success){
+            if(familiarData.total > 0){
+                // 正常終了時 テーブルViewのヘッダーにViewを入れる
+                myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithDelegate:self];
+                [dataListView setTableHeaderView:myPageView];
+                // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
+                [self activityDataLoad];
+            }
+            else{
+                // 自分の所属ファミリアが取れないので、ファミリア登録に遷移する
+                // XXX
+                
+            }
+        }
+        _loading = NO;
+        [APPDELEGATE hideLoading];
+    }];
+}
+
+- (void)activityDataLoad
+{
+    // ここでActivity一覧を取得する！
+
+    // デバイストークン取得
+    [APPDELEGATE registerDeviceToken];
+    _loading = YES;
+    [APPDELEGATE showLoading];
+    // 配列参照
+    [activityData list:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         if(YES == success){
             // 正常終了時 テーブルView Refresh
             [dataListView reloadData];
-        }
-        else {
-            // エラー処理をするならココ
         }
         // Pull to Refleshを止める
         _loading = NO;
         [APPDELEGATE hideLoading];
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:dataListView];
     }];
+
 }
 
 /**
@@ -134,7 +169,7 @@
  */
 - (void)dataListAddLoad
 {
-    [self dataListLoad];
+    [self activityDataLoad];
 }
 
 /**
@@ -149,29 +184,40 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return myPageView.height;
+    if (0 < activityData.total) {
+        return 50;
+    }
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (0 < activityData.total) {
+        return activityData.total;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Identifier-%d-%d", (int) indexPath.section, (int)indexPath.row]];
+    CGRect cellRect = CGRectMake(0, 0, self.view.width, [self tableView:tableView heightForRowAtIndexPath:indexPath]);
     cell.backgroundColor = [UIColor clearColor];
-    if(0 < data.total){
-        myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) WithDelegate:self];
-        [cell addSubview:myPageView];
+    if(0 < activityData.total){
+        // SampleModelデータ表示用Viewをセット
+        [cell.contentView addSubview:[[ActivityCellView alloc] initWithFrame:cellRect WithSampleModel:[activityData objectAtIndex:(int)indexPath.row]]];
+    }
+    else {
+        // 0件
     }
     return cell;
 }
 
 -(void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(0 < data.total && data.total < data.records){
-        if(YES == (((int)indexPath.row) + 1 >= data.total)){
+    if(0 < activityData.total && activityData.total < activityData.records){
+        if(YES == (((int)indexPath.row) + 1 >= activityData.total)){
             // 追加読み込み
             [self dataListAddLoad];
         }
@@ -197,7 +243,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
     // テーブルView Refresh
-    [self dataListLoad];
+    [self activityDataLoad];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view

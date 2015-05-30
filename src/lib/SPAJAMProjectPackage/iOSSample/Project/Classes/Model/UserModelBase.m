@@ -10,6 +10,7 @@
 {
     BOOL name_replaced;
     BOOL uniq_name_replaced;
+    BOOL familiar_id_replaced;
     BOOL familiar_count_replaced;
     BOOL created_replaced;
     BOOL modified_replaced;
@@ -19,6 +20,7 @@
 
 @synthesize name;
 @synthesize uniq_name;
+@synthesize familiar_id;
 @synthesize familiar_count;
 @synthesize created;
 @synthesize modified;
@@ -36,6 +38,13 @@
 {
     uniq_name = argUniq_name;
     uniq_name_replaced = YES;
+    replaced = YES;
+}
+
+-(void)setFamiliar_id:(NSString *)argFamiliar_id
+{
+    familiar_id = argFamiliar_id;
+    familiar_id_replaced = YES;
     replaced = YES;
 }
 
@@ -77,6 +86,7 @@
         modelName = @"user";
         name_replaced = NO;
         uniq_name_replaced = NO;
+        familiar_id_replaced = NO;
         familiar_count_replaced = NO;
         created_replaced = NO;
         modified_replaced = NO;
@@ -96,6 +106,9 @@
         }
         if(YES == uniq_name_replaced){
             [saveParams setValue:self.uniq_name forKey:@"uniq_name"];
+        }
+        if(YES == familiar_id_replaced){
+            [saveParams setValue:self.familiar_id forKey:@"familiar_id"];
         }
         if(YES == familiar_count_replaced){
             [saveParams setValue:self.familiar_count forKey:@"familiar_count"];
@@ -122,6 +135,7 @@
     [newDic setObject:self.ID forKey:@"id"];
     [newDic setObject:self.name forKey:@"name"];
     [newDic setObject:self.uniq_name forKey:@"uniq_name"];
+    [newDic setObject:self.familiar_id forKey:@"familiar_id"];
     [newDic setObject:self.familiar_count forKey:@"familiar_count"];
     [newDic setObject:self.created forKey:@"created"];
     [newDic setObject:self.modified forKey:@"modified"];
@@ -135,6 +149,7 @@
     self.ID = [argDataDic objectForKey:@"id"];
     self.name = [argDataDic objectForKey:@"name"];
     self.uniq_name = [argDataDic objectForKey:@"uniq_name"];
+    self.familiar_id = [argDataDic objectForKey:@"familiar_id"];
     self.familiar_count = [argDataDic objectForKey:@"familiar_count"];
     self.created = [argDataDic objectForKey:@"created"];
     self.modified = [argDataDic objectForKey:@"modified"];
@@ -147,6 +162,7 @@
 {
     name_replaced = NO;
     uniq_name_replaced = NO;
+    familiar_id_replaced = NO;
     familiar_count_replaced = NO;
     created_replaced = NO;
     modified_replaced = NO;

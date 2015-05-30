@@ -30,4 +30,9 @@
     return [self _load:listedResource :nil];
 }
 
+-(void)loadWithId:(NSString *)_id;
+{
+    
+}
+
 @end
