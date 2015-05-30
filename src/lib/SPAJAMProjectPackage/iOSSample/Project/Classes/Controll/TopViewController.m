@@ -60,12 +60,11 @@
     
     [self.view addSubview:dataListView];
     
-    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, APPDELEGATE.window.height-40, 60, 120)];
+    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 50, 50)];
     famillia.backgroundColor = [UIColor blackColor];
-    famillia.titleLabel.text = @"ファミリア一覧へ";
     [famillia addTarget:self action:@selector(famillia:)
        forControlEvents:UIControlEventTouchDown];
-    [ APPDELEGATE.window addSubview:famillia];
+    [self.view addSubview:famillia];
 }
 
 - (void)viewDidLoad
