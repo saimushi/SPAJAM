@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIViewControllerBase *topViewController;
 @property (strong, nonatomic) NSString *ownerID;
+@property (strong, nonatomic) NSString *familiarID;
 @property (strong, nonatomic) NSUUID *proximityUUID;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;

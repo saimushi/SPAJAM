@@ -10,6 +10,7 @@
 {
     BOOL log_replaced;
     BOOL user_id_replaced;
+    BOOL familiar_id_replaced;
     BOOL time_replaced;
     BOOL good_replaced;
     BOOL created_replaced;
@@ -20,6 +21,7 @@
 
 @synthesize log;
 @synthesize user_id;
+@synthesize familiar_id;
 @synthesize time;
 @synthesize good;
 @synthesize created;
@@ -38,6 +40,13 @@
 {
     user_id = argUser_id;
     user_id_replaced = YES;
+    replaced = YES;
+}
+
+-(void)setFamiliar_id:(NSString *)argFamiliar_id
+{
+    familiar_id = argFamiliar_id;
+    familiar_id_replaced = YES;
     replaced = YES;
 }
 
@@ -86,6 +95,7 @@
         modelName = @"activity";
         log_replaced = NO;
         user_id_replaced = NO;
+        familiar_id_replaced = NO;
         time_replaced = NO;
         good_replaced = NO;
         created_replaced = NO;
@@ -106,6 +116,9 @@
         }
         if(YES == user_id_replaced){
             [saveParams setValue:self.user_id forKey:@"user_id"];
+        }
+        if(YES == familiar_id_replaced){
+            [saveParams setValue:self.familiar_id forKey:@"familiar_id"];
         }
         if(YES == time_replaced){
             [saveParams setValue:self.time forKey:@"time"];
@@ -135,6 +148,7 @@
     [newDic setObject:self.ID forKey:@"id"];
     [newDic setObject:self.log forKey:@"log"];
     [newDic setObject:self.user_id forKey:@"user_id"];
+    [newDic setObject:self.familiar_id forKey:@"familiar_id"];
     [newDic setObject:self.time forKey:@"time"];
     [newDic setObject:self.good forKey:@"good"];
     [newDic setObject:self.created forKey:@"created"];
@@ -149,6 +163,7 @@
     self.ID = [argDataDic objectForKey:@"id"];
     self.log = [argDataDic objectForKey:@"log"];
     self.user_id = [argDataDic objectForKey:@"user_id"];
+    self.familiar_id = [argDataDic objectForKey:@"familiar_id"];
     self.time = [argDataDic objectForKey:@"time"];
     self.good = [argDataDic objectForKey:@"good"];
     self.created = [argDataDic objectForKey:@"created"];
@@ -162,6 +177,7 @@
 {
     log_replaced = NO;
     user_id_replaced = NO;
+    familiar_id_replaced = NO;
     time_replaced = NO;
     good_replaced = NO;
     created_replaced = NO;

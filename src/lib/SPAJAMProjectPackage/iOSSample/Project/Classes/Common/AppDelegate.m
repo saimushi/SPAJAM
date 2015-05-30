@@ -11,6 +11,7 @@
 
 @synthesize topViewController;
 @synthesize ownerID;
+@synthesize familiarID;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

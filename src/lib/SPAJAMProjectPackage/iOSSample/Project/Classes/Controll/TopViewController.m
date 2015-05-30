@@ -60,7 +60,7 @@
     dataListView.separatorStyle = UITableViewCellSeparatorStyleNone;
     dataListView.scrollsToTop = YES;
     dataListView.allowsSelection = NO;
-
+    
     // PullDownToRefresh
     _refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - dataListView.bounds.size.height, self.view.frame.size.width, dataListView.bounds.size.height)];
     _refreshHeaderView.delegate = self;
@@ -69,26 +69,12 @@
     
     [self.view addSubview:dataListView];
     
-    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 100, 50)];
-    [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
-    famillia.backgroundColor = [UIColor blackColor];
-    [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
-       forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:famillia];
-
-    UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(115, 465, 150, 50)];
-    [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
-    activity.backgroundColor = [UIColor blackColor];
-    [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
-       forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:activity];
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // ユーザーをセットする
     DeviceModel *mydevice = [[DeviceModel alloc] init];
     [mydevice load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
@@ -102,7 +88,7 @@
                 if(userModel.total > 0){
                     
                     NSLog(@"familiar_id:%@",userModel.familiar_id);
-                    
+                    APPDELEGATE.familiarID = userModel.familiar_id;
                     // ファミリアIDが0ならファミリア一覧に遷移する
                     if( [@"0" isEqual:userModel.familiar_id] ){
                         
@@ -126,14 +112,14 @@
             }];
         }
     }];
-
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     // 追加ボタンの追加
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"ADD", @"追加") style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"ADD", @"追加") style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -176,7 +162,7 @@
 - (void)activityDataLoad
 {
     // ここでActivity一覧を取得する！
-
+    
     // デバイストークン取得
     [APPDELEGATE registerDeviceToken];
     _loading = YES;
@@ -192,7 +178,7 @@
         [APPDELEGATE hideLoading];
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:dataListView];
     }];
-
+    
 }
 
 /**
@@ -209,6 +195,23 @@
 - (void)addData
 {
     NSLog(@"add");
+}
+
+-(void) addAdventurerButton
+{
+    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 100, 50)];
+    [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
+    famillia.backgroundColor = [UIColor blackColor];
+    [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
+       forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:famillia];
+    
+    UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(115, 465, 150, 50)];
+    [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
+    activity.backgroundColor = [UIColor blackColor];
+    [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
+       forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:activity];
 }
 
 #pragma mark TableView Delegate
@@ -279,12 +282,12 @@
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
-	return _loading; // should return if data source model is reloading
+    return _loading; // should return if data source model is reloading
 }
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
-	return [NSDate date]; // should return date data source was last changed
+    return [NSDate date]; // should return date data source was last changed
 }
 
 -(void)onTapFamiliarListButton:(UIButton*)button{
