@@ -222,28 +222,46 @@
 {
     // 選択解除
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [CustomAlert alertShow:@"本当に・・・？" message:@"所属するファミリアを変更しますか？" buttonLeft:@"Cancel" buttonRight:@"OK" completionHandler:^(BOOL ok) {
-        if (ok) {
-            // ファミリア変更処理
-//            FamiliarModel *familiar = [[FamiliarModel alloc] init];
-//            familiar.ID = u
-//            familiar.familiar_count = [NSString stringWithFormat:@"%d", ([familiar.familiar_count intValue] - 1)];
-//            [familiar sav
-//            FamiliarModel *familiar = [data objectAtIndex:(int)indexPath.row];
-//            // XXX ココ共通化出来る
-//            UserModel *userModel = [[UserModel alloc] init];
-//            userModel.familiar_id = familiar.ID;
-//            [userModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
-//                if (success) {
-//                    // 成功したらファミリア参加者をインクリメント
-//                    familiar.familiar_count = [NSString stringWithFormat:@"%d", ([familiar.familiar_count intValue] + 1)];
-//                    [familiar save];
-//                }
-//            }];
+    if (nil != APPDELEGATE.familiarID){
+        [CustomAlert alertShow:@"本当に・・・？" message:@"所属するファミリアを変更しますか？" buttonLeft:@"Cancel" buttonRight:@"OK" completionHandler:^(BOOL ok) {
+            if (ok) {
+                // ファミリア抜ける
+                FamiliarModel *familiar = [[FamiliarModel alloc] init];
+                familiar.ID = APPDELEGATE.familiarID;
+                familiar.familiar_count = [NSString stringWithFormat:@"%d", ([familiar.familiar_count intValue] - 1)];
+                [familiar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                    // 新しいファミリアに入る
+                    FamiliarModel *familiarModel = [data objectAtIndex:(int)indexPath.row];
+                    if (success) {
+                        [self performSelector:@selector(saveUserFamiliar:) withObject:familiarModel afterDelay:0.5f];
+                    }
+                }];
+            }
+        }];
+    }
+            else {
+            }
+}
+
+- (void)saveUserFamiliar:(FamiliarModel *)argFamiliar
+{
+    UserModel *userModel = [[UserModel alloc] init];
+    userModel.familiar_id = argFamiliar.ID;
+    [userModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+        if (success) {
+            // ファミリアID変更
+            APPDELEGATE.familiarID = argFamiliar.ID;
+            // 成功したらファミリア参加者をインクリメント
+            argFamiliar.familiar_count = [NSString stringWithFormat:@"%d", ([argFamiliar.familiar_count intValue] + 1)];
+            [argFamiliar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                if (success) {
+                    // データリロード
+                    [self dataListLoad];
+                }
+            }];
         }
     }];
 }
-
 
 #pragma mark - UIScrollViewDelegate Methods
 
