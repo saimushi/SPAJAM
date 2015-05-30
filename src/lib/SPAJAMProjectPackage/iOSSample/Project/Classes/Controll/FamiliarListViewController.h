@@ -8,7 +8,7 @@
 #import "common.h"
 #import "EGORefreshTableHeaderView.h"
 
-@interface FamiliarListViewController : UIViewControllerBase <UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate, UIScrollViewDelegate>
+@interface FamiliarListViewController : UIViewControllerBase <UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate>
 {
     // Protected
 }

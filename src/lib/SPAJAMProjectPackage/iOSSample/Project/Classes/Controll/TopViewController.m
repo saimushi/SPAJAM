@@ -7,8 +7,8 @@
 
 #import "TopViewController.h"
 #import "SampleModel.h"
-#import "NodataCellView.h"
-#import "SampleCellView.h"
+#import "FamiliarListViewController.h"
+#import "MyPageView.h"
 
 @interface TopViewController ()
 {
@@ -17,6 +17,7 @@
     UITableView *dataListView;
     EGORefreshTableHeaderView *_refreshHeaderView;
     SampleModel *data;
+    MyPageView *myPageView;
 }
 @end
 
@@ -28,7 +29,7 @@
     if(self != nil){
         _loading = NO;
         // デフォルトのスクリーン名をセット
-        screenName = @"トップ";
+        screenName = @"arimoファミリア";
         // モデルクラス初期化
         data = [[SampleModel alloc] init];
     }
@@ -58,6 +59,21 @@
     [dataListView addSubview:_refreshHeaderView];
     
     [self.view addSubview:dataListView];
+    
+    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 100, 50)];
+    [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
+    famillia.backgroundColor = [UIColor blackColor];
+    [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
+       forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:famillia];
+
+    UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(115, 465, 150, 50)];
+    [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
+    activity.backgroundColor = [UIColor blackColor];
+    [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
+       forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:activity];
+    
 }
 
 - (void)viewDidLoad
@@ -121,34 +137,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (0 < data.total) {
-        return 50;
-    }
-    // デフォルトのEmpty表示用
-    return tableView.height;
+    return myPageView.height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (0 < data.total) {
-        return data.total;
-    }
-    // デフォルトのEmpty表示用
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Identifier-%d-%d", (int) indexPath.section, (int)indexPath.row]];
-    CGRect cellRect = CGRectMake(0, 0, self.view.width, [self tableView:tableView heightForRowAtIndexPath:indexPath]);
     cell.backgroundColor = [UIColor clearColor];
     if(0 < data.total){
-        // SampleModelデータ表示用Viewをセット
-        [cell.contentView addSubview:[[SampleCellView alloc] initWithFrame:cellRect WithSampleModel:[data objectAtIndex:(int)indexPath.row]]];
-    }
-    else {
-        // 0件表示用Viewをセット
-        [cell.contentView addSubview:[[NodataCellView alloc] initWithFrame:cellRect]];
+        myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) WithDelegate:self];
+        [cell addSubview:myPageView];
     }
     return cell;
 }
@@ -156,7 +159,6 @@
 -(void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(0 < data.total && data.total < data.records){
-//        int rowMax = (int)tableView.height / (int)[self tableView:tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
         if(YES == (((int)indexPath.row) + 1 >= data.total)){
             // 追加読み込み
             [self dataListAddLoad];
@@ -194,6 +196,13 @@
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
 	return [NSDate date]; // should return date data source was last changed
+}
+
+-(void)onTapFamiliarListButton:(UIButton*)button{
+    [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
+}
+-(void)onTapActivityRegisterButton:(UIButton*)button{
+    NSLog(@"まだないよ");
 }
 
 @end

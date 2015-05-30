@@ -6,6 +6,7 @@
 //
 
 #import "ModelBase.h"
+#import "common.h"
 
 @interface ProjectModelBase : ModelBase
 

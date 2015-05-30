@@ -10,6 +10,7 @@
 {
     BOOL log_replaced;
     BOOL user_id_replaced;
+    BOOL time_replaced;
     BOOL good_replaced;
     BOOL created_replaced;
     BOOL modified_replaced;
@@ -19,6 +20,7 @@
 
 @synthesize log;
 @synthesize user_id;
+@synthesize time;
 @synthesize good;
 @synthesize created;
 @synthesize modified;
@@ -36,6 +38,13 @@
 {
     user_id = argUser_id;
     user_id_replaced = YES;
+    replaced = YES;
+}
+
+-(void)setTime:(NSString *)argTime
+{
+    time = argTime;
+    time_replaced = YES;
     replaced = YES;
 }
 
@@ -77,6 +86,7 @@
         modelName = @"activity";
         log_replaced = NO;
         user_id_replaced = NO;
+        time_replaced = NO;
         good_replaced = NO;
         created_replaced = NO;
         modified_replaced = NO;
@@ -96,6 +106,9 @@
         }
         if(YES == user_id_replaced){
             [saveParams setValue:self.user_id forKey:@"user_id"];
+        }
+        if(YES == time_replaced){
+            [saveParams setValue:self.time forKey:@"time"];
         }
         if(YES == good_replaced){
             [saveParams setValue:self.good forKey:@"good"];
@@ -122,6 +135,7 @@
     [newDic setObject:self.ID forKey:@"id"];
     [newDic setObject:self.log forKey:@"log"];
     [newDic setObject:self.user_id forKey:@"user_id"];
+    [newDic setObject:self.time forKey:@"time"];
     [newDic setObject:self.good forKey:@"good"];
     [newDic setObject:self.created forKey:@"created"];
     [newDic setObject:self.modified forKey:@"modified"];
@@ -135,6 +149,7 @@
     self.ID = [argDataDic objectForKey:@"id"];
     self.log = [argDataDic objectForKey:@"log"];
     self.user_id = [argDataDic objectForKey:@"user_id"];
+    self.time = [argDataDic objectForKey:@"time"];
     self.good = [argDataDic objectForKey:@"good"];
     self.created = [argDataDic objectForKey:@"created"];
     self.modified = [argDataDic objectForKey:@"modified"];
@@ -147,6 +162,7 @@
 {
     log_replaced = NO;
     user_id_replaced = NO;
+    time_replaced = NO;
     good_replaced = NO;
     created_replaced = NO;
     modified_replaced = NO;
