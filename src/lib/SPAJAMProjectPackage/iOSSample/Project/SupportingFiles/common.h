@@ -36,6 +36,7 @@
 #import "MStatusbarProgress.h"
 #import "MProductAgent.h"
 #import "MPurchaseAgent.h"
+
 //#import "TrackingManager.h"
 
 // UNICORNライブラリの読み込み
@@ -54,6 +55,8 @@
 /* 全ての機能から突如呼ばれる可能性のあるViewControllerは、commonでimportしておく */
 #import "TopViewController.h"
 #import "SettingViewController.h"
+#import "ActivityRegisterViewController.h"
+#import "FreewordInputViewController.h"
 
 /* 最後にAppDelegate */
 #import "AppDelegate.h"

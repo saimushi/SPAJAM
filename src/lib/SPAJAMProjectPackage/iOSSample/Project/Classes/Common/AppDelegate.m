@@ -38,7 +38,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
 
     // TabbarItemの数だけUINavigationControllerのインスタンスを生成
-    self.topViewController = [[TopViewController alloc] init];
+    self.topViewController = [[ActivityRegisterViewController alloc] init];
     UINavigationController *topNavigationController = [[UINavigationController alloc] initWithRootViewController:self.topViewController];
     topNavigationController.navigationBar.barStyle = UIBarStyleBlack;
 
