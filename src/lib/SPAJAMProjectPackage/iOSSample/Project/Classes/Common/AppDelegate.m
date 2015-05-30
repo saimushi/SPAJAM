@@ -362,6 +362,11 @@
     if (beacons.count > 0) {
         self.nearestBeacon = beacons.firstObject;
         NSString *str = [[NSString alloc] initWithFormat:@"%f [m]", self.nearestBeacon.accuracy];
+        if(self.nearestBeacon.accuracy < 5.0f){
+            //一旦5mいないに入ったらLog出力
+            NSLog(@"5m以内にはいりました");
+        }
+        
         NSLog(@"%@", str);
     }
 }
