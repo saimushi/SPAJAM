@@ -31,16 +31,32 @@
         [self addSubview:imageView];
         
         if(!isGod){
-            UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(imageView.x+imageView.width/2 - 50, imageView.y+imageView.height + 10, 100, 50)];
-            [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
-            famillia.backgroundColor = [UIColor blackColor];
+            
+            UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_button"]];
+            bgImageView.x = 0;
+            bgImageView.y = imageView.y+imageView.height;
+            [self addSubview:bgImageView];
+            
+            UIImage  *familliaImage = [UIImage imageNamed:@"b_familia_list"];
+            UIButton *famillia = [UIButton buttonWithType:UIButtonTypeCustom];
+            [famillia setBackgroundImage:familliaImage forState:UIControlStateNormal];
+            famillia.width = familliaImage.size.width;
+            famillia.height = familliaImage.size.height;
+            famillia.x = 30;
+            famillia.y = imageView.y+imageView.height + 2;
+            famillia.backgroundColor = [UIColor clearColor];
             [famillia addTarget:argTopViewController action:@selector(onTapFamiliarListButton:)
                forControlEvents:UIControlEventTouchDown];
             [self addSubview:famillia];
             
-            UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(imageView.x+imageView.width/2 - 50, famillia.y + famillia.height + 10, 100, 50)];
-            [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
-            activity.backgroundColor = [UIColor blackColor];
+            UIImage  *activityImage = [UIImage imageNamed:@"b_monster"];
+            UIButton *activity = [UIButton buttonWithType:UIButtonTypeCustom];
+            [activity setBackgroundImage:activityImage forState:UIControlStateNormal];
+            activity.width = activityImage.size.width;
+            activity.height = activityImage.size.height;
+            activity.x = 30;
+            activity.y = famillia.y + famillia.height + 2;
+            activity.backgroundColor = [UIColor clearColor];
             [activity addTarget:argTopViewController action:@selector(onTapActivityRegisterButton:)
                forControlEvents:UIControlEventTouchDown];
             [self addSubview:activity];

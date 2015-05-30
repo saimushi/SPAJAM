@@ -11,6 +11,7 @@
 		2AF0FFEA1B1A0FCA00E187BD /* ActivityCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0FFE91B1A0FCA00E187BD /* ActivityCellView.m */; };
 		2AF0FFF51B1A2B3F00E187BD /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0FFF21B1A2B3F00E187BD /* UserModel.m */; };
 		2AF0FFF61B1A2B3F00E187BD /* UserModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0FFF41B1A2B3F00E187BD /* UserModelBase.m */; };
+		2AF0FFF81B1A7B9D00E187BD /* bg_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF0FFF71B1A7B9D00E187BD /* bg_button@2x.png */; };
 		4904EE8619517CB100E9D264 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4904EE7C19517CB100E9D264 /* EGORefreshTableHeaderView.m */; };
 		4904EE8719517CB100E9D264 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE7E19517CB100E9D264 /* blackArrow.png */; };
 		4904EE8819517CB100E9D264 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE7F19517CB100E9D264 /* blackArrow@2x.png */; };
@@ -182,6 +183,7 @@
 		2AF0FFF21B1A2B3F00E187BD /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		2AF0FFF31B1A2B3F00E187BD /* UserModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModelBase.h; sourceTree = "<group>"; };
 		2AF0FFF41B1A2B3F00E187BD /* UserModelBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModelBase.m; sourceTree = "<group>"; };
+		2AF0FFF71B1A7B9D00E187BD /* bg_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_button@2x.png"; path = "image/bg_button@2x.png"; sourceTree = "<group>"; };
 		4904EE7B19517CB100E9D264 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		4904EE7C19517CB100E9D264 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		4904EE7E19517CB100E9D264 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 		2AF0FFE51B19F85700E187BD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				2AF0FFF71B1A7B9D00E187BD /* bg_button@2x.png */,
 				4F5B31901B1A53FD0011E9F6 /* bg@2x.png */,
 				4F5B31911B1A53FD0011E9F6 /* bg_header@2x.png */,
 				4F5B31841B1A4F1C0011E9F6 /* vlcsnap-23@2x.png */,
@@ -1077,6 +1080,7 @@
 				4F5B31421B1A34690011E9F6 /* b_monster@2x.png in Resources */,
 				4F5B318D1B1A4F1C0011E9F6 /* vlcsnap-26@2x.png in Resources */,
 				4F5B31431B1A34690011E9F6 /* bg_2@2x.png in Resources */,
+				2AF0FFF81B1A7B9D00E187BD /* bg_button@2x.png in Resources */,
 				D05966BD1A26F80D001E9F33 /* AppleIncRootCertificate.cer in Resources */,
 				4F5B31691B1A419C0011E9F6 /* vlcsnap-22@2x.png in Resources */,
 				4F5B31721B1A419C0011E9F6 /* vlcsnap-13@2x.png in Resources */,
