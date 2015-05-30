@@ -12,6 +12,7 @@
 {
     UIViewControllerBase *topViewController;
     NSString *ownerID;
+    NSString *familiarID;
 }
 
 @property (strong, nonatomic) UIWindow *window;

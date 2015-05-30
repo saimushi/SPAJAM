@@ -99,6 +99,7 @@
                     // ファミリアIDがあれば登録済み、ファミリア情報を取る
                     else{
                         [self familiarDataLoad];
+
                     }
                     
                 }

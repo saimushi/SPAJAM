@@ -146,6 +146,7 @@
 {
     ActivityModel *activityModel = [[ActivityModel alloc] init];
     [activityModel setUser_id:APPDELEGATE.ownerID];
+    [activityModel setFamiliar_id:APPDELEGATE.familiarID];
     [activityModel setLog:activityTextView.text];
     [activityModel setTime:timeTextView.text];
     [activityModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {

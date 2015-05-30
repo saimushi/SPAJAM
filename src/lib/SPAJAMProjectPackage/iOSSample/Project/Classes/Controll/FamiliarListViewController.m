@@ -12,6 +12,7 @@
 #import "MActionsheetButtonView.h"
 #import <AVFoundation/AVFoundation.h>
 #import "FamiliarRegisterViewController.h"
+#import "UserModel.h"
 
 @interface FamiliarListViewController ()
 {
@@ -52,7 +53,7 @@
     dataListView.backgroundColor = [UIColor clearColor];
     dataListView.separatorStyle = UITableViewCellSeparatorStyleNone;
     dataListView.scrollsToTop = YES;
-    dataListView.allowsSelection = NO;
+    //dataListView.allowsSelection = NO;
 
     // PullDownToRefresh
     _refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - dataListView.bounds.size.height, self.view.frame.size.width, dataListView.bounds.size.height)];
@@ -63,9 +64,9 @@
     [self.view addSubview:dataListView];
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     [self dataListLoad];
 }
 
@@ -217,6 +218,55 @@
     }
 }
 
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 選択解除
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (nil != APPDELEGATE.familiarID && ![APPDELEGATE.familiarID isEqualToString:@"0"]){
+        // 現在参加中のファミリアかどうか
+        FamiliarModel *familiarModel = [data objectAtIndex:(int)indexPath.row];
+        if (![familiarModel.ID isEqualToString:APPDELEGATE.familiarID]){
+            [CustomAlert alertShow:@"本当に・・・？" message:@"所属するファミリアを変更しますか？" buttonLeft:@"Cancel" buttonRight:@"OK" completionHandler:^(BOOL ok) {
+                if (ok) {
+                    // ファミリア抜ける
+                    FamiliarModel *familiar = [data search:@"id" :APPDELEGATE.familiarID];
+                    familiar.familiar_count = [NSString stringWithFormat:@"%d", ([familiar.familiar_count intValue] - 1)];
+                    [familiar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                        // 新しいファミリアに入る
+                        if (success) {
+                            [self performSelector:@selector(saveUserFamiliar:) withObject:[data objectAtIndex:(int)indexPath.row] afterDelay:0.5f];
+                        }
+                    }];
+                }
+            }];
+        }
+    }
+    else {
+        // 新しいファミリアに入る
+        [self performSelector:@selector(saveUserFamiliar:) withObject:[data objectAtIndex:(int)indexPath.row] afterDelay:0.5f];
+    }
+}
+
+- (void)saveUserFamiliar:(FamiliarModel *)argFamiliar
+{
+    UserModel *userModel = [[UserModel alloc] init];
+    userModel.familiar_id = argFamiliar.ID;
+    [userModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+        if (success) {
+            // ファミリアID変更
+            APPDELEGATE.familiarID = argFamiliar.ID;
+            // 成功したらファミリア参加者をインクリメント
+            argFamiliar.familiar_count = [NSString stringWithFormat:@"%d", ([argFamiliar.familiar_count intValue] + 1)];
+            [argFamiliar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                if (success) {
+                    [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", argFamiliar.name]];
+                    // データリロード
+                    [self dataListLoad];
+                }
+            }];
+        }
+    }];
+}
 
 #pragma mark - UIScrollViewDelegate Methods
 
