@@ -10,11 +10,7 @@
 #import "ActivityModel.h"
 #import "FamiliarModel.h"
 #import "FamiliarListViewController.h"
-<<<<<<< HEAD
-#import "FamiliarRegisterViewController.h"
-=======
 #import "ActivityRegisterViewController.h"
->>>>>>> 1c657ff655b05352a29cb6b64d991ab7dbd2881d
 #import "MyPageView.h"
 #import "DeviceModel.h"
 #import "ActivityCellView.h"
