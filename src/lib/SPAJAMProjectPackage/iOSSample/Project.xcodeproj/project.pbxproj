@@ -18,6 +18,7 @@
 		4904EE8E19517CB100E9D264 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE8519517CB100E9D264 /* whiteArrow@2x.png */; };
 		4910A0771A1C723B006E6A19 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4910A0761A1C723B006E6A19 /* libsqlite3.0.dylib */; };
 		494A27051A1C4DEE004513F5 /* UIViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A27041A1C4DEE004513F5 /* UIViewControllerBase.m */; };
+		49ABF8071B1998BC007A18B7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49ABF8061B1998BC007A18B7 /* CoreLocation.framework */; };
 		49F65CD01A1A0C5200454A4C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F65CCF1A1A0C5200454A4C /* CoreData.framework */; };
 		49F65CD21A1A0C6C00454A4C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F65CD11A1A0C6C00454A4C /* SystemConfiguration.framework */; };
 		49F65CD41A1A0C9500454A4C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F65CD31A1A0C9500454A4C /* libz.dylib */; };
@@ -122,6 +123,7 @@
 		4910A0761A1C723B006E6A19 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		494A27031A1C4DEE004513F5 /* UIViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewControllerBase.h; sourceTree = "<group>"; };
 		494A27041A1C4DEE004513F5 /* UIViewControllerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewControllerBase.m; sourceTree = "<group>"; };
+		49ABF8061B1998BC007A18B7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		49F65CCF1A1A0C5200454A4C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		49F65CD11A1A0C6C00454A4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		49F65CD31A1A0C9500454A4C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -275,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49ABF8071B1998BC007A18B7 /* CoreLocation.framework in Frameworks */,
 				4DC800121A1C7FAF00C70EDC /* Security.framework in Frameworks */,
 				D05966BF1A26F80D001E9F33 /* libcrypto.a in Frameworks */,
 				4910A0771A1C723B006E6A19 /* libsqlite3.0.dylib in Frameworks */,
@@ -684,6 +687,7 @@
 		D0C5DC34193D9AD000B0E944 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49ABF8061B1998BC007A18B7 /* CoreLocation.framework */,
 				4DC800111A1C7FAF00C70EDC /* Security.framework */,
 				4910A0761A1C723B006E6A19 /* libsqlite3.0.dylib */,
 				49F65CD31A1A0C9500454A4C /* libz.dylib */,
@@ -1007,7 +1011,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Project/SupportingFiles/Project-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "ADHOC=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"ADHOC=1",
+					"DEV=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1503,7 +1510,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Project/SupportingFiles/Project-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"DEV=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
