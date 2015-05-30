@@ -60,11 +60,20 @@
     
     [self.view addSubview:dataListView];
     
-    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 445, 50, 50)];
+    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 100, 50)];
+    [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
     famillia.backgroundColor = [UIColor blackColor];
-    [famillia addTarget:self action:@selector(famillia:)
+    [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
        forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:famillia];
+
+    UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(115, 465, 150, 50)];
+    [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
+    activity.backgroundColor = [UIColor blackColor];
+    [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
+       forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:activity];
+    
 }
 
 - (void)viewDidLoad
@@ -189,8 +198,11 @@
 	return [NSDate date]; // should return date data source was last changed
 }
 
--(void)famillia:(UIButton*)button{
+-(void)onTapFamiliarListButton:(UIButton*)button{
     [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
+}
+-(void)onTapActivityRegisterButton:(UIButton*)button{
+    NSLog(@"まだないよ");
 }
 
 @end
