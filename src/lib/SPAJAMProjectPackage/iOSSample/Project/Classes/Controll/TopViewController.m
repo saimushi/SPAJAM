@@ -9,6 +9,7 @@
 #import "SampleModel.h"
 #import "FamiliarListViewController.h"
 #import "MyPageView.h"
+#import "DeviceModel.h"
 
 @interface TopViewController ()
 {
@@ -40,7 +41,7 @@
 {
     [super loadView];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-  
+
     // TableView
     dataListView = [[UITableView alloc] init];
     // フレーム
@@ -79,7 +80,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self dataListLoad];
+    // ユーザーをセットする
+    DeviceModel *mydevice = [[DeviceModel alloc] init];
+    [mydevice load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+        if(YES == success){
+            APPDELEGATE.ownerID = mydevice.owner_id;
+            // 正常終了時 テーブルView Refresh
+            [self dataListLoad];
+        }
+        else {
+            // エラー処理をするならココ
+        }
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
