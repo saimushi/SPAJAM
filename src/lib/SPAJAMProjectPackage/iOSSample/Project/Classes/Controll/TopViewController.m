@@ -273,7 +273,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (isGod){
         ActivityModel *activity = [[ActivityModel alloc] init];
-        if (![activity.good isEqualToString:@"1"]){
+        if ([activity.good isEqualToString:@"0"]){
             activity.good = @"1";
             [activity save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
                 //
