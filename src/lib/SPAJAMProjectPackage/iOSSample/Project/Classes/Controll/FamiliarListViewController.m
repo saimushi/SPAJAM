@@ -75,6 +75,11 @@
     [super viewDidAppear:animated];
     // 追加ボタンの追加
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    if(APPDELEGATE.familiarID != nil && [@"0" isEqualToString:APPDELEGATE.familiarID]){
+        self.navigationItem.hidesBackButton = YES;
+    }else{
+        self.navigationItem.hidesBackButton = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning

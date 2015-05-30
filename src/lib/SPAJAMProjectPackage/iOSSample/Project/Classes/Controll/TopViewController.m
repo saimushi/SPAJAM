@@ -27,9 +27,10 @@
     MyPageView *myPageView;
     UserModel *userModel;
 }
+@property (nonatomic) CBPeripheralManager* peripheralManager;
 @end
-
 @implementation TopViewController
+
 
 - (id)init
 {
@@ -60,7 +61,7 @@
     dataListView.separatorStyle = UITableViewCellSeparatorStyleNone;
     dataListView.scrollsToTop = YES;
     dataListView.allowsSelection = NO;
-
+    
     // PullDownToRefresh
     _refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - dataListView.bounds.size.height, self.view.frame.size.width, dataListView.bounds.size.height)];
     _refreshHeaderView.delegate = self;
@@ -69,26 +70,12 @@
     
     [self.view addSubview:dataListView];
     
-    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 100, 50)];
-    [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
-    famillia.backgroundColor = [UIColor blackColor];
-    [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
-       forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:famillia];
-
-    UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(115, 465, 150, 50)];
-    [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
-    activity.backgroundColor = [UIColor blackColor];
-    [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
-       forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:activity];
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // ユーザーをセットする
     DeviceModel *mydevice = [[DeviceModel alloc] init];
     [mydevice load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
@@ -101,23 +88,25 @@
                 
                 if(userModel.total > 0){
                     
-                    NSLog(@"familiar_id:%@",userModel.familiar_id);
-                    
-                    // ファミリアIDが0ならファミリア一覧に遷移する
-                    if( [@"0" isEqual:userModel.familiar_id] ){
-                        
-                        // XXX にーやんさん待ちBackボタンがない版のFamiliarListViewControllerを表示
-                        NSLog(@"にーやんさん待ち");
-                        [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
-                        
+                    //強制姫モード突入
+                    if([@"1" isEqualToString:userModel.ID]){
+                        self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
+                                                                                         queue:dispatch_get_main_queue()];
+                        [self beaconing];
+                    }else{
+                        [self addAdventurerButton];
+                        NSLog(@"familiar_id:%@",userModel.familiar_id);
+                        APPDELEGATE.familiarID = userModel.familiar_id;
+                        // ファミリアIDが0ならファミリア一覧に遷移する
+                        if( [@"0" isEqual:userModel.familiar_id] ){
+                            [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
+                            
+                        }
+                        // ファミリアIDがあれば登録済み、ファミリア情報を取る
+                        else{
+                            [self familiarDataLoad];
+                        }
                     }
-                    // ファミリアIDがあれば登録済み、ファミリア情報を取る
-                    else{
-                        
-                        [self familiarDataLoad];
-                        
-                    }
-                    
                 }
                 else{
                     NSLog(@"ここはこないと信じる");
@@ -126,14 +115,14 @@
             }];
         }
     }];
-
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     // 追加ボタンの追加
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"ADD", @"追加") style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"ADD", @"追加") style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -176,7 +165,7 @@
 - (void)activityDataLoad
 {
     // ここでActivity一覧を取得する！
-
+    
     // デバイストークン取得
     [APPDELEGATE registerDeviceToken];
     _loading = YES;
@@ -192,7 +181,7 @@
         [APPDELEGATE hideLoading];
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:dataListView];
     }];
-
+    
 }
 
 /**
@@ -209,6 +198,23 @@
 - (void)addData
 {
     NSLog(@"add");
+}
+
+-(void) addAdventurerButton
+{
+    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 100, 50)];
+    [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
+    famillia.backgroundColor = [UIColor blackColor];
+    [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
+       forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:famillia];
+    
+    UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(115, 465, 150, 50)];
+    [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
+    activity.backgroundColor = [UIColor blackColor];
+    [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
+       forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:activity];
 }
 
 #pragma mark TableView Delegate
@@ -279,12 +285,12 @@
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
-	return _loading; // should return if data source model is reloading
+    return _loading; // should return if data source model is reloading
 }
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
-	return [NSDate date]; // should return date data source was last changed
+    return [NSDate date]; // should return date data source was last changed
 }
 
 -(void)onTapFamiliarListButton:(UIButton*)button{
@@ -293,5 +299,35 @@
 -(void)onTapActivityRegisterButton:(UIButton*)button{
     [self.navigationController pushViewController:[[ActivityRegisterViewController alloc] init] animated:YES];
 }
+
+- (void)dealloc
+{
+    if(self.peripheralManager != nil){
+        [self.peripheralManager stopAdvertising];
+    }
+}
+
+#pragma mark - CBPeripheralManagerDelegate
+
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
+{
+    
+}
+
+- (void)beaconing
+{
+    NSLog(@"start becoing");
+    //ビーコン情報を設定
+    NSUUID* uuid = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
+    CLBeaconRegion* region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                                     major:1
+                                                                     minor:1
+                                                                identifier:[uuid UUIDString]];
+    
+    NSDictionary* peripheralData = [region peripheralDataWithMeasuredPower:nil];//Default
+    
+    [self.peripheralManager startAdvertising:peripheralData];
+}
+
 
 @end

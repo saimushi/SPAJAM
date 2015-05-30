@@ -12,6 +12,7 @@
     BOOL uniq_name_replaced;
     BOOL familiar_id_replaced;
     BOOL familiar_count_replaced;
+    BOOL exp_replaced;
     BOOL created_replaced;
     BOOL modified_replaced;
     BOOL available_replaced;
@@ -22,6 +23,7 @@
 @synthesize uniq_name;
 @synthesize familiar_id;
 @synthesize familiar_count;
+@synthesize exp;
 @synthesize created;
 @synthesize modified;
 @synthesize available;
@@ -52,6 +54,13 @@
 {
     familiar_count = argFamiliar_count;
     familiar_count_replaced = YES;
+    replaced = YES;
+}
+
+-(void)setExp:(NSString *)argExp
+{
+    exp = argExp;
+    exp_replaced = YES;
     replaced = YES;
 }
 
@@ -88,6 +97,7 @@
         uniq_name_replaced = NO;
         familiar_id_replaced = NO;
         familiar_count_replaced = NO;
+        exp_replaced = NO;
         created_replaced = NO;
         modified_replaced = NO;
         available_replaced = NO;
@@ -113,6 +123,9 @@
         if(YES == familiar_count_replaced){
             [saveParams setValue:self.familiar_count forKey:@"familiar_count"];
         }
+        if(YES == exp_replaced){
+            [saveParams setValue:self.exp forKey:@"exp"];
+        }
         if(YES == created_replaced){
             [saveParams setValue:self.created forKey:@"created"];
         }
@@ -137,6 +150,7 @@
     [newDic setObject:self.uniq_name forKey:@"uniq_name"];
     [newDic setObject:self.familiar_id forKey:@"familiar_id"];
     [newDic setObject:self.familiar_count forKey:@"familiar_count"];
+    [newDic setObject:self.exp forKey:@"exp"];
     [newDic setObject:self.created forKey:@"created"];
     [newDic setObject:self.modified forKey:@"modified"];
     [newDic setObject:self.available forKey:@"available"];
@@ -151,6 +165,7 @@
     self.uniq_name = [argDataDic objectForKey:@"uniq_name"];
     self.familiar_id = [argDataDic objectForKey:@"familiar_id"];
     self.familiar_count = [argDataDic objectForKey:@"familiar_count"];
+    self.exp = [argDataDic objectForKey:@"exp"];
     self.created = [argDataDic objectForKey:@"created"];
     self.modified = [argDataDic objectForKey:@"modified"];
     self.available = [argDataDic objectForKey:@"available"];
@@ -164,6 +179,7 @@
     uniq_name_replaced = NO;
     familiar_id_replaced = NO;
     familiar_count_replaced = NO;
+    exp_replaced = NO;
     created_replaced = NO;
     modified_replaced = NO;
     available_replaced = NO;
