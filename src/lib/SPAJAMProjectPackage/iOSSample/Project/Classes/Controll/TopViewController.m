@@ -56,7 +56,7 @@
     // TableView
     dataListView = [[UITableView alloc] init];
     // フレーム
-    dataListView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 5);
+    dataListView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 10);
     dataListView.delegate = self;
     dataListView.dataSource = self;
     dataListView.backgroundColor = [UIColor clearColor];
@@ -267,6 +267,20 @@
     }
 }
 
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 選択解除
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (isGod){
+        ActivityModel *activity = [[ActivityModel alloc] init];
+        if (![activity.good isEqualToString:@"1"]){
+            activity.good = @"1";
+            [activity save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                //
+            }];
+        }
+    }
+}
 
 #pragma mark - UIScrollViewDelegate Methods
 
