@@ -53,10 +53,17 @@
 {
     [super loadView];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_button"]];
+    bgImageView.x = 0;
+    bgImageView.y = -1 * self.navigationController.navigationBar.frame.size.height - 20;
+    bgImageView.height = APPDELEGATE.window.height;
+    [self.view addSubview:bgImageView];
+
     // TableView
     dataListView = [[UITableView alloc] init];
     // フレーム
-    dataListView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 10);
+    dataListView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 20);
     dataListView.delegate = self;
     dataListView.dataSource = self;
     dataListView.backgroundColor = [UIColor clearColor];

@@ -31,12 +31,6 @@
         [self addSubview:imageView];
         
         if(!isGod){
-            
-            UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_button"]];
-            bgImageView.x = 0;
-            bgImageView.y = imageView.y+imageView.height;
-            [self addSubview:bgImageView];
-            
             UIImage  *familliaImage = [UIImage imageNamed:@"b_familia_list"];
             UIButton *famillia = [UIButton buttonWithType:UIButtonTypeCustom];
             [famillia setBackgroundImage:familliaImage forState:UIControlStateNormal];
