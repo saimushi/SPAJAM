@@ -37,7 +37,7 @@
     if(self != nil){
         _loading = NO;
         // デフォルトのスクリーン名をセット
-        screenName = @"arimoファミリア";
+        screenName = @"";
         // モデルクラス初期化
         activityData = [[ActivityModel alloc] init];
         familiarData = [[FamiliarModel alloc] init];
@@ -151,11 +151,13 @@
     _loading = YES;
     [APPDELEGATE showLoading];
     // 配列参照
-    [familiarData list:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+    [familiarData load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         if(YES == success){
             if(familiarData.total > 0){
+                screenName = [NSString stringWithFormat:@"%@・ファミリア",familiarData.name];
+                self.navigationItem.title = screenName;
                 // 正常終了時 テーブルViewのヘッダーにViewを入れる
-                myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithDelegate:self];
+                myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithTopViewController:self];
                 [dataListView setTableHeaderView:myPageView];
                 // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
                 [self activityDataLoad];
@@ -168,7 +170,7 @@
         }
         _loading = NO;
         [APPDELEGATE hideLoading];
-    }];
+    } widthId:userModel.familiar_id];
 }
 
 - (void)activityDataLoad
@@ -180,7 +182,7 @@
     _loading = YES;
     [APPDELEGATE showLoading];
     // 配列参照
-    [activityData list:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+    [activityData load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         if(YES == success){
             // 正常終了時 テーブルView Refresh
             [dataListView reloadData];

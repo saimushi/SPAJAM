@@ -30,9 +30,13 @@
     return [self _load:listedResource :nil];
 }
 
--(void)loadWithId:(NSString *)_id;
+- (BOOL)load:(RequestCompletionHandler)argCompletionHandler widthId:(NSString*)_id;
 {
-    
+    myResourcePrefix = @"";
+    completionHandler = argCompletionHandler;
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+    [query setValue:_id forKey:@"id"];
+    return [self _load:listedResource :query];
 }
 
 @end

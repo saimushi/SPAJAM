@@ -17,4 +17,13 @@
     return self;
 }
 
+- (BOOL)load:(RequestCompletionHandler)argCompletionHandler;
+{
+    myResourcePrefix = @"";
+    completionHandler = argCompletionHandler;
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+    [query setValue:APPDELEGATE.ownerID forKey:@"user_id"];
+    return [self _load:listedResource :query];
+}
+
 @end
