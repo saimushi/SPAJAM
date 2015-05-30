@@ -7,6 +7,7 @@
 //
 
 #import "LevelUpViewController.h"
+#import "TopViewController.h"
 
 @interface LevelUpViewController ()
 {
@@ -34,12 +35,12 @@
     [super viewDidLoad];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
-    imageView.image = [UIImage imageNamed:@"vlcsnap-22.png"];
+    imageView.image = [UIImage imageNamed:@"vlcsnap-28.png"];
     [self.view addSubview:imageView];
     
     // アニメーション用画像を配列にセット
     NSMutableArray *imageList = [NSMutableArray array];
-    for (int i = 1; i < 22; i++) {
+    for (int i = 1; i < 28; i++) {
         NSString *imagePath = [NSString stringWithFormat:@"vlcsnap-%d.png", i];
         UIImage *image = [UIImage imageNamed:imagePath];
         [imageList addObject:image];
@@ -56,6 +57,20 @@
     
     // アニメーション実行
     [imageView startAnimating];
+    
+    UIView *touchView = [[UIView alloc]init];
+    touchView.frame = CGRectMake(0, 0, 320, 568);
+    touchView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:touchView];
+    
+    UITapGestureRecognizer *tapGesture =
+    [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchViewTapped:)];
+    [touchView addGestureRecognizer:tapGesture];
+}
+
+- (void)touchViewTapped:(UITapGestureRecognizer *)sender
+{
+    [self.navigationController setViewControllers:[NSArray arrayWithObjects:[[TopViewController alloc] init], nil]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
