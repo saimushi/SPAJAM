@@ -26,6 +26,7 @@
     ActivityModel *activityData;
     MyPageView *myPageView;
     UserModel *userModel;
+    BOOL isGod;
 }
 @property (nonatomic) CBPeripheralManager* peripheralManager;
 @end
@@ -37,6 +38,7 @@
     self = [super init];
     if(self != nil){
         _loading = NO;
+        isGod = NO;
         // デフォルトのスクリーン名をセット
         screenName = @"";
         // モデルクラス初期化
@@ -87,26 +89,18 @@
                 
                 
                 if(userModel.total > 0){
-                    
-                    //強制姫モード突入
-                    if([@"1" isEqualToString:userModel.ID]){
-                        self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
-                                                                                         queue:dispatch_get_main_queue()];
-                        [self beaconing];
-                    }else{
-                        [self addAdventurerButton];
-                        NSLog(@"familiar_id:%@",userModel.familiar_id);
-                        APPDELEGATE.familiarID = userModel.familiar_id;
-                        // ファミリアIDが0ならファミリア一覧に遷移する
-                        if( [@"0" isEqual:userModel.familiar_id] ){
-                            [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
-                            
-                        }
-                        // ファミリアIDがあれば登録済み、ファミリア情報を取る
-                        else{
-                            [self familiarDataLoad];
-                        }
+                    NSLog(@"familiar_id:%@",userModel.familiar_id);
+                    APPDELEGATE.familiarID = userModel.familiar_id;
+                    // ファミリアIDが0ならファミリア一覧に遷移する
+                    if( [@"0" isEqual:userModel.familiar_id] ){
+                        [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
+                        
                     }
+                    // ファミリアIDがあれば登録済み、ファミリア情報を取る
+                    else{
+                        [self familiarDataLoad];
+                    }
+                    
                 }
                 else{
                     NSLog(@"ここはこないと信じる");
@@ -143,12 +137,22 @@
     [familiarData load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         if(YES == success){
             if(familiarData.total > 0){
+                // 正常終了時 テーブルViewのヘッダーにViewを入れる
                 screenName = [NSString stringWithFormat:@"%@・ファミリア",familiarData.name];
                 self.navigationItem.title = screenName;
-                // 正常終了時 テーブルViewのヘッダーにViewを入れる
-                myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithTopViewController:self];
-                [dataListView setTableHeaderView:myPageView];
-                // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
+                
+                //姫モード凸
+                if([familiarData.god_id isEqualToString:APPDELEGATE.ownerID]){
+                    isGod = YES;
+                    myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithTopViewController:self :isGod];
+                    [dataListView setTableHeaderView:myPageView];
+                    // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
+                }else{
+                    isGod = NO;
+                    myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithTopViewController:self :isGod];
+                    [dataListView setTableHeaderView:myPageView];
+                    // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
+                }
                 [self activityDataLoad];
             }
             else{
@@ -170,17 +174,35 @@
     [APPDELEGATE registerDeviceToken];
     _loading = YES;
     [APPDELEGATE showLoading];
-    // 配列参照
-    [activityData load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
-        if(YES == success){
-            // 正常終了時 テーブルView Refresh
-            [dataListView reloadData];
-        }
-        // Pull to Refleshを止める
-        _loading = NO;
-        [APPDELEGATE hideLoading];
-        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:dataListView];
-    }];
+    
+    if(!isGod){
+        // 配列参照
+        [activityData load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+            if(YES == success){
+                // 正常終了時 テーブルView Refresh
+                [dataListView reloadData];
+            }
+            // Pull to Refleshを止める
+            _loading = NO;
+            [APPDELEGATE hideLoading];
+            [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:dataListView];
+        }];
+    }else{
+        // 配列参照
+        NSMutableDictionary *param = [[NSMutableDictionary alloc]init];
+        [param setValue:APPDELEGATE.ownerID forKey:@"user_id"];
+        [activityData query:param:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+            if(YES == success){
+                // 正常終了時 テーブルView Refresh
+                [dataListView reloadData];
+            }
+            // Pull to Refleshを止める
+            _loading = NO;
+            [APPDELEGATE hideLoading];
+            [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:dataListView];
+        }];
+
+    }
     
 }
 
@@ -198,23 +220,6 @@
 - (void)addData
 {
     NSLog(@"add");
-}
-
--(void) addAdventurerButton
-{
-    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 100, 50)];
-    [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
-    famillia.backgroundColor = [UIColor blackColor];
-    [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
-       forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:famillia];
-    
-    UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(115, 465, 150, 50)];
-    [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
-    activity.backgroundColor = [UIColor blackColor];
-    [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
-       forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:activity];
 }
 
 #pragma mark TableView Delegate

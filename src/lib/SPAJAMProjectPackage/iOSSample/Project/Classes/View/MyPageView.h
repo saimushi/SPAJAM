@@ -10,6 +10,6 @@
 
 @interface MyPageView : UIView
 
-- (id)initWithFrame:(CGRect)argFrame WithTopViewController:(TopViewController*)argTopViewController;
+- (id)initWithFrame:(CGRect)argFrame WithTopViewController:(TopViewController*)argTopViewController :(BOOL)isGod;
 
 @end
