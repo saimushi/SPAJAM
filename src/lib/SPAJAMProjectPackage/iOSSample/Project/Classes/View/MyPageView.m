@@ -34,14 +34,14 @@
             UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(imageView.x+imageView.width/2 - 50, imageView.y+imageView.height + 10, 100, 50)];
             [famillia setTitle:@"一覧（仮）" forState:UIControlStateNormal];
             famillia.backgroundColor = [UIColor blackColor];
-            [famillia addTarget:self action:@selector(onTapFamiliarListButton:)
+            [famillia addTarget:argTopViewController action:@selector(onTapFamiliarListButton:)
                forControlEvents:UIControlEventTouchDown];
             [self addSubview:famillia];
             
             UIButton *activity = [[UIButton alloc]initWithFrame:CGRectMake(imageView.x+imageView.width/2 - 50, famillia.y + famillia.height + 10, 100, 50)];
             [activity setTitle:@"モンスター（仮）" forState:UIControlStateNormal];
             activity.backgroundColor = [UIColor blackColor];
-            [activity addTarget:self action:@selector(onTapActivityRegisterButton:)
+            [activity addTarget:argTopViewController action:@selector(onTapActivityRegisterButton:)
                forControlEvents:UIControlEventTouchDown];
             [self addSubview:activity];
         }
