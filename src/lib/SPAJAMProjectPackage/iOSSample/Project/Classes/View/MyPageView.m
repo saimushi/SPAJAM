@@ -19,11 +19,15 @@
     if (self) {
         
         // 神さまの画像
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dummy_god"]];
-        imageView.width  = 320;
-        imageView.height = 360;
-        imageView.x = 0;
-        imageView.y = 0;
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 360)];
+        [imageView hnk_setImageFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@/image/familiar%@.jpg", PROTOCOL, DOMAIN_NAME, URL_BASE, APPDELEGATE.familiarID]] placeholderImage:nil success:^(UIImage *image) {
+            //
+            NSLog(@"succ");
+            imageView.image = image;
+        } failure:^(NSError *error) {
+            //
+            NSLog(@"err");
+        }];
         [self addSubview:imageView];
         
         if(!isGod){
