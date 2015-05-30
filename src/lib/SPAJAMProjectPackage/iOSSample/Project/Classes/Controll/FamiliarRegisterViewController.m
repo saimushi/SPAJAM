@@ -10,6 +10,9 @@
 #import "FamiliarRegisterView.h"
 
 @interface FamiliarRegisterViewController ()
+{
+    FamiliarRegisterView *view;
+}
 @end
 
 
@@ -27,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    FamiliarRegisterView *view = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 30, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 64 - 5) WithDelegate:self];
+    view = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 30, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 64 - 5) WithDelegate:self];
     [self.view addSubview:view];
     
 }
@@ -39,5 +42,34 @@
 
 - (void)dealloc
 {
+}
+
+- (void)nameInput:(id)sender{
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarNameInputLabel.text :1 :0 :10 :self :@selector(updateNameText:)];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
+}
+
+- (void)infoInput:(id)sender{
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarInfoInputLabel.text :1 :0 :30 :self :@selector(updateInfoText:)];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
+}
+
+- (void)updateNameText:(NSString *)argText
+{
+    view.familiarNameInputLabel.text = argText;
+    
+    if (0 < view.familiarNameInputLabel.text.length && 0 < view.familiarNameInputLabel.text.length) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
+}
+
+- (void)updateInfoText:(NSString *)argText
+{
+    view.familiarInfoInputLabel.text = argText;
+    
+    if (0 < view.familiarNameInputLabel.text.length && 0 < view.familiarNameInputLabel.text.length) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
+
 }
 @end

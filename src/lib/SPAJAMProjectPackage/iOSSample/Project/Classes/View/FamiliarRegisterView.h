@@ -9,7 +9,16 @@
 #import "common.h"
 
 @interface FamiliarRegisterView : UIView
+{
+    // Protected
+    UILabel *familiarNameInputLabel;
+    UILabel *familiarInfoInputLabel;
+}
+
+@property (strong, nonatomic) UILabel *familiarNameInputLabel;
+@property (strong, nonatomic) UILabel *familiarInfoInputLabel;
 
 - (id)initWithFrame:(CGRect)argFrame WithDelegate:(id)delegate;
+
 
 @end
