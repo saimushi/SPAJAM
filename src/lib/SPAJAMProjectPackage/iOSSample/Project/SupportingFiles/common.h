@@ -45,7 +45,7 @@
 #import "CustomAlert.h"
 #import "ModelBase.h"
 #import "ProjectModelBase.h"
-#import "PurchaseModelBase.h"
+
 
 // UNICORNカスタムUIパーツの読み込み
 #import "UIViewControllerBase.h"

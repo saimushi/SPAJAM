@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0B636A1B19D89C007BD2D0 /* MyPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B63691B19D89C007BD2D0 /* MyPageView.m */; };
+		2AF0FFE71B19F8C500E187BD /* dummy_god.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF0FFE61B19F8C500E187BD /* dummy_god.png */; };
 		4904EE8619517CB100E9D264 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4904EE7C19517CB100E9D264 /* EGORefreshTableHeaderView.m */; };
 		4904EE8719517CB100E9D264 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE7E19517CB100E9D264 /* blackArrow.png */; };
 		4904EE8819517CB100E9D264 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE7F19517CB100E9D264 /* blackArrow@2x.png */; };
@@ -58,7 +60,6 @@
 		D0437F1B19FA3790004AE05E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0437F1A19FA3790004AE05E /* Accelerate.framework */; };
 		D0437F6219FFB4CE004AE05E /* MProductAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = D0437F5C19FFB4CE004AE05E /* MProductAgent.m */; };
 		D0437F6319FFB4CE004AE05E /* MPurchaseAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = D0437F5E19FFB4CE004AE05E /* MPurchaseAgent.m */; };
-		D0437F6719FFD6DF004AE05E /* PurchaseModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D0437F6619FFD6DF004AE05E /* PurchaseModelBase.m */; };
 		D045E9C81B131A4A00F130CF /* ProjectModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D045E9C61B131A4A00F130CF /* ProjectModelBase.m */; };
 		D045E9CC1B13217900F130CF /* SecureUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D045E9CB1B13217900F130CF /* SecureUDID.m */; };
 		D045E9ED1B13729F00F130CF /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = D045E9D31B13729F00F130CF /* NSObject+SBJson.m */; };
@@ -119,6 +120,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A0B63681B19D89C007BD2D0 /* MyPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageView.h; sourceTree = "<group>"; };
+		2A0B63691B19D89C007BD2D0 /* MyPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageView.m; sourceTree = "<group>"; };
+		2AF0FFE61B19F8C500E187BD /* dummy_god.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dummy_god.png; path = image/dummy_god.png; sourceTree = "<group>"; };
 		4904EE7B19517CB100E9D264 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		4904EE7C19517CB100E9D264 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		4904EE7E19517CB100E9D264 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -205,8 +209,6 @@
 		D0437F5C19FFB4CE004AE05E /* MProductAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MProductAgent.m; sourceTree = "<group>"; };
 		D0437F5D19FFB4CE004AE05E /* MPurchaseAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPurchaseAgent.h; sourceTree = "<group>"; };
 		D0437F5E19FFB4CE004AE05E /* MPurchaseAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPurchaseAgent.m; sourceTree = "<group>"; };
-		D0437F6519FFD6DF004AE05E /* PurchaseModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseModelBase.h; sourceTree = "<group>"; };
-		D0437F6619FFD6DF004AE05E /* PurchaseModelBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseModelBase.m; sourceTree = "<group>"; };
 		D045E9C61B131A4A00F130CF /* ProjectModelBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModelBase.m; sourceTree = "<group>"; };
 		D045E9C71B131A4A00F130CF /* ProjectModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectModelBase.h; sourceTree = "<group>"; };
 		D045E9CA1B13217900F130CF /* SecureUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureUDID.h; sourceTree = "<group>"; };
@@ -333,6 +335,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2AF0FFE51B19F85700E187BD /* image */ = {
+			isa = PBXGroup;
+			children = (
+				2AF0FFE61B19F8C500E187BD /* dummy_god.png */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
 		4904EE7819517CB100E9D264 /* EGOTableViewPullRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,8 +629,6 @@
 				D07742981950A6DF006CCF07 /* ModelBase.m */,
 				D045E9C71B131A4A00F130CF /* ProjectModelBase.h */,
 				D045E9C61B131A4A00F130CF /* ProjectModelBase.m */,
-				D0437F6519FFD6DF004AE05E /* PurchaseModelBase.h */,
-				D0437F6619FFD6DF004AE05E /* PurchaseModelBase.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -628,6 +636,8 @@
 		D05240DB193D9DF80000A29B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2A0B63681B19D89C007BD2D0 /* MyPageView.h */,
+				2A0B63691B19D89C007BD2D0 /* MyPageView.m */,
 				49ABF8201B19D2D9007A18B7 /* FamiliarCellView.h */,
 				49ABF8211B19D2D9007A18B7 /* FamiliarCellView.m */,
 				49ABF8111B19CD24007A18B7 /* GodMyPageView.h */,
@@ -751,6 +761,7 @@
 		D0C5DC3B193D9AD000B0E944 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				2AF0FFE51B19F85700E187BD /* image */,
 				D00940D519DB95E3007A2ED1 /* Resource */,
 				D05240D4193D9C990000A29B /* SupportingFiles */,
 				D05240CF193D9C2D0000A29B /* Classes */,
@@ -874,6 +885,7 @@
 				4904EE8919517CB100E9D264 /* blueArrow.png in Resources */,
 				4904EE8B19517CB100E9D264 /* grayArrow.png in Resources */,
 				4904EE8819517CB100E9D264 /* blackArrow@2x.png in Resources */,
+				2AF0FFE71B19F8C500E187BD /* dummy_god.png in Resources */,
 				D05966BD1A26F80D001E9F33 /* AppleIncRootCertificate.cer in Resources */,
 				4904EE8719517CB100E9D264 /* blackArrow.png in Resources */,
 				4904EE8C19517CB100E9D264 /* grayArrow@2x.png in Resources */,
@@ -930,8 +942,8 @@
 				D02DC9D41945B97500963A90 /* NSString+Crypto.m in Sources */,
 				D007EFB91951CD06004D4C3C /* AES.m in Sources */,
 				D00D91DF19E2A5410025E516 /* MActionsheetButtonView.m in Sources */,
-				D0437F6719FFD6DF004AE05E /* PurchaseModelBase.m in Sources */,
 				D045EA051B14287500F130CF /* NodataCellView.m in Sources */,
+				2A0B636A1B19D89C007BD2D0 /* MyPageView.m in Sources */,
 				D00D91E119E2A5410025E516 /* MActionsheetSelectPickerView.m in Sources */,
 				D07742991950A6DF006CCF07 /* ModelBase.m in Sources */,
 				D02DC9D71945B97500963A90 /* UIScreen+property.m in Sources */,
