@@ -42,8 +42,11 @@
 - (void)loadView
 {
     [super loadView];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
   
+    UIImage *backgroundImage = [UIImage imageNamed:@"bg_2.png"];
+    UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
+    [self.view addSubview:background];
+    
     // TableView
     dataListView = [[UITableView alloc] init];
     // フレーム
