@@ -9,12 +9,10 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, ModelDelegate>
 {
-    UIViewController *mainRootViewController;
     UIViewControllerBase *topViewController;
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UIViewController *mainRootViewController;
 @property (strong, nonatomic) UIViewControllerBase *topViewController;
 
 - (void)registerDeviceToken;

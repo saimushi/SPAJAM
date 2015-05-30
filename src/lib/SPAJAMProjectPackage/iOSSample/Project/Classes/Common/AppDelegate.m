@@ -9,7 +9,6 @@
 
 @implementation AppDelegate
 
-@synthesize mainRootViewController;
 @synthesize topViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -38,38 +37,15 @@
     // ナビゲーションバーのタイトルテキストカラー指定
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
 
-    // タブバーのスタイルを定義しておく
-    // タブバーの背景色指定
-    [[UITabBar appearance] setBarTintColor:[UINavigationBar appearance].barTintColor];
-    // タブバーのタイトルテキストカラー指定
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]} forState:UIControlStateNormal];
-    // タブバーの選択色指定
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]} forState:UIControlStateSelected];
-
     // TabbarItemの数だけUINavigationControllerのインスタンスを生成
     self.topViewController = [[TopViewController alloc] init];
-    UIViewControllerBase *settingViewController = [[SettingViewController alloc] init];
     UINavigationController *topNavigationController = [[UINavigationController alloc] initWithRootViewController:self.topViewController];
-    UINavigationController *settingNavigationController = [[UINavigationController alloc] initWithRootViewController:settingViewController];
     topNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-    settingNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-
-    // タブバーの設置
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    tabBarController.delegate = self;
-    // TabBarControllerにNavigationControllerをセット
-    tabBarController.viewControllers = [NSMutableArray arrayWithObjects:topNavigationController, settingNavigationController, nil];
-    // タブバータイトルの設定
-    ((UITabBarItem *)[tabBarController.tabBar.items objectAtIndex:0]).title = self.topViewController.screenName;
-    ((UITabBarItem *)[tabBarController.tabBar.items objectAtIndex:1]).title = settingViewController.screenName;
-
-    // タブコントローラをメインルートに設定
-    self.mainRootViewController = tabBarController;
 
     // Windowを表示
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window setRootViewController:self.mainRootViewController];
+    [self.window setRootViewController:topNavigationController];
     [self.window makeKeyAndVisible];
 
     return YES;
