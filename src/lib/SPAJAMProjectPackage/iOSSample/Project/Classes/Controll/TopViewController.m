@@ -8,6 +8,7 @@
 #import "TopViewController.h"
 #import "SampleModel.h"
 #import "FamiliarListViewController.h"
+#import "ActivityRegisterViewController.h"
 #import "MyPageView.h"
 #import "DeviceModel.h"
 
@@ -214,7 +215,7 @@
     [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
 }
 -(void)onTapActivityRegisterButton:(UIButton*)button{
-    NSLog(@"まだないよ");
+    [self.navigationController pushViewController:[[ActivityRegisterViewController alloc] init] animated:YES];
 }
 
 @end
