@@ -27,9 +27,10 @@
     MyPageView *myPageView;
     UserModel *userModel;
 }
+@property (nonatomic) CBPeripheralManager* peripheralManager;
 @end
-
 @implementation TopViewController
+
 
 - (id)init
 {
@@ -87,23 +88,25 @@
                 
                 if(userModel.total > 0){
                     
-                    NSLog(@"familiar_id:%@",userModel.familiar_id);
-                    APPDELEGATE.familiarID = userModel.familiar_id;
-                    // ファミリアIDが0ならファミリア一覧に遷移する
-                    if( [@"0" isEqual:userModel.familiar_id] ){
-                        
-                        // XXX にーやんさん待ちBackボタンがない版のFamiliarListViewControllerを表示
-                        NSLog(@"にーやんさん待ち");
-                        [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
-                        
+                    //強制姫モード突入
+                    if([@"1" isEqualToString:userModel.ID]){
+                        self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
+                                                                                         queue:dispatch_get_main_queue()];
+                        [self beaconing];
+                    }else{
+                        [self addAdventurerButton];
+                        NSLog(@"familiar_id:%@",userModel.familiar_id);
+                        APPDELEGATE.familiarID = userModel.familiar_id;
+                        // ファミリアIDが0ならファミリア一覧に遷移する
+                        if( [@"0" isEqual:userModel.familiar_id] ){
+                            [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
+                            
+                        }
+                        // ファミリアIDがあれば登録済み、ファミリア情報を取る
+                        else{
+                            [self familiarDataLoad];
+                        }
                     }
-                    // ファミリアIDがあれば登録済み、ファミリア情報を取る
-                    else{
-                        
-                        [self familiarDataLoad];
-                        
-                    }
-                    
                 }
                 else{
                     NSLog(@"ここはこないと信じる");
@@ -296,5 +299,35 @@
 -(void)onTapActivityRegisterButton:(UIButton*)button{
     [self.navigationController pushViewController:[[ActivityRegisterViewController alloc] init] animated:YES];
 }
+
+- (void)dealloc
+{
+    if(self.peripheralManager != nil){
+        [self.peripheralManager stopAdvertising];
+    }
+}
+
+#pragma mark - CBPeripheralManagerDelegate
+
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
+{
+    
+}
+
+- (void)beaconing
+{
+    NSLog(@"start becoing");
+    //ビーコン情報を設定
+    NSUUID* uuid = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
+    CLBeaconRegion* region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                                     major:1
+                                                                     minor:1
+                                                                identifier:[uuid UUIDString]];
+    
+    NSDictionary* peripheralData = [region peripheralDataWithMeasuredPower:nil];//Default
+    
+    [self.peripheralManager startAdvertising:peripheralData];
+}
+
 
 @end

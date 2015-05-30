@@ -7,8 +7,10 @@
 
 #import "common.h"
 #import "EGORefreshTableHeaderView.h"
+@import CoreBluetooth;
+@import CoreLocation;
 
-@interface TopViewController : UIViewControllerBase <UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate, UIScrollViewDelegate>
+@interface TopViewController : UIViewControllerBase <UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate, UIScrollViewDelegate,CBPeripheralManagerDelegate>
 {
     // Protected
 }
