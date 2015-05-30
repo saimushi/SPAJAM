@@ -9,4 +9,6 @@
 
 @interface UserModel : UserModelBase
 
+- (BOOL)load:(RequestCompletionHandler)argCompletionHandler;
+
 @end

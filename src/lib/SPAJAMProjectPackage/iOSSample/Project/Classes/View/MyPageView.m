@@ -16,7 +16,7 @@
     self = [super initWithFrame:argFrame];
     if (self) {
         
-        
+        // 神さまの画像
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dummy_god"]];
         imageView.width  = 320;
         imageView.height = 360;
@@ -24,13 +24,11 @@
         imageView.y = 0;
         [self addSubview:imageView];
         
-//        UIButton *button = [[UIButton alloc]init];
-//        button.frame = CGRectMake(0, 50, self.width, 50);
-//        button.backgroundColor = [UIColor blackColor];
-//        [button setTitle:@"start BLE" forState:UIControlStateNormal];
-//        [button addTarget:delegate
-//                action:@selector(onButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:button];
+        // 経験値とかを表示する
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 260, 320, 80)];
+        [label setText:@"このへんに経験値とか表示する...?"];
+        [self addSubview:label];
+        
     }
     return self;
 }
