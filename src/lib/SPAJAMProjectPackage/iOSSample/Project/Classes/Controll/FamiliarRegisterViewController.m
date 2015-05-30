@@ -89,6 +89,17 @@
     FamiliarModel *familiarModel = [[FamiliarModel alloc] init];
     familiarModel.info = view.familiarInfoInputLabel.text;
     familiarModel.name = view.familiarNameInputLabel.text;
+    [familiarModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+        // 成功したら画像アップ
+        if (success){
+            [familiarModel saveImage:editedHestiaImage :^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                if (success) {
+                    // 成功したらファミリア一覧に戻る
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }];
+        }
+    }];
 }
 
 - (UIImage *)addHimo:(UIImage *)argImageBack :(UIImage *)argImageFront

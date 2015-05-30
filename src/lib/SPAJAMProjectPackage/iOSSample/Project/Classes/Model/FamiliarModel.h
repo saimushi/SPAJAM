@@ -9,6 +9,6 @@
 
 @interface FamiliarModel : FamiliarModelBase
 
--(void)loadWithId:(NSString *)_id;
+- (BOOL)saveImage:(UIImage *)argImage :(RequestCompletionHandler)argCompletionHandler;
 
 @end
