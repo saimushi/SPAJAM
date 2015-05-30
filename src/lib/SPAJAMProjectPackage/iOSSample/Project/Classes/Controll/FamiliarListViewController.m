@@ -46,7 +46,7 @@
     UIImage *backgroundImage = [UIImage imageNamed:@"bg_2.png"];
     UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
     [self.view addSubview:background];
-  
+    
     // TableView
     dataListView = [[UITableView alloc] init];
     // フレー7
@@ -179,7 +179,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0 < data.total) {
-        return 65;
+        return 64;
     }
     // デフォルトのEmpty表示用
     return tableView.height;
