@@ -103,6 +103,9 @@
     [self.navigationItem setTitle:title];
     // 閉じるボタン
     //[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_clause"] target:self action:@selector(onPushCloseButton:)]];
+    UIImage *backgroundImage = [UIImage imageNamed:@"bg_header.png"];
+    [self.navigationController.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :RGBA(230, 197, 107, 1)}];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc]
                                                 initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                 target:self

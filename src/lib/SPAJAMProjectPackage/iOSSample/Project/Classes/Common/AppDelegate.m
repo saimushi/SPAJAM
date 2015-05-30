@@ -34,16 +34,17 @@
     // ナビゲーションバーの全体の色指定
     //[[UINavigationBar appearance] setBarTintColor:RGBA(16, 50, 64, 0.73)];
     // ナビゲーションバーのボタンアイテムのテキストカラー指定
-    //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTintColor:RGBA(230, 197, 107, 1)];
     // ナビゲーションバーのタイトルテキストカラー指定
     //[[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
 
     // TabbarItemの数だけUINavigationControllerのインスタンスを生成
-    self.topViewController = [[LevelUpViewController alloc] init];
+    self.topViewController = [[TopViewController alloc] init];
     UINavigationController *topNavigationController = [[UINavigationController alloc] initWithRootViewController:self.topViewController];
     
     UIImage *backgroundImage = [UIImage imageNamed:@"bg_header.png"];
     [topNavigationController.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
+    [topNavigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :RGBA(230, 197, 107, 1)}];
     //topNavigationController.navigationBar.barStyle = UIBarStyleBlack;
 
     // Windowを表示

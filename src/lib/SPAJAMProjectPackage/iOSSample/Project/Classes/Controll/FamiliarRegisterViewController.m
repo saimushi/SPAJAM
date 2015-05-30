@@ -41,7 +41,7 @@
 - (void)loadView
 {
     [super loadView];
-    view = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 30, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 64 - 5) WithDelegate:self];
+    view = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) WithDelegate:self];
     [self.view addSubview:view];
 }
 
@@ -87,8 +87,8 @@
 {
     NSLog(@"add");
     FamiliarModel *familiarModel = [[FamiliarModel alloc] init];
-    familiarModel.info = view.familiarInfoInputLabel.text;
-    familiarModel.name = view.familiarNameInputLabel.text;
+    familiarModel.info = view.familiarInfoTextView.text;
+    familiarModel.name = view.familiarNameTextView.text;
     [familiarModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         // 成功したら画像アップ
         if (success){
@@ -124,29 +124,29 @@
 }
 
 - (void)nameInput:(id)sender{
-    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarNameInputLabel.text :1 :0 :10 :self :@selector(updateNameText:)];
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarNameTextView.text :1 :0 :10 :self :@selector(updateNameText:)];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
 }
 
 - (void)infoInput:(id)sender{
-    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarInfoInputLabel.text :1 :0 :30 :self :@selector(updateInfoText:)];
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarInfoTextView.text :1 :0 :30 :self :@selector(updateInfoText:)];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
 }
 
 - (void)updateNameText:(NSString *)argText
 {
-    view.familiarNameInputLabel.text = argText;
+    view.familiarNameTextView.text = argText;
     
-    if (0 < view.familiarNameInputLabel.text.length && 0 < view.familiarNameInputLabel.text.length) {
+    if (0 < view.familiarNameTextView.text.length && 0 < view.familiarNameTextView.text.length) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
 
 - (void)updateInfoText:(NSString *)argText
 {
-    view.familiarInfoInputLabel.text = argText;
+    view.familiarInfoTextView.text = argText;
     
-    if (0 < view.familiarInfoInputLabel.text.length && 0 < view.familiarInfoInputLabel.text.length) {
+    if (0 < view.familiarInfoTextView.text.length && 0 < view.familiarInfoTextView.text.length) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 
