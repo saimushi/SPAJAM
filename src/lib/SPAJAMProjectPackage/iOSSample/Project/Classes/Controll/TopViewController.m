@@ -13,6 +13,7 @@
 #import "MyPageView.h"
 #import "DeviceModel.h"
 #import "ActivityCellView.h"
+#import "UserModel.h"
 
 @interface TopViewController ()
 {
@@ -23,6 +24,7 @@
     FamiliarModel *familiarData;
     ActivityModel *activityData;
     MyPageView *myPageView;
+    UserModel *userModel;
 }
 @end
 
@@ -38,6 +40,7 @@
         // モデルクラス初期化
         activityData = [[ActivityModel alloc] init];
         familiarData = [[FamiliarModel alloc] init];
+        userModel    = [[UserModel alloc] init];
     }
     return self;
 }
@@ -90,11 +93,36 @@
     [mydevice load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         if(YES == success){
             APPDELEGATE.ownerID = mydevice.owner_id;
-            // 最初にファミリアModelの情報を取得する
-            [self familiarDataLoad];
-        }
-        else {
-            // エラー処理をするならココ
+            // ownerIDからModelの情報を取得する
+            userModel = [[UserModel alloc] init];
+            [userModel load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                
+                
+                if(userModel.total > 0){
+                    
+                    NSLog(@"familiar_id:%@",userModel.familiar_id);
+                    
+                    // ファミリアIDが0ならファミリア一覧に遷移する
+                    if( [@"0" isEqual:userModel.familiar_id] ){
+                        
+                        // XXX にーやんさん待ちBackボタンがない版のFamiliarListViewControllerを表示
+                        NSLog(@"にーやんさん待ち");
+                        [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
+                        
+                    }
+                    // ファミリアIDがあれば登録済み、ファミリア情報を取る
+                    else{
+                        
+                        [self familiarDataLoad];
+                        
+                    }
+                    
+                }
+                else{
+                    NSLog(@"ここはこないと信じる");
+                }
+                
+            }];
         }
     }];
 
