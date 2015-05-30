@@ -24,6 +24,10 @@
 	<string>1.0.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>バックグラウンドでも神様の端末を検出するために使用します</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>神様の端末を検出するのに使います</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

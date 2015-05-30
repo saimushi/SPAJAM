@@ -6,8 +6,9 @@
 //
 
 #import "common.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, ModelDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, ModelDelegate,CLLocationManagerDelegate>
 {
     UIViewController *mainRootViewController;
     UIViewControllerBase *topViewController;
@@ -16,6 +17,10 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIViewController *mainRootViewController;
 @property (strong, nonatomic) UIViewControllerBase *topViewController;
+@property (strong, nonatomic) NSUUID *proximityUUID;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
+@property (strong, nonatomic) CLBeacon *nearestBeacon;
 
 - (void)registerDeviceToken;
 - (void)initializeGoogleAnalytics;
