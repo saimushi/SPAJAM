@@ -40,7 +40,7 @@
     
     UILabel *activityLabel = [[UILabel alloc] init];
     activityLabel.frame = CGRectMake(85, 85, 150, 24);
-    activityLabel.textColor = [UIColor blackColor];
+    activityLabel.textColor = RGBA(230, 197, 107, 1);
     activityLabel.font = [UIFont boldSystemFontOfSize:15];
     activityLabel.textAlignment = NSTextAlignmentCenter;
     activityLabel.text = @"モンスター討伐概要";
@@ -49,29 +49,34 @@
     UIImage *logo1Image = [UIImage imageNamed:@"icon_leaf.png"];
     UIImageView *logo1 = [[UIImageView alloc] initWithImage:logo1Image];
     logo1.x = activityLabel.x - logo1.width;
-    logo1.y = activityLabel.y + 5;
+    logo1.y = activityLabel.y + 6;
     [self.view addSubview:logo1];
     
     UIImage *logo2Image = [UIImage imageNamed:@"icon_leaf.png"];
     UIImageView *logo2 = [[UIImageView alloc] initWithImage:logo2Image];
     logo2.x = activityLabel.x + activityLabel.width;
-    logo2.y = activityLabel.y + 5;
+    logo2.y = activityLabel.y + 6;
     [self.view addSubview:logo2];
     
+    UIImage *activityTextViewBackgroundImage = [UIImage imageNamed:@"form_big.png"];
+    UIImageView *activityTextViewBackground = [[UIImageView alloc] initWithImage:activityTextViewBackgroundImage];
+    activityTextViewBackground.frame = CGRectMake(27.5, 115, activityTextViewBackground.frame.size.width, activityTextViewBackground.frame.size.height);
+    [self.view addSubview:activityTextViewBackground];
+    
     activityTextView = [[UITextView alloc] init];
-    activityTextView.frame = CGRectMake(10, 115, 300, 100);
+    activityTextView.frame = CGRectMake(35, 122, 250, 115);
     activityTextView.editable = NO;
-    activityTextView.backgroundColor = [UIColor redColor];
+    activityTextView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:activityTextView];
     
     UIButton *activityButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    activityButton.frame = CGRectMake(10, 115, 300, 100);
+    activityButton.frame = CGRectMake(35, 122, 250, 115);
     [activityButton addTarget:self action:@selector(showActivityInput:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:activityButton];
     
     UILabel *timeLabel = [[UILabel alloc] init];
-    timeLabel.frame = CGRectMake(100, 225, 120, 24);
-    timeLabel.textColor = [UIColor blackColor];
+    timeLabel.frame = CGRectMake(100, 260, 120, 24);
+    timeLabel.textColor = RGBA(230, 197, 107, 1);
     timeLabel.font = [UIFont boldSystemFontOfSize:15];
     timeLabel.textAlignment = NSTextAlignmentCenter;
     timeLabel.text = @"討伐までの時間";
@@ -80,30 +85,36 @@
     UIImage *logo3Image = [UIImage imageNamed:@"icon_leaf.png"];
     UIImageView *logo3 = [[UIImageView alloc] initWithImage:logo3Image];
     logo3.x = timeLabel.x - logo1.width;
-    logo3.y = timeLabel.y + 5;
+    logo3.y = timeLabel.y + 6;
     [self.view addSubview:logo3];
     
     UIImage *logo4Image = [UIImage imageNamed:@"icon_leaf.png"];
     UIImageView *logo4 = [[UIImageView alloc] initWithImage:logo4Image];
     logo4.x = timeLabel.x + timeLabel.width;
-    logo4.y = timeLabel.y + 5;
+    logo4.y = timeLabel.y + 6;
     [self.view addSubview:logo4];
     
+    UIImage *timeTextViewBackgroundImage = [UIImage imageNamed:@"form_small.png"];
+    UIImageView *timeTextViewBackground = [[UIImageView alloc] initWithImage:timeTextViewBackgroundImage];
+    timeTextViewBackground.frame = CGRectMake(27.5, 290, timeTextViewBackground.frame.size.width, timeTextViewBackground.frame.size.height);
+    [self.view addSubview:timeTextViewBackground];
+    
     timeTextView = [[UITextView alloc] init];
-    timeTextView.frame = CGRectMake(10, 255, 240, 40);
+    timeTextView.frame = CGRectMake(35, 297, 230, 31.5);
     timeTextView.editable = NO;
-    timeTextView.backgroundColor = [UIColor redColor];
+    timeTextView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:timeTextView];
     
     UIButton *timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    timeButton.frame = CGRectMake(10, 255, 240, 40);
+    timeButton.frame = CGRectMake(35, 297, 250, 31.5);
     [timeButton addTarget:self action:@selector(showTimeInput:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:timeButton];
     
     UILabel *hourLabel = [[UILabel alloc] init];
-    hourLabel.frame = CGRectMake(250, 275, 20, 24);
+    hourLabel.frame = CGRectMake(275, 301, 20, 24);
     hourLabel.textColor = [UIColor blackColor];
-    hourLabel.font = [UIFont fontWithName:@"AppleGothic" size:14];
+    hourLabel.alpha = 0.6;
+    hourLabel.font = [UIFont boldSystemFontOfSize:15];
     hourLabel.textAlignment = NSTextAlignmentLeft;
     hourLabel.text = @"h";
     [self.view addSubview:hourLabel];

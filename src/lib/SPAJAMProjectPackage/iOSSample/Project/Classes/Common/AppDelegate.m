@@ -32,7 +32,7 @@
 
     // ナビゲーションバーのスタイルを定義しておく
     // ナビゲーションバーの全体の色指定
-    [[UINavigationBar appearance] setBarTintColor:RGBA(30, 30, 30, 1)];
+    [[UINavigationBar appearance] setBarTintColor:RGBA(16, 50, 64, 0.73)];
     // ナビゲーションバーのボタンアイテムのテキストカラー指定
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     // ナビゲーションバーのタイトルテキストカラー指定
