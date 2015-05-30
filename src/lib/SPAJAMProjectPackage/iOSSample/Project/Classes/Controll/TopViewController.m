@@ -89,7 +89,7 @@
                 if(userModel.total > 0){
                     
                     //強制姫モード突入
-                    if([@"1" isEqualToString:userModel.ID]){
+                    if([@"2" isEqualToString:userModel.ID]){
                         self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
                                                                                          queue:dispatch_get_main_queue()];
                         [self beaconing];

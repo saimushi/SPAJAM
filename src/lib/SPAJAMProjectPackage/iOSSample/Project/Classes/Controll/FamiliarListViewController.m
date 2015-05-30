@@ -222,25 +222,29 @@
 {
     // 選択解除
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (nil != APPDELEGATE.familiarID){
-        [CustomAlert alertShow:@"本当に・・・？" message:@"所属するファミリアを変更しますか？" buttonLeft:@"Cancel" buttonRight:@"OK" completionHandler:^(BOOL ok) {
-            if (ok) {
-                // ファミリア抜ける
-                FamiliarModel *familiar = [[FamiliarModel alloc] init];
-                familiar.ID = APPDELEGATE.familiarID;
-                familiar.familiar_count = [NSString stringWithFormat:@"%d", ([familiar.familiar_count intValue] - 1)];
-                [familiar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
-                    // 新しいファミリアに入る
-                    FamiliarModel *familiarModel = [data objectAtIndex:(int)indexPath.row];
-                    if (success) {
-                        [self performSelector:@selector(saveUserFamiliar:) withObject:familiarModel afterDelay:0.5f];
-                    }
-                }];
-            }
-        }];
+    if (nil != APPDELEGATE.familiarID && ![APPDELEGATE.familiarID isEqualToString:@"0"]){
+        // 現在参加中のファミリアかどうか
+        FamiliarModel *familiarModel = [data objectAtIndex:(int)indexPath.row];
+        if (![familiarModel.ID isEqualToString:APPDELEGATE.familiarID]){
+            [CustomAlert alertShow:@"本当に・・・？" message:@"所属するファミリアを変更しますか？" buttonLeft:@"Cancel" buttonRight:@"OK" completionHandler:^(BOOL ok) {
+                if (ok) {
+                    // ファミリア抜ける
+                    FamiliarModel *familiar = [data search:@"id" :APPDELEGATE.familiarID];
+                    familiar.familiar_count = [NSString stringWithFormat:@"%d", ([familiar.familiar_count intValue] - 1)];
+                    [familiar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                        // 新しいファミリアに入る
+                        if (success) {
+                            [self performSelector:@selector(saveUserFamiliar:) withObject:[data objectAtIndex:(int)indexPath.row] afterDelay:0.5f];
+                        }
+                    }];
+                }
+            }];
+        }
     }
-            else {
-            }
+    else {
+        // 新しいファミリアに入る
+        [self performSelector:@selector(saveUserFamiliar:) withObject:[data objectAtIndex:(int)indexPath.row] afterDelay:0.5f];
+    }
 }
 
 - (void)saveUserFamiliar:(FamiliarModel *)argFamiliar
@@ -255,6 +259,7 @@
             argFamiliar.familiar_count = [NSString stringWithFormat:@"%d", ([argFamiliar.familiar_count intValue] + 1)];
             [argFamiliar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
                 if (success) {
+                    [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", argFamiliar.name]];
                     // データリロード
                     [self dataListLoad];
                 }
