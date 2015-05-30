@@ -30,8 +30,8 @@
 # elif defined DEV
 #  define TEST @"1"
 #  define DEPROY_SETTING @"Development Debug Run"
-#  define PROTOCOL @"https"
-#  define DOMAIN_NAME @"apitest.unicorn-project.com"
+#  define PROTOCOL @"http"
+#  define DOMAIN_NAME @"api.otkr.net"
 #  define URL_BASE @"/"
 
 // Staging
@@ -74,7 +74,7 @@
 # else
 #  define DEPROY_SETTING @"Distribution Adhoc Run"
 #  define PROTOCOL @"https"
-#  define DOMAIN_NAME @"api.unicorn-project.com"
+#  define DOMAIN_NAME @"api.otkr.com"
 #  define URL_BASE @"/"
 
 # endif
