@@ -10,5 +10,6 @@
 @interface FamiliarModel : FamiliarModelBase
 
 - (BOOL)load:(RequestCompletionHandler)argCompletionHandler widthId:(NSString*)_id;
+- (BOOL)saveImage:(UIImage *)argImage :(RequestCompletionHandler)argCompletionHandler;
 
 @end
