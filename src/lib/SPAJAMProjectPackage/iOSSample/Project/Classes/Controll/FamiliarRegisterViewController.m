@@ -139,12 +139,12 @@
 }
 
 - (void)nameInput:(id)sender{
-    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarNameTextView.text :1 :0 :10 :self :@selector(updateNameText:)];
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarNameTextView.text :1 :1 :10 :self :@selector(updateNameText:)];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
 }
 
 - (void)infoInput:(id)sender{
-    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarInfoTextView.text :1 :0 :30 :self :@selector(updateInfoText:)];
+    FreewordInputViewController *freewordInputViewController = [[FreewordInputViewController alloc] init:@"" :view.familiarInfoTextView.text :3 :1 :150 :self :@selector(updateInfoText:)];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:freewordInputViewController] animated:YES completion:nil];
 }
 
