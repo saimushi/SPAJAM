@@ -7,11 +7,13 @@
 //
 
 #import "MyPageView.h"
+#import "UserModel.h"
+#import "FamiliarModel.h"
 
 @implementation MyPageView
 
 /* オーバーライド */
-- (id)initWithFrame:(CGRect)argFrame WithDelegate:(id)delegate;
+- (id)initWithFrame:(CGRect)argFrame WithTopViewController:(TopViewController*)argTopViewController;
 {
     self = [super initWithFrame:argFrame];
     if (self) {

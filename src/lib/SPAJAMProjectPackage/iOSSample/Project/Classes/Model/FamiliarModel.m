@@ -29,6 +29,15 @@
     return [self _load:listedResource :nil];
 }
 
+- (BOOL)load:(RequestCompletionHandler)argCompletionHandler widthId:(NSString*)_id;
+{
+    myResourcePrefix = @"";
+    completionHandler = argCompletionHandler;
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+    [query setValue:_id forKey:@"id"];
+    return [self _load:listedResource :query];
+}
+
 - (BOOL)saveImage:(UIImage *)argImage :(RequestCompletionHandler)argCompletionHandler;
 {
     if(nil != argImage){

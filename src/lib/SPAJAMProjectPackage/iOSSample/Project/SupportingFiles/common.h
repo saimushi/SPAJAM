@@ -56,6 +56,7 @@
 #import "SettingViewController.h"
 #import "ActivityRegisterViewController.h"
 #import "FreewordInputViewController.h"
+#import "LevelUpViewController.h"
 
 /* 最後にAppDelegate */
 #import "AppDelegate.h"
