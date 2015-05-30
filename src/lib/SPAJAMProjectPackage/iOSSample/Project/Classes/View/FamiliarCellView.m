@@ -19,8 +19,7 @@
 {
     self = [super initWithFrame:argFrame];
     if (self) {
-        
-        UIImageView *familiaImageView = [[UIImageView alloc] initWithFrame:CGRectMake(11, 8, 46, 47)];
+        UIImageView *familiaImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 47, 47)];
         [familiaImageView hnk_setImageFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@/image/familiar%@.jpg", PROTOCOL, DOMAIN_NAME, URL_BASE, argFamiliarModel.ID]] placeholderImage:nil success:^(UIImage *image) {
             //
             NSLog(@"succ");
@@ -32,24 +31,25 @@
         [self addSubview:familiaImageView];
 
         // レコード名
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 5, 187, 24)];
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 5, 187, 24)];
         nameLabel.text = [NSString stringWithFormat:@"%@・ファミリア", argFamiliarModel.name];
-        nameLabel.textColor = [UIColor grayColor];
-        nameLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:17];
+        nameLabel.textColor = RGBA(230, 197, 107, 1);
+        nameLabel.font = [UIFont boldSystemFontOfSize:15];
         nameLabel.backgroundColor = [UIColor clearColor];
         nameLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:nameLabel];
 
         // 件数
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(66, 25, 210, 33)];
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 20, 210, 33)];
         dateLabel.text = [NSString stringWithFormat:@"%@人",argFamiliarModel.familiar_count];
         dateLabel.textColor = [UIColor lightGrayColor];
-        dateLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:15];
+        dateLabel.font = [UIFont boldSystemFontOfSize:13];
         dateLabel.backgroundColor = [UIColor clearColor];
         dateLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:dateLabel];
 
         // >
+        /*
         UILabel *nextLabel = [[UILabel alloc] initWithFrame:CGRectMake(271, 11, 10, 13)];
         nextLabel.text = @">";
         nextLabel.textColor = [UIColor grayColor];
@@ -57,10 +57,13 @@
         nextLabel.backgroundColor = [UIColor clearColor];
         nameLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:nextLabel];
+         */
         
         // セパレータ
-        UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(5, self.height -5, self.width - 10, 1)];
-        separator.backgroundColor = [UIColor lightGrayColor];
+        UIImage *separatorImage = [UIImage imageNamed:@"devider.png"];
+        UIImageView *separator = [[UIImageView alloc] initWithImage:separatorImage];
+        separator.x = (self.frame.size.width - separator.frame.size.width) / 2;
+        separator.y = self.frame.size.height - separator.frame.size.height;
         [self addSubview:separator];
     }
     return self;

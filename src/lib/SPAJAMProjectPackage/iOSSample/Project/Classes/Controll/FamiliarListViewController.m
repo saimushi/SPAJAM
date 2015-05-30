@@ -42,15 +42,15 @@
 - (void)loadView
 {
     [super loadView];
-  
+    
     UIImage *backgroundImage = [UIImage imageNamed:@"bg_2.png"];
     UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
     [self.view addSubview:background];
     
     // TableView
     dataListView = [[UITableView alloc] init];
-    // フレーム
-    dataListView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 64 - 5);
+    // フレー7
+    dataListView.frame = CGRectMake(0, 65, self.view.width, self.view.height - 65);
     dataListView.delegate = self;
     dataListView.dataSource = self;
     dataListView.backgroundColor = [UIColor clearColor];
@@ -77,7 +77,7 @@
 {
     [super viewDidAppear:animated];
     // 追加ボタンの追加
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"追加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
     if(APPDELEGATE.familiarID != nil && [@"0" isEqualToString:APPDELEGATE.familiarID]){
         self.navigationItem.hidesBackButton = YES;
     }else{

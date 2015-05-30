@@ -11,13 +11,13 @@
 @interface FamiliarRegisterView : UIView
 {
     UIImageView *imageView;
-    UILabel *familiarNameInputLabel;
-    UILabel *familiarInfoInputLabel;
+    UITextView *familiarNameTextView;
+    UITextView *familiarInfoTextView;
 }
 
 @property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) UILabel *familiarNameInputLabel;
-@property (strong, nonatomic) UILabel *familiarInfoInputLabel;
+@property (strong, nonatomic) UITextView *familiarNameTextView;
+@property (strong, nonatomic) UITextView *familiarInfoTextView;
 
 - (id)initWithFrame:(CGRect)argFrame WithDelegate:(id)delegate;
 

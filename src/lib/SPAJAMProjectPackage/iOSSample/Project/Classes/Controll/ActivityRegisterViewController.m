@@ -129,7 +129,7 @@
 {
     [super viewDidAppear:animated];
     // 追加ボタンの追加
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"追加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 

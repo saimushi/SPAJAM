@@ -11,62 +11,95 @@
 @implementation FamiliarRegisterView
 
 @synthesize imageView;
-@synthesize familiarNameInputLabel;
-@synthesize familiarInfoInputLabel;
+@synthesize familiarNameTextView;
+@synthesize familiarInfoTextView;
 
 /* オーバーライド */
 - (id)initWithFrame:(CGRect)argFrame WithDelegate:(id)delegate;
 {
     self = [super initWithFrame:argFrame];
+    
+    UIImage *backgroundImage = [UIImage imageNamed:@"bg_2.png"];
+    UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
+    [self addSubview:background];
 
     //神様のイメージ
-    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 20, 240, 270)];
+    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(53, 75, 214, 240)];
     [self addSubview:imageView];
     
     //ファミリア名
-    UILabel *familiarName = [[UILabel alloc]initWithFrame:CGRectMake(40, 305, 240, 24)];
-    familiarName.text = @"ファミリア名";
-    familiarName.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
-    [self addSubview:familiarName];
+    UILabel *familiarNameLabel = [[UILabel alloc] init];
+    familiarNameLabel.frame = CGRectMake(110, 320, 100, 24);
+    familiarNameLabel.textColor = RGBA(230, 197, 107, 1);
+    familiarNameLabel.font = [UIFont boldSystemFontOfSize:15];
+    familiarNameLabel.textAlignment = NSTextAlignmentCenter;
+    familiarNameLabel.text = @"ファミリア名";
+    [self addSubview:familiarNameLabel];
     
-    UIView *familiarNameFrame = [[UIView alloc]initWithFrame:CGRectMake(40, 329, 240, 40)];
-    [[familiarNameFrame layer] setBorderColor:[[UIColor grayColor] CGColor]];
-    [[familiarNameFrame layer] setBorderWidth:2.0];
-    [familiarNameFrame layer].cornerRadius = 5.0f;
-    [self addSubview:familiarNameFrame];
+    UIImage *logo1Image = [UIImage imageNamed:@"icon_leaf.png"];
+    UIImageView *logo1 = [[UIImageView alloc] initWithImage:logo1Image];
+    logo1.x = familiarNameLabel.x - logo1.width;
+    logo1.y = familiarNameLabel.y + 6;
+    [self addSubview:logo1];
     
-    UIButton *familiarNamebutton = [[UIButton alloc]init];
-    familiarNamebutton.frame = CGRectMake(40, 329, 240, 40);
-    familiarNamebutton.backgroundColor = [UIColor clearColor];
-    [familiarNamebutton addTarget:delegate
-               action:@selector(nameInput:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:familiarNamebutton];
+    UIImage *logo2Image = [UIImage imageNamed:@"icon_leaf.png"];
+    UIImageView *logo2 = [[UIImageView alloc] initWithImage:logo2Image];
+    logo2.x = familiarNameLabel.x + familiarNameLabel.width;
+    logo2.y = familiarNameLabel.y + 6;
+    [self addSubview:logo2];
     
-    familiarNameInputLabel = [[UILabel alloc]initWithFrame:CGRectMake(45, 329, 230, 40)];
-    familiarNameInputLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
-    [self addSubview:familiarNameInputLabel];
-    //概要
-    UILabel *familiarInfo = [[UILabel alloc]initWithFrame:CGRectMake(40, 379, 240, 24)];
-    familiarInfo.text = @"概要";
-    familiarInfo.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
-    [self addSubview:familiarInfo];
+    UIImage *familiarNameTextViewBackgroundImage = [UIImage imageNamed:@"form_small.png"];
+    UIImageView *familiarNameTextViewBackground = [[UIImageView alloc] initWithImage:familiarNameTextViewBackgroundImage];
+    familiarNameTextViewBackground.frame = CGRectMake(27.5, 350, familiarNameTextViewBackground.frame.size.width, familiarNameTextViewBackground.frame.size.height);
+    [self addSubview:familiarNameTextViewBackground];
     
-    UIView *familiarInfoFrame = [[UIView alloc]initWithFrame:CGRectMake(39, 399, 240, 80)];
-    [[familiarInfoFrame layer] setBorderColor:[[UIColor grayColor] CGColor]];
-    [[familiarInfoFrame layer] setBorderWidth:2.0];
-    [familiarInfoFrame layer].cornerRadius = 5.0f;
-    [self addSubview:familiarInfoFrame];
+    familiarNameTextView = [[UITextView alloc] init];
+    familiarNameTextView.frame = CGRectMake(35, 357, 250, 31.5);
+    familiarNameTextView.editable = NO;
+    familiarNameTextView.backgroundColor = [UIColor clearColor];
+    [self addSubview:familiarNameTextView];
     
-    UIButton *familiarInfobutton = [[UIButton alloc]init];
-    familiarInfobutton.frame = CGRectMake(40, 399, 240, 80);
-    familiarInfobutton.backgroundColor = [UIColor clearColor];
-    [familiarInfobutton addTarget:delegate
-                           action:@selector(infoInput:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:familiarInfobutton];
+    UIButton *familiarNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    familiarNameButton.frame = CGRectMake(35, 357, 250, 31.5);
+    [familiarNameButton addTarget:delegate action:@selector(nameInput:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:familiarNameButton];
     
-    familiarInfoInputLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 399, 230, 80)];
-    familiarInfoInputLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
-    [self addSubview:familiarInfoInputLabel];
+    UILabel *familiarInfoLabel = [[UILabel alloc] init];
+    familiarInfoLabel.frame = CGRectMake(105, 400, 110, 24);
+    familiarInfoLabel.textColor = RGBA(230, 197, 107, 1);
+    familiarInfoLabel.font = [UIFont boldSystemFontOfSize:15];
+    familiarInfoLabel.textAlignment = NSTextAlignmentCenter;
+    familiarInfoLabel.text = @"ファミリア概要";
+    [self addSubview:familiarInfoLabel];
+    
+    UIImage *logo3Image = [UIImage imageNamed:@"icon_leaf.png"];
+    UIImageView *logo3 = [[UIImageView alloc] initWithImage:logo3Image];
+    logo3.x = familiarInfoLabel.x - logo1.width;
+    logo3.y = familiarInfoLabel.y + 6;
+    [self addSubview:logo3];
+    
+    UIImage *logo4Image = [UIImage imageNamed:@"icon_leaf.png"];
+    UIImageView *logo4 = [[UIImageView alloc] initWithImage:logo4Image];
+    logo4.x = familiarInfoLabel.x + familiarInfoLabel.width;
+    logo4.y = familiarInfoLabel.y + 6;
+    [self addSubview:logo4];
+    
+    UIImage *familiarInfoTextViewBackgroundImage = [UIImage imageNamed:@"form_big.png"];
+    UIImageView *familiarInfoTextViewBackground = [[UIImageView alloc] initWithImage:familiarInfoTextViewBackgroundImage];
+    familiarInfoTextViewBackground.frame = CGRectMake(27.5, 430, familiarInfoTextViewBackground.frame.size.width, familiarInfoTextViewBackground.frame.size.height);
+    [self addSubview:familiarInfoTextViewBackground];
+    
+    familiarInfoTextView = [[UITextView alloc] init];
+    familiarInfoTextView.frame = CGRectMake(35, 437, 250, 115);
+    familiarInfoTextView.editable = NO;
+    familiarInfoTextView.backgroundColor = [UIColor clearColor];
+    [self addSubview:familiarInfoTextView];
+    
+    UIButton *familiarInfoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    familiarInfoButton.frame = CGRectMake(35, 437, 250, 115);
+    [familiarInfoButton addTarget:delegate action:@selector(infoInput:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:familiarInfoButton];
+    
     return self;
 }
 

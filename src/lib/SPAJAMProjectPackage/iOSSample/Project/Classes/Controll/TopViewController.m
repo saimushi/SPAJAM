@@ -116,6 +116,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    // 追加ボタンの追加
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"追加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -210,7 +212,7 @@
  */
 - (void)dataListAddLoad
 {
-    [self activityDataLoad];
+    [self familiarDataLoad];
 }
 
 /**
@@ -298,7 +300,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
     // テーブルView Refresh
-    [self activityDataLoad];
+    [self familiarDataLoad];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
