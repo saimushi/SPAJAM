@@ -9,6 +9,7 @@
 #import "FamiliarRegisterView.h"
 #import "MCropImageView.h"
 #import "FamiliarModel.h"
+#import "UserModel.h"
 
 @interface FamiliarRegisterViewController ()
 {
@@ -71,7 +72,7 @@
 {
     [super viewDidAppear:animated];
     // 追加ボタンの追加
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"追加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,15 +90,27 @@
     FamiliarModel *familiarModel = [[FamiliarModel alloc] init];
     familiarModel.info = view.familiarInfoTextView.text;
     familiarModel.name = view.familiarNameTextView.text;
+    familiarModel.familiar_count = [NSString stringWithFormat:@"%d", ([familiarModel.familiar_count intValue] + 1)];
     [familiarModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         // 成功したら画像アップ
         if (success){
             [familiarModel saveImage:editedHestiaImage :^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
                 if (success) {
-                    // 成功したらファミリア一覧に戻る
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self performSelector:@selector(saveUserFamiliar:) withObject:familiarModel.ID afterDelay:0.5f];
                 }
             }];
+        }
+    }];
+}
+
+- (void)saveUserFamiliar:(NSString *)argFamiliarID
+{
+    UserModel *userModel = [[UserModel alloc] init];
+    userModel.familiar_id = argFamiliarID;
+    [userModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+        if (success) {
+            // 成功したらファミリア一覧に戻る
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
 }

@@ -129,7 +129,7 @@
 {
     [super viewDidAppear:animated];
     // 追加ボタンの追加
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"ADD", @"追加") style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"追加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
@@ -146,6 +146,7 @@
 {
     ActivityModel *activityModel = [[ActivityModel alloc] init];
     [activityModel setUser_id:APPDELEGATE.ownerID];
+    [activityModel setFamiliar_id:APPDELEGATE.familiarID];
     [activityModel setLog:activityTextView.text];
     [activityModel setTime:timeTextView.text];
     [activityModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
