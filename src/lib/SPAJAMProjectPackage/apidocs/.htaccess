@@ -15,9 +15,9 @@ RewriteRule .* - [L]
 # リライト
 # URL省略時のIndexFlowへのRewrite
 # XXX Indexはリソース指定が無いのでエラーなる！
-RewriteRule ^\/$ index.php?_c_=api/Rest&_a_=UIDAuthAndExecute&_r_=&_o_=xml&_v_=%{ENV:appversion}&_dv_=%{ENV:appdisplayversion} [QSA,L]
+RewriteRule ^\/$ index.php?_c_=api/Rest&_a_=UIDAuthAndExecute&_r_=&_o_=xml&_deep_=false&_v_=%{ENV:appversion}&_dv_=%{ENV:appdisplayversion} [QSA,L]
 # 標準のRestへのRewrite
-RewriteRule (.*)?\.(.*)$ index.php?_c_=api/Rest&_a_=UIDAuthAndExecute&_r_=$1&_o_=$2&_v_=%{ENV:appversion}&_dv_=%{ENV:appdisplayversion} [QSA,L]
+RewriteRule (.*)?\.(.*)$ index.php?_c_=api/Rest&_a_=UIDAuthAndExecute&_r_=$1&_o_=$2&_deep_=false&_v_=%{ENV:appversion}&_dv_=%{ENV:appdisplayversion} [QSA,L]
 
 php_flag mbstring.encoding_translation off
 php_value mbstring.http_input pass
