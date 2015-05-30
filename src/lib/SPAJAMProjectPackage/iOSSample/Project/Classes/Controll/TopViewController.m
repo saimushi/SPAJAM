@@ -60,7 +60,7 @@
     
     [self.view addSubview:dataListView];
     
-    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 465, 50, 50)];
+    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, 445, 50, 50)];
     famillia.backgroundColor = [UIColor blackColor];
     [famillia addTarget:self action:@selector(famillia:)
        forControlEvents:UIControlEventTouchDown];
@@ -204,8 +204,7 @@
 }
 
 -(void)famillia:(UIButton*)button{
-    UINavigationController *familiarListViewController = [[UINavigationController alloc] initWithRootViewController:[[FamiliarListViewController alloc] init]];
-    [self presentViewController:familiarListViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];
 }
 
 @end

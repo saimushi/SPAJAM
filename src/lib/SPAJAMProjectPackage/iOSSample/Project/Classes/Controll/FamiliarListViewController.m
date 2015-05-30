@@ -9,6 +9,8 @@
 #import "FamiliarModel.h"
 #import "NodataCellView.h"
 #import "SampleCellView.h"
+#import "MActionsheetButtonView.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface FamiliarListViewController ()
 {
@@ -70,7 +72,7 @@
 {
     [super viewDidAppear:animated];
     // 追加ボタンの追加
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"ADD", @"追加") style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,6 +117,51 @@
 - (void)addData
 {
     NSLog(@"add");
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = NO;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        // アクションシート表示
+        [MActionsheetButtonView showActionsheetButtonView:[NSArray arrayWithObjects:@"写真を撮影する", @"カメラロールから選択", nil]
+                                           isCancelButton:YES
+                                               completion:^(NSInteger buttonIndex) {
+                                                   // １番上のボタンを押した時
+                                                   if (buttonIndex == 1) {
+                                                       NSLog(@"first button pushed");
+                                                       AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                                                       if((status == AVAuthorizationStatusRestricted) || (status == AVAuthorizationStatusDenied)) {
+                                                           if([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedAscending){
+                                                               // i0S7以前の処理
+                                                               [CustomAlert alertShow:@"" message:@"カメラへのアクセスが未許可です。\n設定でカメラの使用を許可してください。"];
+                                                           }
+                                                           else {
+                                                               // iOS8の処理
+                                                               [CustomAlert alertShow:@"" message:@"カメラへのアクセスが未許可です。\n設定でカメラの使用を許可してください。" buttonLeft:@"キャンセル" buttonRight:@"OK" completionHandler:^(BOOL result) {
+                                                                   if(result){
+                                                                       // OKを押したら設定画面に遷移
+                                                                       NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                                                                       [[UIApplication sharedApplication] openURL:url];
+                                                                       return;
+                                                                   }
+                                                               }];
+                                                           }
+                                                           return;
+                                                       }
+                                                       picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                   }
+                                                   // ２番めのボタンを押した時
+                                                   else if (buttonIndex == 2) {
+                                                       picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                       NSLog(@"second button pushed");
+                                                   }
+                                                   [self presentViewController:picker animated:YES completion:nil];
+                                               }];
+    }
+    else {
+        // 無条件でカメラロール表示
+        [self presentViewController:picker animated:YES completion:nil];
+    }
 }
 
 #pragma mark TableView Delegate
@@ -194,6 +241,120 @@
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
 	return [NSDate date]; // should return date data source was last changed
+}
+
+#pragma mark - UIImagePickerControllerDelegate Methods
+
+//画像が選択された時に呼ばれるデリゲートメソッド
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo
+{
+    // ヘスティアの紐と合成するぉ。
+//    int cropImageWidth = 300;
+//    int cropImageHeight = 300;
+//    UIView *trimingOverlayView = [[UIView alloc] initWithFrame:APPDELEGATE.window.frame];
+//    trimingOverlayView.userInteractionEnabled = NO;
+//    if([currentImageField isEqualToString:@"main_image"]){
+//        cropImageWidth = 320;
+//        cropImageHeight = 300;
+//        // トリムボーダーをオーバーレイ
+//        UIView *trimBorderView = [[UIView alloc] initWithFrame:CGRectMake((self.view.width - 320.0f) / 2.0f, (APPDELEGATE.window.frame.size.height - (175.0 * (300.0 / 320.0))) / 2.0, 320, 175.0 * (300.0 / 320.0))];
+//        [trimBorderView.layer setBorderColor:[UIColor colorWithRed:1.00 green:0.27 blue:0.27 alpha:1.0].CGColor];
+//        [trimBorderView.layer setBorderWidth:1.0];
+//        trimBorderView.userInteractionEnabled = NO;
+//        [trimingOverlayView addSubview:trimBorderView];
+//        trimBorderView = [[UIView alloc] initWithFrame:CGRectMake((self.view.width - 320.0f) / 2.0f, (APPDELEGATE.window.frame.size.height - 300)/2.0, 320, 300)];
+//        [trimBorderView.layer setBorderColor:[UIColor whiteColor].CGColor];
+//        [trimBorderView.layer setBorderWidth:1.0];
+//        trimBorderView.userInteractionEnabled = NO;
+//        [trimingOverlayView addSubview:trimBorderView];
+//        // メインの時はトリミング画面にメッセージをオーバーレイ
+//        UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(0, APPDELEGATE.window.frame.size.height - 85, self.view.width, 25)];
+//        labelView.text = @"   白線：詳細画面で表示されるエリア　赤線：リストで表示されるエリア";
+//        labelView.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:9];
+//        [labelView setTextColor:[UIColor colorWithRed:0.20 green:0.20 blue:0.20 alpha:1.0]];
+//        labelView.textAlignment = NSTextAlignmentLeft;
+//        labelView.backgroundColor = [UIColor colorWithRed:0.90 green:0.91 blue:0.89 alpha:1.0];
+//        labelView.userInteractionEnabled = NO;
+//        [trimingOverlayView addSubview:labelView];
+//    }
+//    else {
+//        // トリムボーダーをオーバーレイ
+//        UIView *trimBorderView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 300)/2.0, (APPDELEGATE.window.frame.size.height - 300)/2.0, 300, 300)];
+//        [trimBorderView.layer setBorderColor:[UIColor whiteColor].CGColor];
+//        [trimBorderView.layer setBorderWidth:1.0];
+//        trimBorderView.userInteractionEnabled = NO;
+//        [trimingOverlayView addSubview:trimBorderView];
+//    }
+//    // トリミングを呼ぶ
+//    [APPDELEGATE addSubviewFirstFront:[[MCropImageView alloc] initWithFrame:APPDELEGATE.window.frame :image :cropImageWidth :cropImageHeight :YES :trimingOverlayView :^(MCropImageView *mcropImageView, BOOL finished, UIImage *image) {
+//        if(YES == finished && nil != image && [image isKindOfClass:NSClassFromString(@"UIImage")]){
+//            // 画像保存処理
+//            [APPDELEGATE showLoading:self.view];
+//            if([currentImageField isEqualToString:@"main_image"]){
+//                // main画像の保存
+//                [APPDELEGATE.myprofile setMain_img_check:@"1"];
+//                [APPDELEGATE.myprofile saveMainImage:image :^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+//                    [APPDELEGATE hideLoading:self.view];
+//                    if (YES == success) {
+//                        // 再描画
+//                        [self showProfileDetail];
+//                    }
+//                    _editing = NO;
+//                }];
+//            }
+//            else if([currentImageField isEqualToString:@"sub2_image"]){
+//                // サブ画像の保存
+//                [APPDELEGATE.myprofile setSub2_img_check:@"1"];
+//                [APPDELEGATE.myprofile saveSub2Image:image :^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+//                    [APPDELEGATE hideLoading:self.view];
+//                    if (YES == success) {
+//                        // 再描画
+//                        [self showProfileDetail];
+//                    }
+//                    _editing = NO;
+//                }];
+//            }
+//            else if([currentImageField isEqualToString:@"sub3_image"]){
+//                // サブ画像の保存
+//                [APPDELEGATE.myprofile setSub3_img_check:@"1"];
+//                [APPDELEGATE.myprofile saveSub3Image:image :^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+//                    [APPDELEGATE hideLoading:self.view];
+//                    if (YES == success) {
+//                        // 再描画
+//                        [self showProfileDetail];
+//                    }
+//                    _editing = NO;
+//                }];
+//            }
+//            else if([currentImageField isEqualToString:@"sub4_image"]){
+//                // サブ画像の保存
+//                [APPDELEGATE.myprofile setSub4_img_check:@"1"];
+//                [APPDELEGATE.myprofile saveSub4Image:image :^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+//                    [APPDELEGATE hideLoading:self.view];
+//                    if (YES == success) {
+//                        // 再描画
+//                        [self showProfileDetail];
+//                    }
+//                    _editing = NO;
+//                }];
+//            }
+//        }
+//        else {
+//            _editing = NO;
+//        }
+//        // トリミング画面非表示
+//        [mcropImageView dissmiss:YES];
+//        [APPDELEGATE removeFromFirstFrontSubview:mcropImageView];
+//    }]];
+    [picker dismissViewControllerAnimated:NO completion:nil];
+}
+
+//画像の選択がキャンセルされた時に呼ばれる
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
 }
 
 @end
