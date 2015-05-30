@@ -5,7 +5,6 @@
 //  Copyright (c) 2014年 saimushi. All rights reserved.
 //
 
-#import "ModelBase.h"
 #import "common.h"
 
 @interface ProjectModelBase : ModelBase

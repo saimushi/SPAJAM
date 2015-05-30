@@ -24,3 +24,5 @@ tmps/
 tmp/
 /logs
 !/src/logs/reference.txt
+/src/managedocs/static/iOS.zip
+/src/managedocs/static/iOSModel.zip

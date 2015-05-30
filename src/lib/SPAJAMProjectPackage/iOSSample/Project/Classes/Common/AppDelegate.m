@@ -10,6 +10,7 @@
 @implementation AppDelegate
 
 @synthesize topViewController;
+@synthesize ownerID;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

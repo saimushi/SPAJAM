@@ -40,8 +40,8 @@
 - (void)loadView
 {
     [super loadView];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    familiarRegisterView = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 64 - 5)];
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
+    familiarRegisterView = [[FamiliarRegisterView alloc] initWithFrame:CGRectMake(0, 55, self.view.width, self.view.height)];
     [self.view addSubview:familiarRegisterView];
 }
 
@@ -55,8 +55,7 @@
     hestiaLineImageView.y = (APPDELEGATE.window.frame.size.height - hestiaLineImageView.height) / 2.0f;
     MCropImageView *cropImageView = [[MCropImageView alloc] initWithFrame:APPDELEGATE.window.frame :hestiaImage :320 :360 :YES :hestiaLineImageView :^(MCropImageView *mcropImageView, BOOL finished, UIImage *argImage) {
         if(YES == finished && nil != argImage && [argImage isKindOfClass:NSClassFromString(@"UIImage")]){
-            UIImage *_hestiaImage = [self addHimo:argImage :hestiaLineImageView.image];
-            [APPDELEGATE.window addSubview:[[UIImageView alloc] initWithImage:_hestiaImage]];
+            [familiarRegisterView.imageView setImage:[self addHimo:argImage :hestiaLineImageView.image]];
         }
         else {
             // キャンセル

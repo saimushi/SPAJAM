@@ -8,7 +8,7 @@
 #import "FamiliarListViewController.h"
 #import "FamiliarModel.h"
 #import "NodataCellView.h"
-#import "SampleCellView.h"
+#import "FamiliarCellView.h"
 #import "MActionsheetButtonView.h"
 #import <AVFoundation/AVFoundation.h>
 #import "FamiliarRegisterViewController.h"
@@ -170,7 +170,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0 < data.total) {
-        return 50;
+        return 64;
     }
     // デフォルトのEmpty表示用
     return tableView.height;
@@ -192,7 +192,7 @@
     cell.backgroundColor = [UIColor clearColor];
     if(0 < data.total){
         // SampleModelデータ表示用Viewをセット
-        [cell.contentView addSubview:[[SampleCellView alloc] initWithFrame:cellRect WithSampleModel:[data objectAtIndex:(int)indexPath.row]]];
+        [cell.contentView addSubview:[[FamiliarCellView alloc] initWithFrame:cellRect WithSampleModel:[data objectAtIndex:(int)indexPath.row]]];
     }
     else {
         // 0件表示用Viewをセット

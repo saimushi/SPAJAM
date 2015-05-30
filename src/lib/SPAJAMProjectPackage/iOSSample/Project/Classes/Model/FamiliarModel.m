@@ -17,4 +17,22 @@
     return self;
 }
 
+- (BOOL)list:(RequestCompletionHandler)argCompletionHandler;
+{
+    myResourcePrefix = @"";
+    completionHandler = argCompletionHandler;
+    return [self _load:listedResource :nil];
+}
+
+- (BOOL)list;
+{
+    myResourcePrefix = @"";
+    return [self _load:listedResource :nil];
+}
+
+-(void)loadWithId:(NSString *)_id;
+{
+    
+}
+
 @end
