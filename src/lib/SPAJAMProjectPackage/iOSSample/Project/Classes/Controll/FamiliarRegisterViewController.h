@@ -1,13 +1,18 @@
 //
-//  GodMyPageViewController.h
-//  Project
+//  FamiliarRegisterViewController.h
 //
-//  Created by inukai1 on 2015/05/30.
-//  Copyright (c) 2015年 shuhei_ohono. All rights reserved.
+//  Created by saimushi on 2014/09/19.
+//  Copyright (c) 2014年 saimushi. All rights reserved.
 //
 
 #import "common.h"
 
 @interface FamiliarRegisterViewController : UIViewControllerBase
+{
+    // Protected
+}
+
+// Public
+- (id)initWithImage:(UIImage *)argImage;
 
 @end

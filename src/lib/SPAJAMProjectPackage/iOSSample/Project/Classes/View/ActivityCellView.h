@@ -6,7 +6,7 @@
 //
 
 #import "common.h"
-#import "SampleModel.h"
+#import "ActivityModel.h"
 
 @interface ActivityCellView : UIView
 {
@@ -14,6 +14,6 @@
 }
 
 // Public
-- (id)initWithFrame:(CGRect)argFrame WithSampleModel:(SampleModel *)argSampleModel;
+- (id)initWithFrame:(CGRect)argFrame WithSampleModel:(ActivityModel *)argActivityModel;
 
 @end

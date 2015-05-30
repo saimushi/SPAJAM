@@ -10,7 +10,6 @@
 
 @interface MyPageView : UIView
 
-- (id)initWithFrame:(CGRect)argFrame WithDelegate:(id)delegate;
-
+- (id)initWithFrame:(CGRect)argFrame WithTopViewController:(TopViewController*)argTopViewController;
 
 @end

@@ -9,4 +9,6 @@
 
 @interface ActivityModel : ActivityModelBase
 
+- (BOOL)load:(RequestCompletionHandler)argCompletionHandler;
+
 @end

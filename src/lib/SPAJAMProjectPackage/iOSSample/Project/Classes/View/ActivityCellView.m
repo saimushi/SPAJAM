@@ -15,13 +15,13 @@
 
 @implementation ActivityCellView
 
-- (id)initWithFrame:(CGRect)argFrame WithSampleModel:(SampleModel *)argSampleModel;
+- (id)initWithFrame:(CGRect)argFrame WithSampleModel:(ActivityModel *)argActivityModel;
 {
     self = [super initWithFrame:argFrame];
     if (self) {
         // レコード名
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.width - 20, 15)];
-        nameLabel.text = argSampleModel.name;
+        nameLabel.text = argActivityModel.log;
         nameLabel.textColor = [UIColor grayColor];
         nameLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
         nameLabel.backgroundColor = [UIColor clearColor];
@@ -30,7 +30,7 @@
 
         // 日時
         UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width - 110, nameLabel.y + nameLabel.height + 5, 100, 10)];
-        dateLabel.text = argSampleModel.modified;
+        dateLabel.text = argActivityModel.modified;
         dateLabel.textColor = [UIColor lightGrayColor];
         dateLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:9];
         dateLabel.backgroundColor = [UIColor clearColor];
