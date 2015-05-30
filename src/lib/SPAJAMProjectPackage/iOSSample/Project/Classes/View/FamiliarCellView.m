@@ -21,16 +21,16 @@
     if (self) {
         
         UIImageView *familiaImageView = [[UIImageView alloc] initWithFrame:CGRectMake(11, 8, 46, 47)];
-//        [familiaImageView hnk_setImageFromURL:[NSURL URLWithString:self.argFamiliarModel.main_img_url] placeholderImage:blankImage success:^(UIImage *image) {
-//            //
-//            NSLog(@"succ");
-//            profileImageView.image = image;
-//        } failure:^(NSError *error) {
-//            //
-//            NSLog(@"err");
-//        }];
+        [familiaImageView hnk_setImageFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@/image/familiar%@.jpg", PROTOCOL, DOMAIN_NAME, URL_BASE, argFamiliarModel.ID]] placeholderImage:nil success:^(UIImage *image) {
+            //
+            NSLog(@"succ");
+            familiaImageView.image = image;
+        } failure:^(NSError *error) {
+            //
+            NSLog(@"err");
+        }];
+        [self addSubview:familiaImageView];
 
-        
         // レコード名
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 5, 187, 24)];
         nameLabel.text = [NSString stringWithFormat:@"%@・ファミリア", argFamiliarModel.name];

@@ -22,7 +22,7 @@
 #   define DEPROY_SETTING @"Local-Development Debug Run"
 #   define PROTOCOL @"http"
 #   define DOMAIN_NAME @"localhost"
-#   define URL_BASE @"/workspace/SPAJAM/src/lib/SPAJAMProjectPackage/apidocs/"
+#   define URL_BASE @"/workspace/SPAJAM/src/apidocs/"
 #  endif
 // XXX シミュレータ以外はエラー！
 
