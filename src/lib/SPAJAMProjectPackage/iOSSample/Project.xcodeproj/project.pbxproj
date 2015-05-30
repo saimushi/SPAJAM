@@ -20,6 +20,7 @@
 		4904EE8E19517CB100E9D264 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE8519517CB100E9D264 /* whiteArrow@2x.png */; };
 		4910A0771A1C723B006E6A19 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4910A0761A1C723B006E6A19 /* libsqlite3.0.dylib */; };
 		494A27051A1C4DEE004513F5 /* UIViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A27041A1C4DEE004513F5 /* UIViewControllerBase.m */; };
+		49AA3ABF1B1A25BC008F0C49 /* FamiliarRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AA3ABE1B1A25BC008F0C49 /* FamiliarRegisterView.m */; };
 		49ABF8071B1998BC007A18B7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49ABF8061B1998BC007A18B7 /* CoreLocation.framework */; };
 		49ABF80E1B19CC69007A18B7 /* FamiliarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8091B19CC69007A18B7 /* FamiliarListViewController.m */; };
 		49ABF80F1B19CC69007A18B7 /* FamiliarRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF80B1B19CC69007A18B7 /* FamiliarRegisterViewController.m */; };
@@ -139,6 +140,8 @@
 		4910A0761A1C723B006E6A19 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		494A27031A1C4DEE004513F5 /* UIViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewControllerBase.h; sourceTree = "<group>"; };
 		494A27041A1C4DEE004513F5 /* UIViewControllerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewControllerBase.m; sourceTree = "<group>"; };
+		49AA3ABD1B1A25BC008F0C49 /* FamiliarRegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamiliarRegisterView.h; sourceTree = "<group>"; };
+		49AA3ABE1B1A25BC008F0C49 /* FamiliarRegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamiliarRegisterView.m; sourceTree = "<group>"; };
 		49ABF8061B1998BC007A18B7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		49ABF8081B19CC69007A18B7 /* FamiliarListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamiliarListViewController.h; sourceTree = "<group>"; };
 		49ABF8091B19CC69007A18B7 /* FamiliarListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamiliarListViewController.m; sourceTree = "<group>"; };
@@ -645,6 +648,8 @@
 		D05240DB193D9DF80000A29B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49AA3ABD1B1A25BC008F0C49 /* FamiliarRegisterView.h */,
+				49AA3ABE1B1A25BC008F0C49 /* FamiliarRegisterView.m */,
 				2A0B63681B19D89C007BD2D0 /* MyPageView.h */,
 				2A0B63691B19D89C007BD2D0 /* MyPageView.m */,
 				49ABF8201B19D2D9007A18B7 /* FamiliarCellView.h */,
@@ -983,6 +988,7 @@
 				4F5029EC1B19CF390083FFB8 /* ActivityRegisterViewController.m in Sources */,
 				D00970551A16066E006B715F /* MAlertView.m in Sources */,
 				D00D91EC19E43AE60025E516 /* MProgress.m in Sources */,
+				49AA3ABF1B1A25BC008F0C49 /* FamiliarRegisterView.m in Sources */,
 				49ABF81C1B19D143007A18B7 /* ActivityModel.m in Sources */,
 				D045EA091B142B1600F130CF /* CustomAlert.m in Sources */,
 				D0437F6319FFB4CE004AE05E /* MPurchaseAgent.m in Sources */,

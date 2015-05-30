@@ -1,5 +1,5 @@
 //
-//  GodMyPageViewController.h
+//  GodMyPageView.h
 //  Project
 //
 //  Created by inukai1 on 2015/05/30.
@@ -8,6 +8,8 @@
 
 #import "common.h"
 
-@interface FamiliarRegisterViewController : UIViewControllerBase
+@interface FamiliarRegisterView : UIView
+
+- (id)initWithFrame:(CGRect)argFrame WithDelegate:(id)delegate;
 
 @end
