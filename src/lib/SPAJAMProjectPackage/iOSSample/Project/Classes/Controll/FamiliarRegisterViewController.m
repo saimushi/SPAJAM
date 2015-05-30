@@ -8,12 +8,14 @@
 #import "FamiliarRegisterViewController.h"
 #import "FamiliarRegisterView.h"
 #import "MCropImageView.h"
+#import "FamiliarModel.h"
 
 @interface FamiliarRegisterViewController ()
 {
     // Private
     FamiliarRegisterView *view;
     UIImage *hestiaImage;
+    UIImage *editedHestiaImage;
 }
 @end
 
@@ -53,7 +55,8 @@
     hestiaLineImageView.y = (APPDELEGATE.window.frame.size.height - hestiaLineImageView.height) / 2.0f;
     MCropImageView *cropImageView = [[MCropImageView alloc] initWithFrame:APPDELEGATE.window.frame :hestiaImage :320 :360 :YES :hestiaLineImageView :^(MCropImageView *mcropImageView, BOOL finished, UIImage *argImage) {
         if(YES == finished && nil != argImage && [argImage isKindOfClass:NSClassFromString(@"UIImage")]){
-            [familiarRegisterView.imageView setImage:[self addHimo:argImage :hestiaLineImageView.image]];
+            editedHestiaImage = [self addHimo:argImage :hestiaLineImageView.image];
+            [view.imageView setImage:editedHestiaImage];
         }
         else {
             // キャンセル
@@ -83,6 +86,9 @@
 - (void)addData
 {
     NSLog(@"add");
+    FamiliarModel *familiarModel = [[FamiliarModel alloc] init];
+    familiarModel.info = view.familiarInfoInputLabel.text;
+    familiarModel.name = view.familiarNameInputLabel.text;
 }
 
 - (UIImage *)addHimo:(UIImage *)argImageBack :(UIImage *)argImageFront
@@ -129,7 +135,7 @@
 {
     view.familiarInfoInputLabel.text = argText;
     
-    if (0 < view.familiarNameInputLabel.text.length && 0 < view.familiarNameInputLabel.text.length) {
+    if (0 < view.familiarInfoInputLabel.text.length && 0 < view.familiarInfoInputLabel.text.length) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 

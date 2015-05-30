@@ -18,16 +18,10 @@
 - (id)initWithFrame:(CGRect)argFrame WithDelegate:(id)delegate;
 {
     self = [super initWithFrame:argFrame];
-    imageView = [[UIImageView alloc] init];
-    imageView.width = 320;
-    imageView.height = 360;
-    imageView.x = (self.width - imageView.width) / 2.0f;
-    imageView.y = 55;
-    [self addSubview:imageView];
-    
+
     //神様のイメージ
-    UIImageView *godImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 20, 240, 270)];
-    [self addSubview:godImageView];
+    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 20, 240, 270)];
+    [self addSubview:imageView];
     
     //ファミリア名
     UILabel *familiarName = [[UILabel alloc]initWithFrame:CGRectMake(40, 305, 240, 24)];
@@ -74,6 +68,14 @@
     familiarInfoInputLabel.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     [self addSubview:familiarInfoInputLabel];
     return self;
+}
+
+/* dummy */
+- (void)nameInput:(id)sender{
+}
+
+/* dummy */
+- (void)infoInput:(id)sender{
 }
 
 @end
