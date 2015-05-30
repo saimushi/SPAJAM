@@ -11,6 +11,7 @@
     BOOL name_replaced;
     BOOL info_replaced;
     BOOL god_id_replaced;
+    BOOL familiar_count_replaced;
     BOOL created_replaced;
     BOOL modified_replaced;
     BOOL available_replaced;
@@ -20,6 +21,7 @@
 @synthesize name;
 @synthesize info;
 @synthesize god_id;
+@synthesize familiar_count;
 @synthesize created;
 @synthesize modified;
 @synthesize available;
@@ -43,6 +45,13 @@
 {
     god_id = argGod_id;
     god_id_replaced = YES;
+    replaced = YES;
+}
+
+-(void)setFamiliar_count:(NSString *)argFamiliar_count
+{
+    familiar_count = argFamiliar_count;
+    familiar_count_replaced = YES;
     replaced = YES;
 }
 
@@ -78,6 +87,7 @@
         name_replaced = NO;
         info_replaced = NO;
         god_id_replaced = NO;
+        familiar_count_replaced = NO;
         created_replaced = NO;
         modified_replaced = NO;
         available_replaced = NO;
@@ -99,6 +109,9 @@
         }
         if(YES == god_id_replaced){
             [saveParams setValue:self.god_id forKey:@"god_id"];
+        }
+        if(YES == familiar_count_replaced){
+            [saveParams setValue:self.familiar_count forKey:@"familiar_count"];
         }
         if(YES == created_replaced){
             [saveParams setValue:self.created forKey:@"created"];
@@ -123,6 +136,7 @@
     [newDic setObject:self.name forKey:@"name"];
     [newDic setObject:self.info forKey:@"info"];
     [newDic setObject:self.god_id forKey:@"god_id"];
+    [newDic setObject:self.familiar_count forKey:@"familiar_count"];
     [newDic setObject:self.created forKey:@"created"];
     [newDic setObject:self.modified forKey:@"modified"];
     [newDic setObject:self.available forKey:@"available"];
@@ -136,6 +150,7 @@
     self.name = [argDataDic objectForKey:@"name"];
     self.info = [argDataDic objectForKey:@"info"];
     self.god_id = [argDataDic objectForKey:@"god_id"];
+    self.familiar_count = [argDataDic objectForKey:@"familiar_count"];
     self.created = [argDataDic objectForKey:@"created"];
     self.modified = [argDataDic objectForKey:@"modified"];
     self.available = [argDataDic objectForKey:@"available"];
@@ -148,6 +163,7 @@
     name_replaced = NO;
     info_replaced = NO;
     god_id_replaced = NO;
+    familiar_count_replaced = NO;
     created_replaced = NO;
     modified_replaced = NO;
     available_replaced = NO;
