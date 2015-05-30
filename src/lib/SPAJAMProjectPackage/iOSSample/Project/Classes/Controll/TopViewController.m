@@ -212,7 +212,7 @@
  */
 - (void)dataListAddLoad
 {
-    [self activityDataLoad];
+    [self familiarDataLoad];
 }
 
 /**
@@ -300,7 +300,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
     // テーブルView Refresh
-    [self activityDataLoad];
+    [self familiarDataLoad];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
