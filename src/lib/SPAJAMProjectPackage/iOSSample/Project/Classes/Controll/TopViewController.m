@@ -43,7 +43,7 @@
     // TableView
     dataListView = [[UITableView alloc] init];
     // フレーム
-    dataListView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 64 - 5);
+    dataListView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.navigationController.navigationBar.frame.size.height - 5);
     dataListView.delegate = self;
     dataListView.dataSource = self;
     dataListView.backgroundColor = [UIColor clearColor];
