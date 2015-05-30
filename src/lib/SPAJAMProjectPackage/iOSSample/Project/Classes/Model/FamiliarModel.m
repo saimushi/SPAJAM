@@ -5,6 +5,7 @@
 //  Copyright (c) 2014年 saimushi. All rights reserved.
 //
 
+#import "common.h"
 #import "FamiliarModel.h"
 
 @implementation FamiliarModel

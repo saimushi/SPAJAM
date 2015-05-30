@@ -65,7 +65,7 @@
 {
     self = [super init:argProtocol :argDomain :argURLBase :argTokenKeyName];
     if(nil != self){
-        modelName = @"sample";
+        modelName = @"activity";
         name_replaced = NO;
         owner_id_replaced = NO;
         created_replaced = NO;
