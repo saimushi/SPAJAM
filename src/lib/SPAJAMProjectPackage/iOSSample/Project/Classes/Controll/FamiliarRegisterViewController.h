@@ -6,13 +6,13 @@
 //
 
 #import "common.h"
-#import "EGORefreshTableHeaderView.h"
 
-@interface FamiliarRegisterViewController : UIViewControllerBase <UITableViewDelegate, UITableViewDataSource, EGORefreshTableHeaderDelegate, UIScrollViewDelegate>
+@interface FamiliarRegisterViewController : UIViewControllerBase
 {
     // Protected
 }
 
 // Public
+- (id)initWithImage:(UIImage *)argImage;
 
 @end
