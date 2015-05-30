@@ -37,6 +37,8 @@
 		4F5029EC1B19CF390083FFB8 /* ActivityRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5029EB1B19CF390083FFB8 /* ActivityRegisterViewController.m */; };
 		4F5B311E1B19FBAC0011E9F6 /* FreewordInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B311D1B19FBAC0011E9F6 /* FreewordInputViewController.m */; };
 		4F5B31211B19FBB90011E9F6 /* FreewordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B31201B19FBB90011E9F6 /* FreewordInputView.m */; };
+		4F5B31331B1A231C0011E9F6 /* DeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B31301B1A231C0011E9F6 /* DeviceModel.m */; };
+		4F5B31341B1A231C0011E9F6 /* DeviceModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B31321B1A231C0011E9F6 /* DeviceModelBase.m */; };
 		AEFEEB831AB82F860086A37E /* NSString+numberFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = AEFEEB821AB82F860086A37E /* NSString+numberFormat.m */; };
 		D007EFB91951CD06004D4C3C /* AES.m in Sources */ = {isa = PBXBuildFile; fileRef = D007EFB81951CD06004D4C3C /* AES.m */; };
 		D00970551A16066E006B715F /* MAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D00970521A16066E006B715F /* MAlertView.m */; };
@@ -168,6 +170,10 @@
 		4F5B311D1B19FBAC0011E9F6 /* FreewordInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreewordInputViewController.m; sourceTree = "<group>"; };
 		4F5B311F1B19FBB90011E9F6 /* FreewordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreewordInputView.h; sourceTree = "<group>"; };
 		4F5B31201B19FBB90011E9F6 /* FreewordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreewordInputView.m; sourceTree = "<group>"; };
+		4F5B312F1B1A231C0011E9F6 /* DeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceModel.h; sourceTree = "<group>"; };
+		4F5B31301B1A231C0011E9F6 /* DeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModel.m; sourceTree = "<group>"; };
+		4F5B31311B1A231C0011E9F6 /* DeviceModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceModelBase.h; sourceTree = "<group>"; };
+		4F5B31321B1A231C0011E9F6 /* DeviceModelBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModelBase.m; sourceTree = "<group>"; };
 		AEFEEB811AB82F860086A37E /* NSString+numberFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+numberFormat.h"; sourceTree = "<group>"; };
 		AEFEEB821AB82F860086A37E /* NSString+numberFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+numberFormat.m"; sourceTree = "<group>"; };
 		D007EFB71951CD06004D4C3C /* AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES.h; sourceTree = "<group>"; };
@@ -622,6 +628,10 @@
 		D05240DA193D9DF80000A29B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4F5B312F1B1A231C0011E9F6 /* DeviceModel.h */,
+				4F5B31301B1A231C0011E9F6 /* DeviceModel.m */,
+				4F5B31311B1A231C0011E9F6 /* DeviceModelBase.h */,
+				4F5B31321B1A231C0011E9F6 /* DeviceModelBase.m */,
 				49ABF8141B19D143007A18B7 /* ActivityModel.h */,
 				49ABF8151B19D143007A18B7 /* ActivityModel.m */,
 				49ABF8161B19D143007A18B7 /* ActivityModelBase.h */,
@@ -959,6 +969,7 @@
 				D007EFB91951CD06004D4C3C /* AES.m in Sources */,
 				D00D91DF19E2A5410025E516 /* MActionsheetButtonView.m in Sources */,
 				D045EA051B14287500F130CF /* NodataCellView.m in Sources */,
+				4F5B31341B1A231C0011E9F6 /* DeviceModelBase.m in Sources */,
 				2A0B636A1B19D89C007BD2D0 /* MyPageView.m in Sources */,
 				D00D91E119E2A5410025E516 /* MActionsheetSelectPickerView.m in Sources */,
 				D07742991950A6DF006CCF07 /* ModelBase.m in Sources */,
@@ -994,6 +1005,7 @@
 				D045E9F51B13729F00F130CF /* SBJsonStreamWriterState.m in Sources */,
 				49ABF81D1B19D143007A18B7 /* ActivityModelBase.m in Sources */,
 				D05240D3193D9C2D0000A29B /* AppDelegate.m in Sources */,
+				4F5B31331B1A231C0011E9F6 /* DeviceModel.m in Sources */,
 				D05966081A1B342F001E9F33 /* MMessages.m in Sources */,
 				D07742AC19513B3D006CCF07 /* Crypto.m in Sources */,
 				D045E9F91B13729F00F130CF /* SBJsonAgent.m in Sources */,

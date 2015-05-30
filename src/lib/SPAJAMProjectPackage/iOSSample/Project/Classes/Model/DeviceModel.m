@@ -6,6 +6,7 @@
 //
 
 #import "DeviceModel.h"
+#import "define.h"
 
 @implementation DeviceModel
 
