@@ -9,4 +9,6 @@
 
 @interface FamiliarModel : FamiliarModelBase
 
+-(void)loadWithId:(NSString *)_id;
+
 @end
