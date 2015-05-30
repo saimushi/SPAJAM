@@ -6,7 +6,7 @@
 //
 
 #import "FamiliarListViewController.h"
-#import "SampleModel.h"
+#import "FamiliarModel.h"
 #import "NodataCellView.h"
 #import "SampleCellView.h"
 
@@ -16,7 +16,7 @@
     BOOL _loading;
     UITableView *dataListView;
     EGORefreshTableHeaderView *_refreshHeaderView;
-    SampleModel *data;
+    FamiliarModel *data;
 }
 @end
 
@@ -28,9 +28,9 @@
     if(self != nil){
         _loading = NO;
         // デフォルトのスクリーン名をセット
-        screenName = @"トップ";
+        screenName = @"ファミリア一覧";
         // モデルクラス初期化
-        data = [[SampleModel alloc] init];
+        data = [[FamiliarModel alloc] init];
     }
     return self;
 }

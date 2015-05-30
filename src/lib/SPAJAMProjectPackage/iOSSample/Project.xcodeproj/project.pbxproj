@@ -27,6 +27,7 @@
 		49ABF81D1B19D143007A18B7 /* ActivityModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8171B19D143007A18B7 /* ActivityModelBase.m */; };
 		49ABF81E1B19D143007A18B7 /* FamiliarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8191B19D143007A18B7 /* FamiliarModel.m */; };
 		49ABF81F1B19D143007A18B7 /* FamiliarModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF81B1B19D143007A18B7 /* FamiliarModelBase.m */; };
+		49ABF8221B19D2D9007A18B7 /* FamiliarCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8211B19D2D9007A18B7 /* FamiliarCellView.m */; };
 		49F65CD01A1A0C5200454A4C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F65CCF1A1A0C5200454A4C /* CoreData.framework */; };
 		49F65CD21A1A0C6C00454A4C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F65CD11A1A0C6C00454A4C /* SystemConfiguration.framework */; };
 		49F65CD41A1A0C9500454A4C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F65CD31A1A0C9500454A4C /* libz.dylib */; };
@@ -148,6 +149,8 @@
 		49ABF8191B19D143007A18B7 /* FamiliarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamiliarModel.m; sourceTree = "<group>"; };
 		49ABF81A1B19D143007A18B7 /* FamiliarModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamiliarModelBase.h; sourceTree = "<group>"; };
 		49ABF81B1B19D143007A18B7 /* FamiliarModelBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamiliarModelBase.m; sourceTree = "<group>"; };
+		49ABF8201B19D2D9007A18B7 /* FamiliarCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamiliarCellView.h; sourceTree = "<group>"; };
+		49ABF8211B19D2D9007A18B7 /* FamiliarCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamiliarCellView.m; sourceTree = "<group>"; };
 		49F65CCF1A1A0C5200454A4C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		49F65CD11A1A0C6C00454A4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		49F65CD31A1A0C9500454A4C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -625,6 +628,8 @@
 		D05240DB193D9DF80000A29B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49ABF8201B19D2D9007A18B7 /* FamiliarCellView.h */,
+				49ABF8211B19D2D9007A18B7 /* FamiliarCellView.m */,
 				49ABF8111B19CD24007A18B7 /* GodMyPageView.h */,
 				49ABF8121B19CD24007A18B7 /* GodMyPageView.m */,
 				D05405AD19ECFBB100CEB226 /* SampleCellView.h */,
@@ -940,6 +945,7 @@
 				D00D91E019E2A5410025E516 /* MActionsheetDatePickerView.m in Sources */,
 				D02DC9D61945B97500963A90 /* UIDevice+platformName.m in Sources */,
 				D02DC9D31945B97500963A90 /* NSString+bin2hex.m in Sources */,
+				49ABF8221B19D2D9007A18B7 /* FamiliarCellView.m in Sources */,
 				D045E9EF1B13729F00F130CF /* SBJsonStreamParser.m in Sources */,
 				4904EE8619517CB100E9D264 /* EGORefreshTableHeaderView.m in Sources */,
 				D045E9C81B131A4A00F130CF /* ProjectModelBase.m in Sources */,
