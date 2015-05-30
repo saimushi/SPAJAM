@@ -9,6 +9,7 @@
 #import "SampleModel.h"
 #import "NodataCellView.h"
 #import "SampleCellView.h"
+#import "FamiliarListViewController.h"
 
 @interface TopViewController ()
 {
@@ -58,6 +59,13 @@
     [dataListView addSubview:_refreshHeaderView];
     
     [self.view addSubview:dataListView];
+    
+    UIButton *famillia = [[UIButton alloc]initWithFrame:CGRectMake(10, APPDELEGATE.window.height-40, 60, 120)];
+    famillia.backgroundColor = [UIColor blackColor];
+    famillia.titleLabel.text = @"ファミリア一覧へ";
+    [famillia addTarget:self action:@selector(famillia:)
+       forControlEvents:UIControlEventTouchDown];
+    [ APPDELEGATE.window addSubview:famillia];
 }
 
 - (void)viewDidLoad
@@ -194,6 +202,11 @@
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
 	return [NSDate date]; // should return date data source was last changed
+}
+
+-(void)famillia:(UIButton*)button{
+    UINavigationController *familiarListViewController = [[UINavigationController alloc] initWithRootViewController:[[FamiliarListViewController alloc] init]];
+    [self presentViewController:familiarListViewController animated:YES completion:nil];
 }
 
 @end
