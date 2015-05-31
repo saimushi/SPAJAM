@@ -332,9 +332,7 @@
     switch (state) {
         case CLRegionStateInside:
             if([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]){
-                NSLog(@"Enter %@",region.identifier);
-                //Beacon の範囲内に入った時に行う処理を記述する
-                NSLog(@"Already Entering");
+                [self.locationManager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
             }
             break;
             
@@ -350,16 +348,16 @@
 {
     if (beacons.count > 0) {
         self.nearestBeacon = beacons.firstObject;
-//        if(self.nearestBeacon.accuracy < 3.0f && isLVUPOK){
+        if(self.nearestBeacon.accuracy < 2.0f && isLVUPOK){
             //レベルアップ
-//            isLVUPOK = NO;
+            isLVUPOK = NO;
             [CustomAlert alertShow:@"レベルアップチャンス！" message:@"神様が通りかかりました！\nレベルアップしましょう！" buttonCenter:@"レベルアップ！" completionHandler:^(BOOL ok) {
                 [self performSelectorOnMainThread:@selector(showLevelUpView) withObject:nil waitUntilDone:NO];
             }];
-//            return;
-//        }else if(self.nearestBeacon.accuracy > 5.0f){
-//            isLVUPOK = YES;
-//        }
+            return;
+        }else if(self.nearestBeacon.accuracy > 4.0f){
+            isLVUPOK = YES;
+        }
     }else{
         isLVUPOK = YES;
     }
