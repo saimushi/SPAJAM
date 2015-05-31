@@ -51,7 +51,7 @@
     [super viewDidLoad];
     // 画像がプレビューできるように計算
     UIImageView *hestiaLineImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hestia_line"]];
-    hestiaLineImageView.width = 250;
+    hestiaLineImageView.width = 320;
     hestiaLineImageView.x = (APPDELEGATE.window.frame.size.width - hestiaLineImageView.width) / 2.0f;
     hestiaLineImageView.y = (APPDELEGATE.window.frame.size.height - hestiaLineImageView.height) / 2.0f;
     MCropImageView *cropImageView = [[MCropImageView alloc] initWithFrame:APPDELEGATE.window.frame :hestiaImage :320 :360 :YES :hestiaLineImageView :^(MCropImageView *mcropImageView, BOOL finished, UIImage *argImage) {
@@ -128,7 +128,8 @@
     
     // 塗りつぶす領域を決める
     [argImageBack drawInRect:CGRectMake(0, 0, 320, 360)];
-    [argImageFront drawInRect:CGRectMake((320 - 250)/2.0f, (360 - argImageFront.size.height * (250.0f/320.0f)) / 2.0f, 250, argImageFront.size.height * (250.0f/320.0f))];
+    [argImageFront drawInRect:CGRectMake(0, 0, 320, 360)];
+    //[argImageFront drawInRect:CGRectMake((320 - 250)/2.0f, (360 - argImageFront.size.height * (250.0f/320.0f)) / 2.0f, 250, argImageFront.size.height * (250.0f/320.0f))];
     
     // 現在のグラフィックスコンテキストの画像を取得する
     image = UIGraphicsGetImageFromCurrentImageContext();
