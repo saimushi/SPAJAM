@@ -30,9 +30,9 @@
     [super loadView];
 }
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewDidAppear:animated];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
     imageView.image = [UIImage imageNamed:@"vlcsnap-28.png"];
@@ -50,7 +50,7 @@
     imageView.animationImages = imageList;
     
     // アニメーションの速度
-    imageView.animationDuration = 2.5;
+    imageView.animationDuration = 10;
     
     // アニメーションのリピート回数
     imageView.animationRepeatCount = 1;
@@ -73,11 +73,6 @@
     [self dismissViewControllerAnimated:NO completion:^{
         // XXX ビーコンの待機状態とか変える？？
     }];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
