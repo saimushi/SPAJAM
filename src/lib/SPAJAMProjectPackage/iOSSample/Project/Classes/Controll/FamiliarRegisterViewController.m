@@ -110,9 +110,11 @@
     [userModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
         if (success) {
             // 成功したらファミリア一覧に戻る
+            [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
             APPDELEGATE.familiarID = argFamiliarID;
             [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", view.familiarNameTextView.text]];
             [self.navigationController popViewControllerAnimated:YES];
+            [(TopViewController*)APPDELEGATE.topViewController reloadFamiliarData];
         }
     }];
 }

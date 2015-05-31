@@ -49,6 +49,11 @@
     return self;
 }
 
+-(void)setUserModel:(id)argUserModel;
+{
+    userModel = argUserModel;
+}
+
 - (void)loadView
 {
     [super loadView];
