@@ -15,6 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    isLVUPOK = YES;
     // 実行環境のダンプ
 #ifdef DEPROY_SETTING
     NSLog(@"DEPROY_SETTING=%@", DEPROY_SETTING);
@@ -343,13 +344,15 @@
 {
     if (beacons.count > 0) {
         self.nearestBeacon = beacons.firstObject;
-        NSString *str = [[NSString alloc] initWithFormat:@"%f [m]", self.nearestBeacon.accuracy];
-        if(self.nearestBeacon.accuracy < 5.0f){
-            //一旦5mいないに入ったらLog出力
-            NSLog(@"5m以内にはいりました");
+        if(self.nearestBeacon.accuracy < 3.0f && isLVUPOK){
+            //レベルアップ
+            isLVUPOK = NO;
+            LevelUpViewController *controller = [[LevelUpViewController alloc]init];
+            controller.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self.topViewController presentViewController:controller animated:NO completion:nil];
+        }else if(self.nearestBeacon.accuracy > 5.0f){
+            isLVUPOK = YES;
         }
-        
-        NSLog(@"%@", str);
     }
 }
 

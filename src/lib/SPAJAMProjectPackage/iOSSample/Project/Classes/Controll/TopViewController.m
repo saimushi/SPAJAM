@@ -204,7 +204,7 @@
     }else{
         // 配列参照
         NSMutableDictionary *param = [[NSMutableDictionary alloc]init];
-        [param setValue:APPDELEGATE.ownerID forKey:@"user_id"];
+        [param setValue:APPDELEGATE.familiarID forKey:@"familiar_id"];
         [activityData query:param:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
             if(YES == success){
                 // 正常終了時 テーブルView Refresh

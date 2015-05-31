@@ -13,6 +13,7 @@
     UIViewControllerBase *topViewController;
     NSString *ownerID;
     NSString *familiarID;
+    BOOL isLVUPOK;
 }
 
 @property (strong, nonatomic) UIWindow *window;
