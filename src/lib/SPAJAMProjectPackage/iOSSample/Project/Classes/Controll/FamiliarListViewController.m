@@ -266,6 +266,7 @@
                 if (success) {
                     [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", argFamiliar.name]];
                     // TOPへ戻す！
+                    [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
                     [self.navigationController popToRootViewControllerAnimated:YES];
                     [(TopViewController*)APPDELEGATE.topViewController reloadFamiliarData];
                 }

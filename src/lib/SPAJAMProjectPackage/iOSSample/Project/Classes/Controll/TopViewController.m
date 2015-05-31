@@ -49,6 +49,11 @@
     return self;
 }
 
+-(void)setUserModel:(id)argUserModel;
+{
+    userModel = argUserModel;
+}
+
 - (void)loadView
 {
     [super loadView];
@@ -158,8 +163,10 @@
                 //姫モード凸
                 if([familiarData.god_id isEqualToString:APPDELEGATE.ownerID]){
                     isGod = YES;
+                    [self performSelectorOnMainThread:@selector(initBeacon) withObject:nil waitUntilDone:YES];
                     myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithTopViewController:self :isGod];
                     [dataListView setTableHeaderView:myPageView];
+                    dataListView.allowsSelection = YES;
                     // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
                 }else{
                     isGod = NO;
@@ -349,6 +356,14 @@
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
     
+}
+
+-(void)initBeacon
+{
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
+                                                                     queue:dispatch_get_main_queue()];
+    
+    [self beaconing];
 }
 
 - (void)beaconing
