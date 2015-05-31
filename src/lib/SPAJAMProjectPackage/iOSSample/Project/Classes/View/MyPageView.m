@@ -31,29 +31,29 @@
         [self addSubview:imageView];
         
         if(!isGod){
-            UIImage  *familliaImage = [UIImage imageNamed:@"b_familia_list"];
-            UIButton *famillia = [UIButton buttonWithType:UIButtonTypeCustom];
-            [famillia setBackgroundImage:familliaImage forState:UIControlStateNormal];
-            famillia.width = familliaImage.size.width;
-            famillia.height = familliaImage.size.height;
-            famillia.x = 30;
-            famillia.y = imageView.y+imageView.height + 2;
-            famillia.backgroundColor = [UIColor clearColor];
-            [famillia addTarget:argTopViewController action:@selector(onTapFamiliarListButton:)
-               forControlEvents:UIControlEventTouchDown];
-            [self addSubview:famillia];
-            
             UIImage  *activityImage = [UIImage imageNamed:@"b_monster"];
             UIButton *activity = [UIButton buttonWithType:UIButtonTypeCustom];
             [activity setBackgroundImage:activityImage forState:UIControlStateNormal];
             activity.width = activityImage.size.width;
             activity.height = activityImage.size.height;
             activity.x = 30;
-            activity.y = famillia.y + famillia.height + 2;
+            activity.y = imageView.y + imageView.height + 2;
             activity.backgroundColor = [UIColor clearColor];
             [activity addTarget:argTopViewController action:@selector(onTapActivityRegisterButton:)
                forControlEvents:UIControlEventTouchDown];
             [self addSubview:activity];
+
+            UIImage  *familliaImage = [UIImage imageNamed:@"b_familia_list"];
+            UIButton *famillia = [UIButton buttonWithType:UIButtonTypeCustom];
+            [famillia setBackgroundImage:familliaImage forState:UIControlStateNormal];
+            famillia.width = familliaImage.size.width;
+            famillia.height = familliaImage.size.height;
+            famillia.x = 30;
+            famillia.y = activity.y+activity.height + 2;
+            famillia.backgroundColor = [UIColor clearColor];
+            [famillia addTarget:argTopViewController action:@selector(onTapFamiliarListButton:)
+               forControlEvents:UIControlEventTouchDown];
+            [self addSubview:famillia];
         }
         
     }

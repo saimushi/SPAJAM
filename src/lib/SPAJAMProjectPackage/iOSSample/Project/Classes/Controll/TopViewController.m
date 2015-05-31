@@ -49,6 +49,11 @@
     return self;
 }
 
+-(void)setUserModel:(id)argUserModel;
+{
+    userModel = argUserModel;
+}
+
 - (void)loadView
 {
     [super loadView];
@@ -197,6 +202,10 @@
             if(YES == success){
                 // 正常終了時 テーブルView Refresh
                 [dataListView reloadData];
+                if (36 == [familiarData.god_bconudid length]){
+                    APPDELEGATE.beconUDID = familiarData.god_bconudid;
+                    [APPDELEGATE performSelectorOnMainThread:@selector(resignBecon) withObject:nil waitUntilDone:NO];
+                }
             }
             // Pull to Refleshを止める
             _loading = NO;

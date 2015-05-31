@@ -262,9 +262,11 @@
             argFamiliar.familiar_count = [NSString stringWithFormat:@"%d", ([argFamiliar.familiar_count intValue] + 1)];
             [argFamiliar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
                 if (success) {
+                    [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
                     [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", argFamiliar.name]];
-                    // データリロード
-                    [self dataListLoad];
+                    // マイページ
+                    [self.navigationController popViewControllerAnimated:YES];
+                    [(TopViewController*)APPDELEGATE.topViewController viewDidLoad];
                 }
             }];
         }
