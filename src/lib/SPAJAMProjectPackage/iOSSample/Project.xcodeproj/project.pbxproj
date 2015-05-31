@@ -28,8 +28,6 @@
 		49ABF8071B1998BC007A18B7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49ABF8061B1998BC007A18B7 /* CoreLocation.framework */; };
 		49ABF80E1B19CC69007A18B7 /* FamiliarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8091B19CC69007A18B7 /* FamiliarListViewController.m */; };
 		49ABF80F1B19CC69007A18B7 /* FamiliarRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF80B1B19CC69007A18B7 /* FamiliarRegisterViewController.m */; };
-		49ABF8101B19CC69007A18B7 /* GodMyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF80D1B19CC69007A18B7 /* GodMyPageViewController.m */; };
-		49ABF8131B19CD24007A18B7 /* GodMyPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8121B19CD24007A18B7 /* GodMyPageView.m */; };
 		49ABF81C1B19D143007A18B7 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8151B19D143007A18B7 /* ActivityModel.m */; };
 		49ABF81D1B19D143007A18B7 /* ActivityModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8171B19D143007A18B7 /* ActivityModelBase.m */; };
 		49ABF81E1B19D143007A18B7 /* FamiliarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABF8191B19D143007A18B7 /* FamiliarModel.m */; };
@@ -205,10 +203,6 @@
 		49ABF8091B19CC69007A18B7 /* FamiliarListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamiliarListViewController.m; sourceTree = "<group>"; };
 		49ABF80A1B19CC69007A18B7 /* FamiliarRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamiliarRegisterViewController.h; sourceTree = "<group>"; };
 		49ABF80B1B19CC69007A18B7 /* FamiliarRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamiliarRegisterViewController.m; sourceTree = "<group>"; };
-		49ABF80C1B19CC69007A18B7 /* GodMyPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GodMyPageViewController.h; sourceTree = "<group>"; };
-		49ABF80D1B19CC69007A18B7 /* GodMyPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GodMyPageViewController.m; sourceTree = "<group>"; };
-		49ABF8111B19CD24007A18B7 /* GodMyPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GodMyPageView.h; sourceTree = "<group>"; };
-		49ABF8121B19CD24007A18B7 /* GodMyPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GodMyPageView.m; sourceTree = "<group>"; };
 		49ABF8141B19D143007A18B7 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		49ABF8151B19D143007A18B7 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
 		49ABF8161B19D143007A18B7 /* ActivityModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModelBase.h; sourceTree = "<group>"; };
@@ -817,8 +811,6 @@
 				2A0B63691B19D89C007BD2D0 /* MyPageView.m */,
 				49ABF8201B19D2D9007A18B7 /* FamiliarCellView.h */,
 				49ABF8211B19D2D9007A18B7 /* FamiliarCellView.m */,
-				49ABF8111B19CD24007A18B7 /* GodMyPageView.h */,
-				49ABF8121B19CD24007A18B7 /* GodMyPageView.m */,
 				D05405AD19ECFBB100CEB226 /* SampleCellView.h */,
 				D05405AE19ECFBB100CEB226 /* SampleCellView.m */,
 				D045EA031B14287500F130CF /* NodataCellView.h */,
@@ -836,8 +828,6 @@
 				49ABF8091B19CC69007A18B7 /* FamiliarListViewController.m */,
 				49ABF80A1B19CC69007A18B7 /* FamiliarRegisterViewController.h */,
 				49ABF80B1B19CC69007A18B7 /* FamiliarRegisterViewController.m */,
-				49ABF80C1B19CC69007A18B7 /* GodMyPageViewController.h */,
-				49ABF80D1B19CC69007A18B7 /* GodMyPageViewController.m */,
 				494A27031A1C4DEE004513F5 /* UIViewControllerBase.h */,
 				494A27041A1C4DEE004513F5 /* UIViewControllerBase.m */,
 				D04B56D019CC34D700AABB88 /* TopViewController.h */,
@@ -1160,7 +1150,6 @@
 				D045E9EE1B13729F00F130CF /* SBJsonParser.m in Sources */,
 				AEFEEB831AB82F860086A37E /* NSString+numberFormat.m in Sources */,
 				D045E9F71B13729F00F130CF /* SBJsonUTF8Stream.m in Sources */,
-				49ABF8101B19CC69007A18B7 /* GodMyPageViewController.m in Sources */,
 				D045E9F41B13729F00F130CF /* SBJsonStreamWriterAccumulator.m in Sources */,
 				D00D91F619E4C70A0025E516 /* MEditImageView.m in Sources */,
 				D045E9F11B13729F00F130CF /* SBJsonStreamParserAdapter.m in Sources */,
@@ -1196,7 +1185,6 @@
 				D045E9EF1B13729F00F130CF /* SBJsonStreamParser.m in Sources */,
 				4904EE8619517CB100E9D264 /* EGORefreshTableHeaderView.m in Sources */,
 				D045E9C81B131A4A00F130CF /* ProjectModelBase.m in Sources */,
-				49ABF8131B19CD24007A18B7 /* GodMyPageView.m in Sources */,
 				D0437F6219FFB4CE004AE05E /* MProductAgent.m in Sources */,
 				4F5029EC1B19CF390083FFB8 /* ActivityRegisterViewController.m in Sources */,
 				D00970551A16066E006B715F /* MAlertView.m in Sources */,

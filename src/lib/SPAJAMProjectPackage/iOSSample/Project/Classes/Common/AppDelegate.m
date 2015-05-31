@@ -48,7 +48,7 @@
     UIImage *backgroundImage = [UIImage imageNamed:@"bg_header.png"];
     [topNavigationController.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
     [topNavigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :RGBA(230, 197, 107, 1)}];
-    //topNavigationController.navigationBar.barStyle = UIBarStyleBlack;
+    topNavigationController.navigationBar.barStyle = UIBarStyleBlack;
 
     // Windowを表示
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -353,9 +353,9 @@
         if(self.nearestBeacon.accuracy < 3.0f && isLVUPOK){
             //レベルアップ
             isLVUPOK = NO;
-            LevelUpViewController *controller = [[LevelUpViewController alloc]init];
-            controller.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-            [self.topViewController presentViewController:controller animated:NO completion:nil];
+            [CustomAlert alertShow:@"レベルアップチャンス！" message:@"神様が通りかかりました！\nレベルアップしましょう！" buttonCenter:@"レベルアップ！" completionHandler:^(BOOL ok) {
+                [self performSelectorOnMainThread:@selector(showLevelUpView) withObject:nil waitUntilDone:NO];
+            }];
             return;
         }else if(self.nearestBeacon.accuracy > 5.0f){
             isLVUPOK = YES;
@@ -363,6 +363,12 @@
     }
 }
 
+- (void)showLevelUpView
+{
+    LevelUpViewController *controller = [[LevelUpViewController alloc]init];
+    controller.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self.topViewController presentViewController:controller animated:NO completion:nil];
+}
 
 
 @end
