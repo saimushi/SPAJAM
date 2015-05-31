@@ -49,6 +49,11 @@
     return self;
 }
 
+-(void)setUserModel:(id)argUserModel;
+{
+    userModel = argUserModel;
+}
+
 - (void)loadView
 {
     [super loadView];
@@ -84,7 +89,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
+                                                                     queue:dispatch_get_main_queue()];
     // ユーザーをセットする
     DeviceModel *mydevice = [[DeviceModel alloc] init];
     [mydevice load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
@@ -158,8 +164,10 @@
                 //姫モード凸
                 if([familiarData.god_id isEqualToString:APPDELEGATE.ownerID]){
                     isGod = YES;
+                    [self performSelectorOnMainThread:@selector(beaconing) withObject:nil waitUntilDone:YES];
                     myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithTopViewController:self :isGod];
                     [dataListView setTableHeaderView:myPageView];
+                    dataListView.allowsSelection = YES;
                     // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
                 }else{
                     isGod = NO;
@@ -195,6 +203,10 @@
             if(YES == success){
                 // 正常終了時 テーブルView Refresh
                 [dataListView reloadData];
+                if (36 == [familiarData.god_bconudid length]){
+                    APPDELEGATE.beconUDID = familiarData.god_bconudid;
+                    [APPDELEGATE performSelectorOnMainThread:@selector(resignBecon) withObject:nil waitUntilDone:NO];
+                }
             }
             // Pull to Refleshを止める
             _loading = NO;
@@ -204,7 +216,7 @@
     }else{
         // 配列参照
         NSMutableDictionary *param = [[NSMutableDictionary alloc]init];
-        [param setValue:APPDELEGATE.ownerID forKey:@"user_id"];
+        [param setValue:APPDELEGATE.familiarID forKey:@"familiar_id"];
         [activityData query:param:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
             if(YES == success){
                 // 正常終了時 テーブルView Refresh
@@ -357,10 +369,9 @@
                                                                      minor:1
                                                                 identifier:[uuid UUIDString]];
     
-    NSDictionary* peripheralData = [region peripheralDataWithMeasuredPower:nil];//Default
-    
+    NSDictionary* peripheralData = [region peripheralDataWithMeasuredPower:nil];
+    //Default
     [self.peripheralManager startAdvertising:peripheralData];
 }
-
 
 @end

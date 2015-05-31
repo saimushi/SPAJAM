@@ -11,6 +11,8 @@
     BOOL name_replaced;
     BOOL info_replaced;
     BOOL god_id_replaced;
+    BOOL god_bconudid_replaced;
+    BOOL image_replaced;
     BOOL familiar_count_replaced;
     BOOL created_replaced;
     BOOL modified_replaced;
@@ -21,6 +23,8 @@
 @synthesize name;
 @synthesize info;
 @synthesize god_id;
+@synthesize god_bconudid;
+@synthesize image;
 @synthesize familiar_count;
 @synthesize created;
 @synthesize modified;
@@ -45,6 +49,20 @@
 {
     god_id = argGod_id;
     god_id_replaced = YES;
+    replaced = YES;
+}
+
+-(void)setGod_bconudid:(NSString *)argGod_bconudid
+{
+    god_bconudid = argGod_bconudid;
+    god_bconudid_replaced = YES;
+    replaced = YES;
+}
+
+-(void)setImage:(NSString *)argImage
+{
+    image = argImage;
+    image_replaced = YES;
     replaced = YES;
 }
 
@@ -87,6 +105,8 @@
         name_replaced = NO;
         info_replaced = NO;
         god_id_replaced = NO;
+        god_bconudid_replaced = NO;
+        image_replaced = NO;
         familiar_count_replaced = NO;
         created_replaced = NO;
         modified_replaced = NO;
@@ -109,6 +129,12 @@
         }
         if(YES == god_id_replaced){
             [saveParams setValue:self.god_id forKey:@"god_id"];
+        }
+        if(YES == god_bconudid_replaced){
+            [saveParams setValue:self.god_bconudid forKey:@"god_bconudid"];
+        }
+        if(YES == image_replaced){
+            [saveParams setValue:self.image forKey:@"image"];
         }
         if(YES == familiar_count_replaced){
             [saveParams setValue:self.familiar_count forKey:@"familiar_count"];
@@ -136,6 +162,8 @@
     [newDic setObject:self.name forKey:@"name"];
     [newDic setObject:self.info forKey:@"info"];
     [newDic setObject:self.god_id forKey:@"god_id"];
+    [newDic setObject:self.god_bconudid forKey:@"god_bconudid"];
+    [newDic setObject:self.image forKey:@"image"];
     [newDic setObject:self.familiar_count forKey:@"familiar_count"];
     [newDic setObject:self.created forKey:@"created"];
     [newDic setObject:self.modified forKey:@"modified"];
@@ -150,6 +178,8 @@
     self.name = [argDataDic objectForKey:@"name"];
     self.info = [argDataDic objectForKey:@"info"];
     self.god_id = [argDataDic objectForKey:@"god_id"];
+    self.god_bconudid = [argDataDic objectForKey:@"god_bconudid"];
+    self.image = [argDataDic objectForKey:@"image"];
     self.familiar_count = [argDataDic objectForKey:@"familiar_count"];
     self.created = [argDataDic objectForKey:@"created"];
     self.modified = [argDataDic objectForKey:@"modified"];
@@ -163,6 +193,8 @@
     name_replaced = NO;
     info_replaced = NO;
     god_id_replaced = NO;
+    god_bconudid_replaced = NO;
+    image_replaced = NO;
     familiar_count_replaced = NO;
     created_replaced = NO;
     modified_replaced = NO;

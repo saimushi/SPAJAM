@@ -12,9 +12,11 @@
 @synthesize topViewController;
 @synthesize ownerID;
 @synthesize familiarID;
+@synthesize beconUDID;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    isLVUPOK = YES;
     // 実行環境のダンプ
 #ifdef DEPROY_SETTING
     NSLog(@"DEPROY_SETTING=%@", DEPROY_SETTING);
@@ -54,26 +56,6 @@
     [self.window setRootViewController:topNavigationController];
     [self.window makeKeyAndVisible];
     
-    if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        
-        self.proximityUUID = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
-        self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID: self.proximityUUID
-                                                               identifier:@"net.otkr.shokumachi"];
-        
-        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-            // requestAlwaysAuthorizationメソッドが利用できる場合(iOS8以上の場合)
-            // 位置情報の取得許可を求めるメソッド
-            [self.locationManager requestAlwaysAuthorization];
-        } else {
-            // requestAlwaysAuthorizationメソッドが利用できない場合(iOS8未満の場合)
-            [self.locationManager startMonitoringForRegion: self.beaconRegion];
-        }
-    } else {
-        // iBeaconが利用できない端末の場合
-        NSLog(@"iBeaconを利用できません。");
-    }
     return YES;
 }
 
@@ -278,6 +260,31 @@
     [MStatusbarProgress show:progressAgent.totalSentBytes :progressAgent.totalBytes];
 }
 
+
+#pragma mark - CLLocationManagerDelegate methods
+
+- (void)resignBecon;
+{
+    // 姫のビーコンUDIDがあるなら、ビーコンをスタートさせる！
+    if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:self.beconUDID] identifier:@"net.otkr.shokumachi"];
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            // requestAlwaysAuthorizationメソッドが利用できる場合(iOS8以上の場合)
+            // 位置情報の取得許可を求めるメソッド
+            [self.locationManager requestAlwaysAuthorization];
+        } else {
+            // requestAlwaysAuthorizationメソッドが利用できない場合(iOS8未満の場合)
+            [self.locationManager startMonitoringForRegion: self.beaconRegion];
+        }
+    } else {
+        // iBeaconが利用できない端末の場合
+        NSLog(@"iBeaconを利用できません。");
+    }
+}
+
+
 #pragma mark - CLLocationManagerDelegate methods
 
 // ユーザの位置情報の許可状態を確認するメソッド
@@ -343,13 +350,16 @@
 {
     if (beacons.count > 0) {
         self.nearestBeacon = beacons.firstObject;
-        NSString *str = [[NSString alloc] initWithFormat:@"%f [m]", self.nearestBeacon.accuracy];
-        if(self.nearestBeacon.accuracy < 5.0f){
-            //一旦5mいないに入ったらLog出力
-            NSLog(@"5m以内にはいりました");
+        if(self.nearestBeacon.accuracy < 2.0f && isLVUPOK){
+            //レベルアップ
+            isLVUPOK = NO;
+            LevelUpViewController *controller = [[LevelUpViewController alloc]init];
+            controller.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self.topViewController presentViewController:controller animated:NO completion:nil];
+            return;
+        }else if(self.nearestBeacon.accuracy > 7.0f){
+            isLVUPOK = YES;
         }
-        
-        NSLog(@"%@", str);
     }
 }
 
