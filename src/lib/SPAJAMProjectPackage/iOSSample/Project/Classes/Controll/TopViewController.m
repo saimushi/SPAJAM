@@ -89,7 +89,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
+                                                                     queue:dispatch_get_main_queue()];
     // ユーザーをセットする
     DeviceModel *mydevice = [[DeviceModel alloc] init];
     [mydevice load:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
@@ -163,7 +164,7 @@
                 //姫モード凸
                 if([familiarData.god_id isEqualToString:APPDELEGATE.ownerID]){
                     isGod = YES;
-                    [self performSelectorOnMainThread:@selector(initBeacon) withObject:nil waitUntilDone:YES];
+                    [self performSelectorOnMainThread:@selector(beaconing) withObject:nil waitUntilDone:YES];
                     myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 360) WithTopViewController:self :isGod];
                     [dataListView setTableHeaderView:myPageView];
                     dataListView.allowsSelection = YES;
@@ -356,14 +357,6 @@
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
     
-}
-
--(void)initBeacon
-{
-    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
-                                                                     queue:dispatch_get_main_queue()];
-    
-    [self beaconing];
 }
 
 - (void)beaconing
