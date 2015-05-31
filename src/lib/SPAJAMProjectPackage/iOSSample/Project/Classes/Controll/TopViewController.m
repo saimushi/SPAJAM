@@ -364,10 +364,7 @@
     NSLog(@"start becoing");
     //ビーコン情報を設定
     NSUUID* uuid = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
-    CLBeaconRegion* region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
-                                                                     major:1
-                                                                     minor:1
-                                                                identifier:[uuid UUIDString]];
+    CLBeaconRegion* region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:[uuid UUIDString]];
     
     NSDictionary* peripheralData = [region peripheralDataWithMeasuredPower:nil];
     //Default

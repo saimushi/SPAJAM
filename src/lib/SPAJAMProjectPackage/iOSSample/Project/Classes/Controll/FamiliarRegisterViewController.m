@@ -87,6 +87,7 @@
 - (void)addData
 {
     NSLog(@"add");
+    [APPDELEGATE showLoading];
     FamiliarModel *familiarModel = [[FamiliarModel alloc] init];
     familiarModel.info = view.familiarInfoTextView.text;
     familiarModel.name = view.familiarNameTextView.text;
@@ -108,12 +109,13 @@
     UserModel *userModel = [[UserModel alloc] init];
     userModel.familiar_id = argFamiliarID;
     [userModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+        [APPDELEGATE hideLoading];
         if (success) {
             // 成功したらファミリア一覧に戻る
-            [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
             APPDELEGATE.familiarID = argFamiliarID;
+            [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
             [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", view.familiarNameTextView.text]];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
             [(TopViewController*)APPDELEGATE.topViewController reloadFamiliarData];
         }
     }];

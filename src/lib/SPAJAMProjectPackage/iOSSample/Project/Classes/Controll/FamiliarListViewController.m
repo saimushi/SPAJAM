@@ -252,6 +252,7 @@
 
 - (void)saveUserFamiliar:(FamiliarModel *)argFamiliar
 {
+    [APPDELEGATE showLoading];
     UserModel *userModel = [[UserModel alloc] init];
     userModel.familiar_id = argFamiliar.ID;
     [userModel save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
@@ -261,12 +262,13 @@
             // 成功したらファミリア参加者をインクリメント
             argFamiliar.familiar_count = [NSString stringWithFormat:@"%d", ([argFamiliar.familiar_count intValue] + 1)];
             [argFamiliar save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
+                [APPDELEGATE hideLoading];
                 if (success) {
-                    [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
                     [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", argFamiliar.name]];
-                    // マイページ
-                    [self.navigationController popViewControllerAnimated:YES];
-                    [(TopViewController*)APPDELEGATE.topViewController viewDidLoad];
+                    // TOPへ戻す！
+                    [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [(TopViewController*)APPDELEGATE.topViewController reloadFamiliarData];
                 }
             }];
         }
