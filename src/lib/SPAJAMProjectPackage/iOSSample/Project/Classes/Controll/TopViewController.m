@@ -279,11 +279,11 @@
     // 選択解除
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (isGod){
-        ActivityModel *activity = [[ActivityModel alloc] init];
+        ActivityModel *activity = [activityData objectAtIndex:(int)indexPath.row];
         if ([activity.good isEqualToString:@"0"]){
             activity.good = @"1";
             [activity save:^(BOOL success, NSInteger statusCode, NSHTTPURLResponse *responseHeader, NSString *responseBody, NSError *error) {
-                //
+                [self dataLoad];
             }];
         }
     }
