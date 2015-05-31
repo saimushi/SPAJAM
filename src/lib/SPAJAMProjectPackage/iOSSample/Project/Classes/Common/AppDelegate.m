@@ -350,7 +350,7 @@
 {
     if (beacons.count > 0) {
         self.nearestBeacon = beacons.firstObject;
-        if(self.nearestBeacon.accuracy < 2.0f && isLVUPOK){
+        if(self.nearestBeacon.accuracy < 3.0f && isLVUPOK){
             //レベルアップ
             isLVUPOK = NO;
             LevelUpViewController *controller = [[LevelUpViewController alloc]init];
