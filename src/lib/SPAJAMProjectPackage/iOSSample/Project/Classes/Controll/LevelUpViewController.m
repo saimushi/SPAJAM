@@ -50,7 +50,7 @@
     imageView.animationImages = imageList;
     
     // アニメーションの速度
-    imageView.animationDuration = 10;
+    imageView.animationDuration = 2.5;
     
     // アニメーションのリピート回数
     imageView.animationRepeatCount = 1;

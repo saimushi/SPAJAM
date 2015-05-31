@@ -357,7 +357,7 @@
             controller.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             [self.topViewController presentViewController:controller animated:NO completion:nil];
             return;
-        }else if(self.nearestBeacon.accuracy > 7.0f){
+        }else if(self.nearestBeacon.accuracy > 5.0f){
             isLVUPOK = YES;
         }
     }
