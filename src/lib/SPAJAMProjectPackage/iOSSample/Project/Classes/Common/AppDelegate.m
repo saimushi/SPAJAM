@@ -269,7 +269,7 @@
     if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
-        self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:self.beconUDID] identifier:@"net.otkr.shokumachi"];
+        self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:self.beconUDID] identifier:self.beconUDID];
         if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
             // requestAlwaysAuthorizationメソッドが利用できる場合(iOS8以上の場合)
             // 位置情報の取得許可を求めるメソッド
