@@ -357,10 +357,9 @@
                                                                      minor:1
                                                                 identifier:[uuid UUIDString]];
     
-    NSDictionary* peripheralData = [region peripheralDataWithMeasuredPower:nil];//Default
-    
+    NSDictionary* peripheralData = [region peripheralDataWithMeasuredPower:nil];
+    //Default
     [self.peripheralManager startAdvertising:peripheralData];
 }
-
 
 @end
