@@ -31,7 +31,7 @@
         [self addSubview:familiaImageView];
 
         // レコード名
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 5, 187, 24)];
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 5, 240, 24)];
         nameLabel.text = [NSString stringWithFormat:@"%@・ファミリア", argFamiliarModel.name];
         nameLabel.textColor = RGBA(230, 197, 107, 1);
         nameLabel.font = [UIFont boldSystemFontOfSize:15];
@@ -40,7 +40,7 @@
         [self addSubview:nameLabel];
 
         // 件数
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 20, 210, 33)];
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 20, 240, 33)];
         dateLabel.text = [NSString stringWithFormat:@"%@人",argFamiliarModel.familiar_count];
         dateLabel.textColor = [UIColor lightGrayColor];
         dateLabel.font = [UIFont boldSystemFontOfSize:13];
