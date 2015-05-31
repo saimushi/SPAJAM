@@ -153,6 +153,7 @@
         if(YES == success){
             // マイページ
             [self.navigationController popViewControllerAnimated:YES];
+            [(TopViewController*)APPDELEGATE.topViewController reloadFamiliarData];
         }
         else {
             // エラー処理をするならココ

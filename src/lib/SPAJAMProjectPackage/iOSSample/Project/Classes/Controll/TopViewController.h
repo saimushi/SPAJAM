@@ -16,5 +16,6 @@
 }
 
 // Public
+-(void)reloadFamiliarData;
 
 @end

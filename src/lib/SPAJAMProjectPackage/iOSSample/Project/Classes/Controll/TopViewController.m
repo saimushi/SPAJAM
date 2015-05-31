@@ -133,6 +133,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)reloadFamiliarData;
+{
+    NSLog(@"reload!!");
+    [self familiarDataLoad];
+}
+
 - (void)familiarDataLoad
 {
     // ここで自分の所属ファミリアを取得する！
@@ -157,7 +163,7 @@
                     // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
                 }else{
                     isGod = NO;
-                    myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width,480) WithTopViewController:self :isGod];
+                    myPageView = [[MyPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width,460) WithTopViewController:self :isGod];
                     [dataListView setTableHeaderView:myPageView];
                     // 自分の所属ファミリアが取れたので、続いてActivity一覧を取得する
                 }
@@ -235,7 +241,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0 < activityData.total) {
-        return 50;
+        return 60;
     }
     return 0;
 }

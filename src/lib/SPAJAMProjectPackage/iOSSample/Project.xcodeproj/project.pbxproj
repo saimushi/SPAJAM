@@ -12,6 +12,7 @@
 		2AF0FFF51B1A2B3F00E187BD /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0FFF21B1A2B3F00E187BD /* UserModel.m */; };
 		2AF0FFF61B1A2B3F00E187BD /* UserModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0FFF41B1A2B3F00E187BD /* UserModelBase.m */; };
 		2AF0FFF81B1A7B9D00E187BD /* bg_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF0FFF71B1A7B9D00E187BD /* bg_button@2x.png */; };
+		2AF0FFFA1B1A8A2700E187BD /* hestia_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF0FFF91B1A8A2700E187BD /* hestia_line@2x.png */; };
 		4904EE8619517CB100E9D264 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4904EE7C19517CB100E9D264 /* EGORefreshTableHeaderView.m */; };
 		4904EE8719517CB100E9D264 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE7E19517CB100E9D264 /* blackArrow.png */; };
 		4904EE8819517CB100E9D264 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4904EE7F19517CB100E9D264 /* blackArrow@2x.png */; };
@@ -145,7 +146,6 @@
 		D05966C01A26F80D001E9F33 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05966BA1A26F80D001E9F33 /* libssl.a */; };
 		D05966C41A270107001E9F33 /* MVerifyStoreReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = D05966C21A270107001E9F33 /* MVerifyStoreReceipt.m */; };
 		D06F608419EBB22100B742CD /* UIImage+custom.m in Sources */ = {isa = PBXBuildFile; fileRef = D06F608319EBB22100B742CD /* UIImage+custom.m */; };
-		D07288821B1A076400996008 /* hestia_line.png in Resources */ = {isa = PBXBuildFile; fileRef = D07288811B1A076400996008 /* hestia_line.png */; };
 		D077428E19508688006CCF07 /* R9HTTPRequestExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = D077428D19508688006CCF07 /* R9HTTPRequestExtension.m */; };
 		D077429019508936006CCF07 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = D077428F19508936006CCF07 /* Request.m */; };
 		D07742991950A6DF006CCF07 /* ModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D07742981950A6DF006CCF07 /* ModelBase.m */; };
@@ -184,6 +184,7 @@
 		2AF0FFF31B1A2B3F00E187BD /* UserModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModelBase.h; sourceTree = "<group>"; };
 		2AF0FFF41B1A2B3F00E187BD /* UserModelBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModelBase.m; sourceTree = "<group>"; };
 		2AF0FFF71B1A7B9D00E187BD /* bg_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_button@2x.png"; path = "image/bg_button@2x.png"; sourceTree = "<group>"; };
+		2AF0FFF91B1A8A2700E187BD /* hestia_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hestia_line@2x.png"; path = "image/hestia_line@2x.png"; sourceTree = "<group>"; };
 		4904EE7B19517CB100E9D264 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		4904EE7C19517CB100E9D264 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		4904EE7E19517CB100E9D264 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -389,7 +390,6 @@
 		D05966C31A270107001E9F33 /* MVerifyStoreReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVerifyStoreReceipt.h; sourceTree = "<group>"; };
 		D06F608219EBB22100B742CD /* UIImage+custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+custom.h"; sourceTree = "<group>"; };
 		D06F608319EBB22100B742CD /* UIImage+custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+custom.m"; sourceTree = "<group>"; };
-		D07288811B1A076400996008 /* hestia_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hestia_line.png; path = image/hestia_line.png; sourceTree = "<group>"; };
 		D077428519507507006CCF07 /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
 		D077428C19508688006CCF07 /* R9HTTPRequestExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = R9HTTPRequestExtension.h; path = Libraries/Request/R9HTTPRequestExtension.h; sourceTree = SOURCE_ROOT; };
 		D077428D19508688006CCF07 /* R9HTTPRequestExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = R9HTTPRequestExtension.m; path = Libraries/Request/R9HTTPRequestExtension.m; sourceTree = SOURCE_ROOT; };
@@ -458,6 +458,7 @@
 		2AF0FFE51B19F85700E187BD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				2AF0FFF91B1A8A2700E187BD /* hestia_line@2x.png */,
 				2AF0FFF71B1A7B9D00E187BD /* bg_button@2x.png */,
 				4F5B31901B1A53FD0011E9F6 /* bg@2x.png */,
 				4F5B31911B1A53FD0011E9F6 /* bg_header@2x.png */,
@@ -491,7 +492,6 @@
 				4F5B31651B1A419C0011E9F6 /* vlcsnap-3@2x.png */,
 				4F5B31661B1A419C0011E9F6 /* vlcsnap-2@2x.png */,
 				4F5B31671B1A419C0011E9F6 /* vlcsnap-1@2x.png */,
-				D07288811B1A076400996008 /* hestia_line.png */,
 				4F5B314D1B1A3C620011E9F6 /* dummy_god@2x.png */,
 				4F5B31351B1A34690011E9F6 /* b_familia_list@2x.png */,
 				4F5B31361B1A34690011E9F6 /* b_monster@2x.png */,
@@ -1068,6 +1068,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F5B318B1B1A4F1C0011E9F6 /* vlcsnap-24@2x.png in Resources */,
+				2AF0FFFA1B1A8A2700E187BD /* hestia_line@2x.png in Resources */,
 				4F5B31731B1A419C0011E9F6 /* vlcsnap-12@2x.png in Resources */,
 				4F5B31821B1A43F10011E9F6 /* form_big@2x.png in Resources */,
 				4904EE8919517CB100E9D264 /* blueArrow.png in Resources */,
@@ -1107,7 +1108,6 @@
 				4F5B317A1B1A419C0011E9F6 /* vlcsnap-5@2x.png in Resources */,
 				4904EE8A19517CB100E9D264 /* blueArrow@2x.png in Resources */,
 				D00D91ED19E43AE60025E516 /* sample@2x.png in Resources */,
-				D07288821B1A076400996008 /* hestia_line.png in Resources */,
 				D00D91EF19E43DF10025E516 /* sample.png in Resources */,
 				4F5B318C1B1A4F1C0011E9F6 /* vlcsnap-25@2x.png in Resources */,
 				4F5B316D1B1A419C0011E9F6 /* vlcsnap-18@2x.png in Resources */,
