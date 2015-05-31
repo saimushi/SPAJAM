@@ -360,6 +360,8 @@
         }else if(self.nearestBeacon.accuracy > 5.0f){
             isLVUPOK = YES;
         }
+    }else{
+        isLVUPOK = YES;
     }
 }
 
