@@ -133,6 +133,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)reloadFamiliarData;
+{
+    NSLog(@"reload!!");
+    [self familiarDataLoad];
+}
+
 - (void)familiarDataLoad
 {
     // ここで自分の所属ファミリアを取得する！
