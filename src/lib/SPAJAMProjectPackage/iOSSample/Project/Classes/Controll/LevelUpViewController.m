@@ -70,7 +70,9 @@
 
 - (void)touchViewTapped:(UITapGestureRecognizer *)sender
 {
-    [self.navigationController setViewControllers:[NSArray arrayWithObjects:[[TopViewController alloc] init], nil]];
+    [self dismissViewControllerAnimated:NO completion:^{
+        // XXX ビーコンの待機状態とか変える？？
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
