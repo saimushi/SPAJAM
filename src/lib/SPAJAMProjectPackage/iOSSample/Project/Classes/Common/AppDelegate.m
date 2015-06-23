@@ -23,7 +23,7 @@
 #ifdef DEPROY_SETTING
     NSLog(@"DEPROY_SETTING=%@", DEPROY_SETTING);
 #endif
-
+    
     // Google Analyticsの初期化
     [self initializeGoogleAnalytics];
     

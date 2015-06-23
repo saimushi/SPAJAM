@@ -2449,7 +2449,7 @@ if(TRUE === $_consoled){
 				}
 				if (TRUE === $valid){
 					// installer.phpをコピー
-					if(!dir_copy(dirname(dirname(__FILE__)).'/installer', $_SERVER['argv'][2] . '/installer')){
+					if(!dir_copy(dirname(dirname(__FILE__)).'/installer', $_SERVER['argv'][2] . '/setupunicorn')){
 						echo ' (!)エラー : installerのコピーに失敗しました！' . PHP_EOL;
 						echo PHP_TAB . ' -> コレは致命的なエラーです' . PHP_EOL;
 						echo PHP_TAB . ' 指定されたディレクトリ 「'.$_SERVER['argv'][2].'」 に対しての書込権限がないかも知れません' . PHP_EOL;
@@ -2459,7 +2459,7 @@ if(TRUE === $_consoled){
 					else{
 						// インストーラーからみたフレームワークのパスを書き換える
 						$baseFrameworkPath = dirname(dirname(__FILE__));
-						$installerPath = str_replace('//', '/', $_SERVER['argv'][2] . '/installer');
+						$installerPath = str_replace('//', '/', $_SERVER['argv'][2] . '/setupunicorn');
 						$paths = explode('/', $installerPath);
 						// パスが一致するところまでさかのぼり、それを新たなルートパスとし、そこを基準にFrameworkのパスを設定しなおす
 						$tmpPath = "/";
@@ -2488,9 +2488,9 @@ if(TRUE === $_consoled){
 
 						// インストーラーのプロダクト名をコアファイルの名前で書き換える
 						$peoductNameDefinedLine = 'define("PROJECT_NAME", "'.corefilename().'");';
-						$handle = fopen($_SERVER['argv'][2] . '/installer/index.php', 'r');
+						$handle = fopen($_SERVER['argv'][2] . '/setupunicorn/index.php', 'r');
 						if(FALSE === $handle){
-							echo ' (!)エラー : installer.phpのコピーに失敗しました！' . PHP_EOL;
+							echo ' (!)エラー : installerのコピーに失敗しました！' . PHP_EOL;
 							echo PHP_TAB . ' -> コレは致命的なエラーです' . PHP_EOL;
 							echo PHP_TAB . ' 指定されたディレクトリ 「'.$_SERVER['argv'][2].'」 に対しての書込権限がないかも知れません' . PHP_EOL;
 							echo PHP_TAB . ' 「'.$_SERVER['argv'][2].'」 に適切な書込権限を設定し、再度実行して下さい' . PHP_EOL;
@@ -2520,12 +2520,12 @@ if(TRUE === $_consoled){
 							}
 						}
 						fclose($handle);
-						file_put_contents($_SERVER['argv'][2] . '/installer/index.php', $file);
+						file_put_contents($_SERVER['argv'][2] . '/setupunicorn/index.php', $file);
 						// インストーラーが標準の位置では無い場合は印をつける
-						if(str_replace('//', '/', $_SERVER['argv'][2] . '/installer/index.php') !== str_replace('//', '/', dirname(dirname(__FLE__)).'/installer/index.php')){
-							@touch($_SERVER['argv'][2] . '/installer/.copy');
+						if(str_replace('//', '/', $_SERVER['argv'][2] . '/setupunicorn/index.php') !== str_replace('//', '/', dirname(dirname(__FLE__)).'/installer/index.php')){
+							@touch($_SERVER['argv'][2] . '/setupunicorn/.copy');
 						}
-						$installerURL = str_replace('//installer/', '/installer/', $_SERVER['argv'][3].'/installer/');
+						$installerURL = str_replace('//setupunicorn/', '/setupunicorn/', $_SERVER['argv'][3].'/setupunicorn/');
 						if(isset($_SERVER['argv'][4]) && 'debug' === $_SERVER['argv'][4]){
 							$installerURL .= '?debug=1';
 						}

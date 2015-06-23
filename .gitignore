@@ -26,4 +26,4 @@ tmp/
 !/src/logs/reference.txt
 *Project.zip
 *Model.zip
-/*/installer
+setupunicorn
