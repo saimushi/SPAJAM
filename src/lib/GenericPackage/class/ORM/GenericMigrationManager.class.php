@@ -226,6 +226,9 @@ class GenericMigrationManager {
 						for ($colIdx=0; $colIdx < count($beforeIndexes[$feldKey]["Colums"]); $colIdx++){
 							$downIndexDef .= '$index["'.$feldKey.'"]["Colums"][] = "' . $beforeIndexes[$feldKey]["Colums"][$colIdx] . '"; ';
 						}
+						if (isset($beforeIndexes[$feldKey]["Unique"]) && 1 === (int)$beforeIndexes[$feldKey]["Unique"]){
+							$downIndexDef .= '$index["'.$feldKey.'"]["Unique"] = 1; ';
+						}
 						$downIndexDef .= '$index["'.$feldKey.'"]["Index_comment"] = "' . $beforeIndexes[$feldKey]["Index_comment"] . '"; ';
 					}
 					if(NULL === $alter){

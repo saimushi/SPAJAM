@@ -135,6 +135,14 @@
 		<link mapfrom="GenericMigrationBase" mapto="MigrationBase">default.abstract.ORM/GenericMigrationBase</link>
 		<link mapfrom="GenericMigrationManager" mapto="MigrationManager">default.implement.ORM/GenericMigrationManager</link>
 	</MigrationManager>
+	<PsychoFrame>
+		<package>ORMapper</package>
+		<link mapfrom="GenericORMapper" mapto="PsychoFrame">default.implement.ORM/GenericORMapper</link>
+	</PsychoFrame>
+	<PsychoJack>
+		<package>MigrationManager</package>
+		<link mapfrom="GenericMigrationManager" mapto="PsychoJack">default.implement.ORM/GenericMigrationManager</link>
+	</PsychoJack>
 	<Crypt>
 		<link mapfrom="Cipher" mapto="Crypt">default.implement.Cipher/Cipher</link>
 	</Crypt>
@@ -154,6 +162,9 @@
 		<package>HtmlTemplate</package>
 		<link>default.implement.MVC/HtmlViewAssignor</link>
 	</HtmlViewAssignor>
+	<AppMigrationManager>
+		<link>default.implement.Smartphone/AppMigrationManager</link>
+	</AppMigrationManager>
 	<AppReceiptVerifier>
 		<link>default.GPD/GPDFacade.php</link>
 		<link mapfrom="GenericAppReceiptVerifier" mapto="AppReceiptVerifier">default.implement.Smartphone/GenericAppReceiptVerifier</link>

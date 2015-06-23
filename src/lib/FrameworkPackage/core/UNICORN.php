@@ -1612,7 +1612,6 @@ function isTest($argStagingEnabled=FALSE, $argProjectName=NULL, $argHost=NULL){
 			// ステージング環境かどうか
 			elseif(0 === getStagingEnabled($argProjectName, $host)){
 				// ステージング環境をテスト環境とみなさないので、ステージング環境以外なのでテスト環境であると返却する
-				echo 'is!!!!';
 				$isTest = TRUE;
 			}
 		}

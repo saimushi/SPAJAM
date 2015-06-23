@@ -6,10 +6,12 @@
 //
 
 #import "AppDelegate.h"
+#import "UserModel.h"
 
 @implementation AppDelegate
 
 @synthesize topViewController;
+@synthesize userModel;
 @synthesize ownerID;
 @synthesize familiarID;
 @synthesize beconUDID;

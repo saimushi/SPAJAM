@@ -113,7 +113,7 @@
         if (success) {
             // 成功したらファミリア一覧に戻る
             APPDELEGATE.familiarID = argFamiliarID;
-            [(TopViewController*)APPDELEGATE.topViewController setUserModel:userModel];
+            APPDELEGATE.userModel = userModel;
             [CustomAlert alertShow:@"ようこそ" message:[NSString stringWithFormat:@"%@・ファミリアへ！", view.familiarNameTextView.text]];
             [self.navigationController popToRootViewControllerAnimated:YES];
             [(TopViewController*)APPDELEGATE.topViewController reloadFamiliarData];

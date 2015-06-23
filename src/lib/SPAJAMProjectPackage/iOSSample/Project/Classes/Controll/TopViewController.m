@@ -49,11 +49,6 @@
     return self;
 }
 
--(void)setUserModel:(id)argUserModel;
-{
-    userModel = argUserModel;
-}
-
 - (void)loadView
 {
     [super loadView];
@@ -104,6 +99,7 @@
                 if(userModel.total > 0){
                     NSLog(@"familiar_id:%@",userModel.familiar_id);
                     APPDELEGATE.familiarID = userModel.familiar_id;
+                    APPDELEGATE.userModel = userModel;
                     // ファミリアIDが0ならファミリア一覧に遷移する
                     if( [@"0" isEqual:userModel.familiar_id] ){
                         [self.navigationController pushViewController:[[FamiliarListViewController alloc] init] animated:YES];

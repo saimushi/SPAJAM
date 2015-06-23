@@ -80,7 +80,11 @@ abstract class GenericMigrationBase {
 					$indexQueries[] = 'DROP INDEX `' . $keyname . '` ON `' . $this->tableName . '`';
 				}
 				if(TRUE !== (isset($propaty['alter']) && 'DROP' === strtoupper($propaty['alter']))){
-					$sql = 'CREATE INDEX `' . $keyname . '` ON `' . $this->tableName . '`(';
+					$unique = '';
+					if (isset($propaty['Unique']) && 1 === (int)$propaty['Unique']) {
+						$unique = 'UNIQUE ';
+					}
+					$sql = 'CREATE '.$unique.'INDEX `' . $keyname . '` ON `' . $this->tableName . '`(';
 					for ($colIdx=0; $colIdx < count($propaty["Colums"]); $colIdx++){
 						if (0 < $colIdx){
 							$sql .= ', ';
@@ -191,24 +195,29 @@ abstract class GenericMigrationBase {
 				try {
 					debug('migration alter sql='.$sql);
 					$argDBO->execute($sql);
-					$executed = TRUE;
 				}
 				catch (Exception $Exception){
+					// 一応失敗した事は取っておく
 					logging($Exception->getMessage(), 'exception');
 					// ALTERのADDは、2重実行でエラーになるので、ここでのExceptionは無視してModfyを実行してみる
-					$sql = str_replace('ALTER TABLE `' . $this->tableName . '` ' . $propaty['alter'] . ' COLUMN ', 'ALTER TABLE `' . $this->tableName . '` MODIFY COLUMN ', $sql);
+					//$sql = str_replace('ALTER TABLE `' . $this->tableName . '` ' . $propaty['alter'] . ' COLUMN ', 'ALTER TABLE `' . $this->tableName . '` MODIFY COLUMN ', $sql);
 					// MODIFYに変えて実行しなおし
-					$argDBO->execute($sql);
-					$executed = TRUE;
-					// XXX それでもダメならException！
+					//$argDBO->execute($sql);
 				}
+				$executed = TRUE;
 			}
 		}
-			// インデックスを適用
+		// インデックスを適用
 		$indexQueries = $this->_getIndexQueries($argIndex);
 		for($idx=0; $idx < count($indexQueries); $idx++){
-			debug('migration alter index='.$indexQueries[$idx]);
-			$argDBO->execute($indexQueries[$idx]);
+			try {
+				debug('migration alter index='.$indexQueries[$idx]);
+				$argDBO->execute($indexQueries[$idx]);
+			}
+			catch (Exception $Exception){
+				// 一応失敗した事は取っておく
+				logging($Exception->getMessage(), 'exception');
+			}
 			$executed = TRUE;
 		}
 		if(TRUE === $executed){

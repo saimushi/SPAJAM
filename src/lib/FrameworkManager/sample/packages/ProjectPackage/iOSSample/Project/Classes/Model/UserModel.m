@@ -1,44 +1,20 @@
 //
 //  UserModel.m
+//  自由に拡張可能です
 //
-//  Created by saimushi on 2014/06/17.
 //  Copyright (c) 2014年 saimushi. All rights reserved.
 //
 
 #import "UserModel.h"
+#import "define.h"
 
 @implementation UserModel
 
-@synthesize userID;
-@synthesize userName;
-@synthesize imageURL;
-
-- (BOOL)get:(NSString *)argUserID;
+/* オーバーライド */
+- (id)init;
 {
-    NSMutableDictionary *requestParams = [[NSMutableDictionary alloc] init];
-    [requestParams setValue:argUserID forKey:@"user_id"];
-    BOOL returned = [self doRequest:1 :@"" :requestParams];
-    
-    if(YES == returned){
-        // 通信成功の場合の処理
-        self.userID = argUserID;
-        NSArray *tmpArr = [response objectForKey:@"list"];
-        if([tmpArr isKindOfClass:NSClassFromString(@"NSArray")]){
-            NSDictionary *tmpDic = [tmpArr objectAtIndex:0];
-            if([tmpDic isKindOfClass:NSClassFromString(@"NSDictionary")]){
-                
-                self.userName = [tmpDic objectForKey:@"nickname"];
-                if(![self.userName isKindOfClass:NSClassFromString(@"NSString")]){
-                    self.userName = @"";
-                }
-                self.imageURL = [tmpDic objectForKey:@"thumbnail"];
-                if(![self.imageURL isKindOfClass:NSClassFromString(@"NSString")]){
-                    self.imageURL = [NSString stringWithFormat:@"%@", argUserID];
-                }
-            }
-        }
-    }
-    return returned;
+    self = [super init:PROTOCOL :DOMAIN_NAME :URL_BASE :COOKIE_TOKEN_NAME :SESSION_CRYPT_KEY :SESSION_CRYPT_IV :DEVICE_TOKEN_KEY_NAME :TIMEOUT];
+    return self;
 }
 
 @end

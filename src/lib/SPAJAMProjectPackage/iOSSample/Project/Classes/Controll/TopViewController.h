@@ -17,7 +17,6 @@
 
 // Public
 -(void)reloadFamiliarData;
--(void)setUserModel:(id)argUserModel;
 
 
 @end
