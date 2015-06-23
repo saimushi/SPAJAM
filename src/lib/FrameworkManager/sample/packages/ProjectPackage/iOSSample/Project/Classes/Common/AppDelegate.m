@@ -9,9 +9,6 @@
 
 @implementation AppDelegate
 
-@synthesize mainRootViewController;
-@synthesize topViewController;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // 実行環境のダンプ
@@ -27,50 +24,50 @@
         //アプリが起動していないときにpush通知からアプリが起動された時
     }
 
-    // アプリ全体のステータスバーのスタイルを変更(用plistのView controller-based status bar = NO)
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
-    // ナビゲーションバーのスタイルを定義しておく
-    // ナビゲーションバーの全体の色指定
-    [[UINavigationBar appearance] setBarTintColor:RGBA(30, 30, 30, 1)];
-    // ナビゲーションバーのボタンアイテムのテキストカラー指定
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    // ナビゲーションバーのタイトルテキストカラー指定
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
-
-    // タブバーのスタイルを定義しておく
-    // タブバーの背景色指定
-    [[UITabBar appearance] setBarTintColor:[UINavigationBar appearance].barTintColor];
-    // タブバーのタイトルテキストカラー指定
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]} forState:UIControlStateNormal];
-    // タブバーの選択色指定
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]} forState:UIControlStateSelected];
-
-    // TabbarItemの数だけUINavigationControllerのインスタンスを生成
-    self.topViewController = [[TopViewController alloc] init];
-    UIViewControllerBase *settingViewController = [[SettingViewController alloc] init];
-    UINavigationController *topNavigationController = [[UINavigationController alloc] initWithRootViewController:self.topViewController];
-    UINavigationController *settingNavigationController = [[UINavigationController alloc] initWithRootViewController:settingViewController];
-    topNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-    settingNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-
-    // タブバーの設置
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    tabBarController.delegate = self;
-    // TabBarControllerにNavigationControllerをセット
-    tabBarController.viewControllers = [NSMutableArray arrayWithObjects:topNavigationController, settingNavigationController, nil];
-    // タブバータイトルの設定
-    ((UITabBarItem *)[tabBarController.tabBar.items objectAtIndex:0]).title = self.topViewController.screenName;
-    ((UITabBarItem *)[tabBarController.tabBar.items objectAtIndex:1]).title = settingViewController.screenName;
-
-    // タブコントローラをメインルートに設定
-    self.mainRootViewController = tabBarController;
-
-    // Windowを表示
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window setRootViewController:self.mainRootViewController];
-    [self.window makeKeyAndVisible];
+//    // アプリ全体のステータスバーのスタイルを変更(用plistのView controller-based status bar = NO)
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//
+//    // ナビゲーションバーのスタイルを定義しておく
+//    // ナビゲーションバーの全体の色指定
+//    [[UINavigationBar appearance] setBarTintColor:RGBA(30, 30, 30, 1)];
+//    // ナビゲーションバーのボタンアイテムのテキストカラー指定
+//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//    // ナビゲーションバーのタイトルテキストカラー指定
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+//
+//    // タブバーのスタイルを定義しておく
+//    // タブバーの背景色指定
+//    [[UITabBar appearance] setBarTintColor:[UINavigationBar appearance].barTintColor];
+//    // タブバーのタイトルテキストカラー指定
+//    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]} forState:UIControlStateNormal];
+//    // タブバーの選択色指定
+//    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]} forState:UIControlStateSelected];
+//
+//    // TabbarItemの数だけUINavigationControllerのインスタンスを生成
+//    self.topViewController = [[TopViewController alloc] init];
+//    UIViewControllerBase *settingViewController = [[SettingViewController alloc] init];
+//    UINavigationController *topNavigationController = [[UINavigationController alloc] initWithRootViewController:self.topViewController];
+//    UINavigationController *settingNavigationController = [[UINavigationController alloc] initWithRootViewController:settingViewController];
+//    topNavigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    settingNavigationController.navigationBar.barStyle = UIBarStyleBlack;
+//
+//    // タブバーの設置
+//    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+//    tabBarController.delegate = self;
+//    // TabBarControllerにNavigationControllerをセット
+//    tabBarController.viewControllers = [NSMutableArray arrayWithObjects:topNavigationController, settingNavigationController, nil];
+//    // タブバータイトルの設定
+//    ((UITabBarItem *)[tabBarController.tabBar.items objectAtIndex:0]).title = self.topViewController.screenName;
+//    ((UITabBarItem *)[tabBarController.tabBar.items objectAtIndex:1]).title = settingViewController.screenName;
+//
+//    // タブコントローラをメインルートに設定
+//    self.mainRootViewController = tabBarController;
+//
+//    // Windowを表示
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    [self.window setRootViewController:self.mainRootViewController];
+//    [self.window makeKeyAndVisible];
 
     return YES;
 }
@@ -226,15 +223,6 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     // ローディングを非表示
     [MProgress dismissProgress];
-}
-
-
-#pragma mark - UITabbarDelegate関連
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-    // 選択されたタブのルートをtopViewControllerとしてしまっておく
-    self.topViewController  = [((UINavigationController *)viewController).viewControllers objectAtIndex:0];
 }
 
 

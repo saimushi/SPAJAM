@@ -5,8 +5,8 @@ class AppMigrationManager {
 		$tableName = strtolower ( $argTblName );
 		$modelName = str_replace ( ' ', '', ucwords ( str_replace ( '_', ' ', $tableName ) ) );
 		$describes = $argDBO->getTableDescribes ( $argTblName );
-		debug('tableName = '.$tableName.' & PROJECT_ROOT_PATH='.getConfig ( 'PROJECT_ROOT_PATH', $argTargetProjectName ));
 		if (is_array ( $describes ) && count ( $describes ) > 0) {
+			debug('AppModel '.$tableName.' '.$argTargetProjectName);
 			if (NULL === $argTargetPlatform || 'iOS' === $argTargetPlatform) {
 				$headerfile = file_get_contents ( getConfig ( 'PROJECT_ROOT_PATH', $argTargetProjectName ) . '/core/EmptyModelBase.h' );
 				$modelfile = file_get_contents ( getConfig ( 'PROJECT_ROOT_PATH', $argTargetProjectName ) . '/core/EmptyModelBase.m' );

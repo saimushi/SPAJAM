@@ -435,13 +435,13 @@
 		<execute>
 			<if condition="true === Auth::isCertification()">
 				<if condition="true === isset(Flow::$params['get']['target']) &amp;&amp; 2 &lt; strlen(Flow::$params['get']['target']) &amp;&amp; true === is_dir(getConfig('PROJECT_ROOT_PATH', Flow::$params['get']['target_project']).'/'.Flow::$params['get']['target'].'Sample')">
-					<assing var="outputFile" val="MANAGER_DOCUMENT_ROOT_PATH.'static/'.Flow::$params['get']['target'].'.zip'"/>
+					<assing var="outputFile" val="MANAGER_DOCUMENT_ROOT_PATH.'static/'.Flow::$params['get']['target'].'Project.zip'"/>
 					<if condition="true === is_file($outputFile)">
 						<execute val="unlink($outputFile)"/>
 					</if>
 					<assing var="res" method="zip" arg1="getConfig('PROJECT_ROOT_PATH', Flow::$params['get']['target_project']).'/'.Flow::$params['get']['target'].'Sample'" arg2="$outputFile"/>
 					<if condition="true === $res">
-						<execute val="header('Location: ./static/'.Flow::$params['get']['target'].'.zip')"/>
+						<execute val="header('Location: ./static/'.Flow::$params['get']['target'].'Project.zip')"/>
 					</if>
 				</if>
 			</if>

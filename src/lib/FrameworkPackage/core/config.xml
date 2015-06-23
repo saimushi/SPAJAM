@@ -9,7 +9,7 @@
 	<LIB_PATH code="TRUE"><![CDATA[%ROOT_PATH%.'/lib/']]></LIB_PATH>
 	<PEAR_PATH code="TRUE"><![CDATA[%ROOT_PATH%.'/lib/VendorPackage/PEAR/']]></PEAR_PATH>
 	<LOG_PATH code="TRUE" stage="local"><![CDATA[%ROOT_PATH%.'logs/']]></LOG_PATH>
-	<LOG_PATH code="TRUE"><![CDATA[dirname(dirname(%ROOT_PATH%)).'/logs/']]></LOG_PATH>
+	<LOG_PATH code="TRUE"><![CDATA[dirname(dirname(dirname(dirname(%ROOT_PATH%)))).'/shared/logs/']]></LOG_PATH>
 	<LOCALE_PATH code="TRUE"><![CDATA[%ROOT_PATH%.'locale/']]></LOCALE_PATH>
 	<FLOWXML_PATH>FrameworkPackage/Flow/controller/</FLOWXML_PATH>
 	<MAINTENANCE_FLAG_FILE code="TRUE"><![CDATA[dirname( __FILE__ ).'/.maintenance']]></MAINTENANCE_FLAG_FILE>

@@ -14,4 +14,12 @@
 		<link>default.abstract.Session/SessionDataDB</link>
 		<link mapfrom="SessionDB" mapto="Session">default.implement.Session/SessionDB</link>
 	</Session>
+	<!-- PECL:Memcache版
+	<Session>
+		<package>MCO</package>
+		<link>default.interface.Session/SessionIO</link>
+		<link>default.abstract.Session/SessionDataMemcache</link>
+		<link mapfrom="SessionMemcache" mapto="Session">default.implement.Session/SessionMemcache</link>
+	</Session>
+	-->
 </xml>

@@ -24,5 +24,6 @@ tmps/
 tmp/
 /logs
 !/src/logs/reference.txt
-/src/managedocs/static/iOS.zip
-/src/managedocs/static/iOSModel.zip
+*Project.zip
+*Model.zip
+/*/installer

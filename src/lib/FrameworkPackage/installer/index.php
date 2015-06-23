@@ -1445,11 +1445,11 @@ $(document).ready(function(){
 	$("#input-mysqluser").val("root");
 	$("#input-mysqlpass").val("root");
 	<?php if("UNICORN" === PROJECT_NAME) { ?>
-	$("#input-fwmdbuser").val("fwm");
+	$("#input-fwmdbuser").val("fwmuser");
 	$("#input-fwmdbpass").val("fwmpass");
 	$("#input-fwmdb").val("fwm");
 	<?php } else { ?>
-	$("#input-fwmdbuser").val("project");
+	$("#input-fwmdbuser").val("projectuser");
 	$("#input-fwmdbpass").val("projectpass");
 	$("#input-fwmdb").val("project");
 	<?php } ?>

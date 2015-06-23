@@ -5,6 +5,7 @@
 //  Copyright (c) 2014年 saimushi. All rights reserved.
 //
 
+#import "common.h"
 #import "%modelName%Model.h"
 
 @implementation %modelName%Model

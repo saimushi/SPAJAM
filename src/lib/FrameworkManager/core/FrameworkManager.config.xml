@@ -7,7 +7,7 @@
 		<SAMPLE_PACKAGE_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'sample/packages/']]></SAMPLE_PACKAGE_PATH>
 		<SAMPLE_PROJECT_PACKAGE_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'sample/packages/ProjectPackage/']]></SAMPLE_PROJECT_PACKAGE_PATH>
 		<SAMPLE_APIDOC_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'sample/apidocs/']]></SAMPLE_APIDOC_PATH>
-		<DB_DSN>mysqli://fwm:fwmpass@localhost/fwm</DB_DSN>
+		<DB_DSN>mysqli://fwmuser:fwmpass@localhost/fwm</DB_DSN>
 		<!-- MVCフレームワークの定義 -->
 		<FLOWXML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'class/MVC/Controller/']]></FLOWXML_PATH>
 		<TEMPLATEHTML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'template/managedocs/static/']]></TEMPLATEHTML_PATH>
