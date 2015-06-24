@@ -13,6 +13,7 @@
 var headers;
 var rules;
 var records = 0;
+var comment;
 
 function crud(baseCRUDURL, baseQuery, callback) {
 	var crudlinkbaseURL = "";
@@ -26,7 +27,7 @@ function crud(baseCRUDURL, baseQuery, callback) {
 	}).done(function(html) {
 		$("#tablelist").html(html).ready(function(){
 			$(".tablelink").each(function() {
-				$(this).attr("href", tablelinkbaseURL+"&table="+$(this).text()+"&limit=10&offset=0");
+				$(this).attr("href", tablelinkbaseURL+"&table="+$(this).find(".table-name").text()+"&limit=10&offset=0");
 			}).ready(function(){
 				if(typeof callback != "undefined"){
 					callback("tablelist");
@@ -53,6 +54,7 @@ function crud(baseCRUDURL, baseQuery, callback) {
 				headers = $.parseJSON(xhr.getResponseHeader("Head"));
 				rules = $.parseJSON(xhr.getResponseHeader("Rules"));
 				records = xhr.getResponseHeader("Records");
+				comment = $.parseJSON(xhr.getResponseHeader("Comment"));
 				crudlinkbaseURL = location.protocol + "//" + location.hostname + location.pathname + "?" + baseQuery + "&mode=detail";
 				if ("list" == mode) {
 					// 指定テーブルの一覧情報を取得
@@ -89,9 +91,9 @@ function crud(baseCRUDURL, baseQuery, callback) {
 									});
 								});
 							});
-							$(this).find("h2").text($(this).find("h2").text() + "(" + records + ")");
+							$(this).find("h2").text($(this).find("h2").text() + ((0 < comment.length)? " \"" + comment + "\"" : "") + "(" + records + ")");
 							$(".crudkey a").each(function() {
-								$(this).text($(this).text() + "(" + headers[$(this).text()].comment + ")");
+								$(this).text($(this).text() + " \"" + headers[$(this).text()].comment + "\"");
 							});
 							$(".tablelist-link").remove();
 							$(".submit-button").each(function() {
@@ -105,7 +107,7 @@ function crud(baseCRUDURL, baseQuery, callback) {
 					});
 				}
 				if ("new" == mode) {
-					var newRecordHtmlBase = "<h2>"+table+"</h2>";
+					var newRecordHtmlBase = "<h2>"+table + ((0 < comment.length)? " \"" + comment + "\"" : "") +"</h2>";
 					newRecordHtmlBase += "<form id=\"crud-form-post\" class=\"crud-form\" method=\"POST\" action=\"" + baseCRUDURL + "/" + table + ".html\"><table class=\"detail\">";
 					Object.keys(headers).forEach(function (key) {
 						var fiendObj = headers[key];
@@ -113,7 +115,7 @@ function crud(baseCRUDURL, baseQuery, callback) {
 						if(fiendObj["pkey"] || fiendObj["null"]){
 							required = "";
 						}
-						newRecordHtmlBase += "<tr><th class=\"crudkey\">"+key+"("+fiendObj.comment+required+")</th></tr><tr><td><input type=\"text\" name=\""+key+"\" value=\"" + ((typeof fiendObj["default"] != "undefined" && "NULL" != fiendObj["default"])? fiendObj["default"] : "") +"\"/></td></td>";
+						newRecordHtmlBase += "<tr><th class=\"crudkey\">"+key+" \""+fiendObj.comment+required+"\"</th></tr><tr><td><input type=\"text\" name=\""+key+"\" value=\"" + ((typeof fiendObj["default"] != "undefined" && "NULL" != fiendObj["default"])? fiendObj["default"] : "") +"\"/></td></td>";
 					});
 					newRecordHtmlBase += "</table><div class=\"submit-button buttonarea\"><input type=\"submit\" value=\"POST\"/></div><input type=\"hidden\" name=\"_method_\" value=\"POST\"/></form>";
 					newRecordHtmlBase += "<div class=\"list-link\"><a href=\""+tablelinkbaseURL+"&table="+table+"&limit="+limit+"&offset="+getParameterByName("offset")+"&ORDER="+encodeURIComponent(order)+"&LIKE="+encodeURIComponent(like)+"\">"+table+" list</a></div>";
@@ -155,6 +157,7 @@ function crud(baseCRUDURL, baseQuery, callback) {
 					}).done(function(html) {
 						// 詳細を描画
 						$("#crudmain").html(html).ready(function() {
+							$(this).find("h2").text($(this).find("h2").text() + ((0 < comment.length)? " \"" + comment + "\"" : ""));
 							// formのvalidateを設定
 							$("#crud-form-put").validate(rules);
 							// formのsubmitを設定
@@ -182,7 +185,7 @@ function crud(baseCRUDURL, baseQuery, callback) {
 										$("input[name='"+$(this).text()+"']").datetimepicker({format: "Y-m-d H:i:s"});
 									}
 								}
-								$(this).text($(this).text() + "(" + headers[$(this).text()].comment + required + ")");
+								$(this).text($(this).text() + " \"" + headers[$(this).text()].comment + required + "\"");
 							});
 							$(".submit-button").each(function() {
 								$(this).addClass("buttonarea");

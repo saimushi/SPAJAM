@@ -65,7 +65,7 @@ class ProjectManager
 		$tables = $DBO->getTables();
 		for ($tblIdx=0; $tblIdx < count($tables); $tblIdx++){
 			// テーブル毎にマイグレーション
-			AppMigrationManager::generateModel($DBO, $tables[$tblIdx], $argTargetProjectName, $argTargetPlatform);
+			AppMigrationManager::generateModel($DBO, $tables[$tblIdx]['name'], $argTargetProjectName, $argTargetPlatform);
 		}
 		return TRUE;
 	}

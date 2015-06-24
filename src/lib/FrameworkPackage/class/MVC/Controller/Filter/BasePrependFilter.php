@@ -6,7 +6,7 @@
  */
 class BasePrependFilter {
 	public function execute($argRequestParams=NULL){
-		$allow = TRUE;
+		$allow = NULL;
 		$denyHTTP = FALSE;
 		$denyALLIP = FALSE;
 		if(class_exists('Configure') && NULL !== Configure::constant('DENY_HTTP')){
@@ -44,6 +44,9 @@ class BasePrependFilter {
 			if(!(isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'])){
 				$allow = FALSE;
 			}
+			else {
+				$allow = TRUE;
+			}
 			debug('MVCPrependFilter denyHTTP ALLOW='.$allow);
 		}
 		// IPアドレスチェック
@@ -55,9 +58,12 @@ class BasePrependFilter {
 			if('::1' !== $_SERVER['REMOTE_ADDR'] && '127.0.0.1' !== $_SERVER['REMOTE_ADDR'] && FALSE === strpos($denyALLIP, $_SERVER['REMOTE_ADDR'])){
 				$allow = FALSE;
 			}
+			else {
+				$allow = TRUE;
+			}
 			debug('MVCPrependFilter denyALLIP ALLOW='.$allow);
 		}
-		debug('MVCPrependFilter allow='.$allow);
+		debug('MVCPrependFilter ALLOW='.$allow);
 		return $allow;
 	}
 }

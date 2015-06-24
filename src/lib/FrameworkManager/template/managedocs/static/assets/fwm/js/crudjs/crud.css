@@ -11,6 +11,10 @@
 	margin-left: 15px;
 }
 
+#tablelist .table-comment{
+	font-size: 80%;
+}
+
 #crudmain h2 {
 	margin-bottom: 20px;
 }

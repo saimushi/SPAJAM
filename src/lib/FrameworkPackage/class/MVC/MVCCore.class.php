@@ -286,6 +286,7 @@ class MVCCore {
 			} else {
 				$controlerClassName = $res;
 				// フィルター処理
+				$filtered = NULL;
 				$filres = self::loadMVCFilter ( 'MVCPrependFilter' );
 				debug ( 'mvccore ' . $filres );
 				if (FALSE !== $filres && 0 < strlen ( $filres )) {
@@ -307,6 +308,7 @@ class MVCCore {
 				self::$CurrentController->appVersion = self::$appVersion;
 				self::$CurrentController->appleReviewd = self::$appleReviewd;
 				self::$CurrentController->mustAppVersioned = self::$mustAppVersioned;
+				self::$CurrentController->filtered = $filtered;
 				$res = self::$CurrentController->$actionMethodName ();
 				if (FALSE === $res) {
 					throw new Exception ( $actionMethodName . ' executed faild.' );

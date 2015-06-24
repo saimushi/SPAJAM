@@ -617,6 +617,38 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 			// REST全体のPrepend処理
 			if(TRUE === $this->rootREST && FALSE === $prepend){
 				$prepend = TRUE;
+				// 外部からのGETのQUERYとJOINは危険なので、FILTERで許可されていなければ削除する
+				if (TRUE !== $this->filtered){
+					$_GET['QUERY'] = '';
+					$_GET['JOIN'] = '';
+					unset($_GET['QUERY']);
+					unset($_GET['JOIN']);
+				}
+				// 許可されてあっても、「; GRANT CREATE SHOW INSERT UPDATE DELETE ALTER DROP TRUNCATE」は削除
+				if (isset($_GET['QUERY'])){
+					$_GET['QUERY'] = str_ireplace('; ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('GRANT ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('CREATE ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('SHOW ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('INSERT ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('UPDATE ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('DELETE ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('ALTER ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('DROP ', '', $_GET['QUERY']);
+					$_GET['QUERY'] = str_ireplace('TRUNCATE ', '', $_GET['QUERY']);
+				}
+				if (isset($_GET['JOIN'])){
+					$_GET['JOIN'] = str_ireplace('; ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('GRANT ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('CREATE ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('SHOW ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('INSERT ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('UPDATE ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('DELETE ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('ALTER ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('DROP ', '', $_GET['JOIN']);
+					$_GET['JOIN'] = str_ireplace('TRUNCATE ', '', $_GET['JOIN']);
+				}
 				// Filterがあったらフィルター処理をする
 				$filerName = 'RestPrependFilter';
 				debug('$filerName='.$filerName);
@@ -664,6 +696,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 				$RestController->appVersion = $this->appVersion;
 				$RestController->appleReviewd = $this->appleReviewd;
 				$RestController->mustAppVersioned = $this->mustAppVersioned;
+				$RestController->filtered = $this->filtered;
 				$RestController->deepRESTMode = $this->deepRESTMode;
 				if (!isset($RestController->virtualREST)){
 					$RestController->virtualREST = $this->virtualREST;
@@ -701,6 +734,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 				$this->appVersion = $RestController->appVersion;
 				$this->appleReviewd = $RestController->appleReviewd;
 				$this->mustAppVersioned = $RestController->mustAppVersioned;
+				$this->filtered = $RestController->filtered;
 				$this->deepRESTMode = $RestController->deepRESTMode;
 				$this->virtualREST = $RestController->virtualREST;
 				$this->restResource = $RestController->restResource;
@@ -793,7 +827,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 					$basehtml .= '<h2>Table List</h2>'.PHP_EOL;
 					$basehtml .= '<ul>'.PHP_EOL;
 					for($idx=0; $idx < count($res); $idx++){
-						$basehtml .= '<li><a class="tablelink" id="table_'.$res[$idx].'" href="'.str_replace('/index.html', '/', $URIs[0]).$res[$idx].'.html">'.$res[$idx].'</a></li>'.PHP_EOL;
+						$basehtml .= '<li><a class="tablelink" id="table_'.$res[$idx]['name'].'" href="'.str_replace('/index.html', '/', $URIs[0]).$res[$idx]['name'].'.html"><span class="table-name">'.$res[$idx]['name'].'</span>'.((0 < strlen($res[$idx]['comment']) ? ' "<span class="table-comment">'.$res[$idx]['comment'].'</span>"' : '')).'(<span class="table-row">'.$res[$idx]['row'].'</span>)'.'</a></li>'.PHP_EOL;
 					}
 					$basehtml .= '</ul>'.PHP_EOL;
 				}
@@ -832,7 +866,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 							if(TRUE === $this->rootREST && isset($requestParams['LIMIT']) && is_numeric($requestParams['LIMIT']) && (int)$requestParams['LIMIT'] > 0 && isset($requestParams['OFFSET']) && is_numeric($requestParams['OFFSET']) && isset($requestParams['total']) && is_numeric($requestParams['total']) && (int)$requestParams['total'] > 0){
 								// ページング
 								$nowPage = (floor((int)$requestParams['OFFSET']/(int)$requestParams['LIMIT'])+1);
-								if(1 < floor((int)$requestParams['total']/(int)$requestParams['LIMIT'])+1){
+								if(1 < ceil((int)$requestParams['total']/(int)$requestParams['LIMIT'])){
 									$basehtml .= '<table class="paging"><tr>'.PHP_EOL;
 									if($nowPage > 1){
 										// 先頭リンク
@@ -851,18 +885,18 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 									// 現在ページ
 									$basehtml .= '<td class="list-paginglink"><a href="'.$URIs[0].'?LIMIT='.$requestParams['LIMIT'].'&OFFSET='.$requestParams['OFFSET'].'&total='.$requestParams['total'].'&ORDER='.rawurlencode($requestParams['ORDER']).'&LIKE='.rawurlencode($requestParams['LIKE']).'">'.$nowPage.'</a></td>'.PHP_EOL;
 									// 1つ次のページ
-									if($nowPage+1 <= (floor((int)$requestParams['total']/(int)$requestParams['LIMIT']))){
+									if($nowPage < ceil((int)$requestParams['total']/(int)$requestParams['LIMIT'])){
 										$basehtml .= '<td class="list-paginglink"><a href="'.$URIs[0].'?LIMIT='.$requestParams['LIMIT'].'&OFFSET='.((int)$requestParams['OFFSET']+(int)$requestParams['LIMIT']).'&total='.$requestParams['total'].'&ORDER='.rawurlencode($requestParams['ORDER']).'&LIKE='.rawurlencode($requestParams['LIKE']).'">'.($nowPage+1).'</a></td>'.PHP_EOL;
 									}
 									// 2つ次のページ
-									if($nowPage+2 <= (floor((int)$requestParams['total']/(int)$requestParams['LIMIT']))){
+									if($nowPage+1 < ceil((int)$requestParams['total']/(int)$requestParams['LIMIT'])){
 										$basehtml .= '<td class="list-paginglink"><a href="'.$URIs[0].'?LIMIT='.$requestParams['LIMIT'].'&OFFSET='.((int)$requestParams['OFFSET']+(int)$requestParams['LIMIT']*2).'&total='.$requestParams['total'].'&ORDER='.rawurlencode($requestParams['ORDER']).'&LIKE='.rawurlencode($requestParams['LIKE']).'">'.($nowPage+2).'</a></td>'.PHP_EOL;
 									}
-									if($nowPage < (floor((int)$requestParams['total']/(int)$requestParams['LIMIT']))){
+									if($nowPage < (ceil((int)$requestParams['total']/(int)$requestParams['LIMIT']))){
 										// 次へリンク
 										$basehtml .= '<td class="list-paginglink"><a href="'.$URIs[0].'?LIMIT='.$requestParams['LIMIT'].'&OFFSET='.((int)$requestParams['OFFSET']+(int)$requestParams['LIMIT']).'&total='.$requestParams['total'].'&ORDER='.rawurlencode($requestParams['ORDER']).'&LIKE='.rawurlencode($requestParams['LIKE']).'">&gt;</a></td>'.PHP_EOL;
 										// 終端リンク
-										$basehtml .= '<td class="list-paginglink"><a href="'.$URIs[0].'?LIMIT='.$requestParams['LIMIT'].'&OFFSET='.((floor((int)$requestParams['total']/(int)$requestParams['LIMIT'])-1)*(int)$requestParams['LIMIT']).'&total='.$requestParams['total'].'&ORDER='.rawurlencode($requestParams['ORDER']).'&LIKE='.rawurlencode($requestParams['LIKE']).'">&gt;&gt;</a></td>'.PHP_EOL;
+										$basehtml .= '<td class="list-paginglink"><a href="'.$URIs[0].'?LIMIT='.$requestParams['LIMIT'].'&OFFSET='.(floor((int)$requestParams['total']/(int)$requestParams['LIMIT'])*(int)$requestParams['LIMIT']).'&total='.$requestParams['total'].'&ORDER='.rawurlencode($requestParams['ORDER']).'&LIKE='.rawurlencode($requestParams['LIKE']).'">&gt;&gt;</a></td>'.PHP_EOL;
 									}
 									$basehtml .= '</tr></table>'.PHP_EOL;
 								}
@@ -907,6 +941,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 			header('Head: ' . json_encode($res['describes']));
 			header('Rules: ' . json_encode($res['rules']));
 			header('Records: ' . $res['count']);
+			header('Comment: ' . json_encode($res['comment']));
 			$res = TRUE;
 		}
 		else if(TRUE === $this->rootREST && FALSE === $this->virtualREST && 'GET' === $this->requestMethod && TRUE !== ('index' === strtolower($this->restResourceModel) && 'html' === $this->outputType)){
@@ -916,6 +951,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 				header('Head: ' . json_encode($headRes['describes']));
 				header('Rules: ' . json_encode($headRes['rules']));
 				header('Records: ' . $headRes['count']);
+				header('Comment: ' . json_encode($headRes['comment']));
 			}
 			catch (Exception $Exception){
 				// 何もしない
@@ -993,16 +1029,12 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 			// IndexはCRUD出来るテーブル一覧を返す
 			$DBO = self::_getDBO();
 			// XXX MySQL専用になっている事に注意！
-			$response = $DBO->execute("show tables");
+			$response = $DBO->getTables();
 			if(FALSE === $response){
 				throw new Exception(__CLASS__.PATH_SEPARATOR.__METHOD__.PATH_SEPARATOR.__LINE__);
 			}
 			else{
-				$responseArr = $response->GetAll();
-				for($tableIdx=0; $tableIdx < count($responseArr); $tableIdx++){
-					$var = each($responseArr[$tableIdx]);
-					$resources[] = $var[1];
-				}
+				$resources = $response;
 			}
 			return $resources;
 		}
@@ -1840,7 +1872,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 		}
 
 		// 定義一覧をヘッダに詰めて返す
-		return array('describes' => $Model->describes, 'count'=>$count, 'rules'=>$rules);
+		return array('describes' => $Model->describes, 'count'=>$count, 'rules'=>$rules, 'comment'=>$Model->tableComment);
 	}
 }
 

@@ -4,6 +4,7 @@
 		<PROJECT_ROOT_PATH code="TRUE"><![CDATA[dirname(dirname(__FILE__)).'/']]></PROJECT_ROOT_PATH>
 		<PACKAGE_CONFIG_XML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'core/'.PROJECT_NAME.'.package.xml']]></PACKAGE_CONFIG_XML_PATH>
 		<DB_DSN>mysqli://spajamuser:spajampass@localhost/spajam</DB_DSN>
+		<DB_DSN_READABLE>mysqli://spajamuser:spajampass@localhost/spajam_readable</DB_DSN_READABLE>
 		<!-- MVCフレームワークの定義 -->
 		<FLOWXML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'class/MVC/Controller/']]></FLOWXML_PATH>
 		<TEMPLATEHTML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'template/']]></TEMPLATEHTML_PATH>

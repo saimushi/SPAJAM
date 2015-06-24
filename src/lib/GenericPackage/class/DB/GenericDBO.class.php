@@ -29,6 +29,21 @@ class GenericDBO {
 	public $DSN = NULL;
 
 	/**
+	 * @var string インスタンス化されて使用された場合、DSN情報のハッシュ値を取っておく
+	 */
+	public $dbidentifykey = NULL;
+
+	/**
+	 * @var string インスタンス化されて使用された場合の、読み込み専用DSN情報を取っておく
+	 */
+	public $readableDSN = NULL;
+
+	/**
+	 * @var string インスタンス化されて使用された場合、読み込み専用DSN情報のハッシュ値を取っておく
+	 */
+	public $dbreadableidentifykey = NULL;
+
+	/**
 	 * インスタンス化されて使用された場合、DBType情報を取っておく
 	 * <ul><li>mysql</li><li>oracle</li><li>postgres</li></ul>
 	 * @var string
@@ -36,37 +51,32 @@ class GenericDBO {
 	public $DBType = NULL;
 
 	/**
-	 * @var string インスタンス化されて使用された場合、DSN情報を取っておく
-	 */
-	public $dbidentifykey = NULL;
-
-	/**
 	 * DBインスタンスを取得
 	 * @param string $argDSN DSN
 	 * @return GenericDBO DB
 	 */
-	public static function sharedInstance($argDSN="Default"){
+	public static function sharedInstance($argDSN="Default", $argReadable=FALSE){
 		static $DBO = array();
-		if(!isset($DBO[$argDSN])){
+		if(!isset($DBO[$argDSN.(string)$argReadable])){
 			$DSN = $argDSN;
 			if("Default" === $DSN){
 				$DSN = NULL;
 			}
-			$DBO[$argDSN] = new DBO($DSN);
+			$DBO[$argDSN.(string)$argReadable] = new DBO($DSN, $argReadable);
 		}
-		return $DBO[$argDSN];
+		return $DBO[$argDSN.(string)$argReadable];
 	}
 
 	/**
 	 * インスタンス化対応
 	 * @param string $argDSN DSN
 	 */
-	public function __construct($argDSN=NULL){
+	public function __construct($argDSN=NULL, $argReadable=FALSE){
 		if(NULL !==$argDSN && strlen($argDSN) > 0){
 			$this->DSN = $argDSN;
 			$this->dbidentifykey = sha1($argDSN);
 		}
-		self::_initDB();
+		self::_initDB($argReadable);
 		if(0 === strpos($this->DSN, "mysql")){
 			$this->DBType = "mysql";
 		}
@@ -81,12 +91,18 @@ class GenericDBO {
 	/**
 	 * 該当get_called_classのDBインスタンスの初期化
 	 */
-	private function _initDB(){
+	private function _initDB($argReadable=FALSE){
 		$dsn = NULL;
-		if(TRUE === @property_exists($this, "DSN") && isset($this->DSN) && NULL !== $this->DSN && strlen($this->DSN) > 0){
+		if(TRUE === @property_exists($this, "DSN") && isset($this->DSN) && NULL !== $this->DSN && strlen($this->DSN) > 0 && FALSE === (TRUE === $argReadable && TRUE === @property_exists($this, "readableDSN") && NULL === $this->readableDSN)){
 			// 与えられたDSN情報を使用する
 			$dsn = $this->DSN;
 			$calledClassName = strtolower($this->dbidentifykey);
+			logging("initDB readable=".(string)$argReadable, "query");
+			if (TRUE === $argReadable && FALSE !== $this->readableDSN){
+				$dsn = $this->readableDSN;
+				$calledClassName = strtolower($this->dbreadableidentifykey);
+				logging("initDB readableDSN=".$dsn, "query");
+			}
 // 			$calledClassName = "default";
 // 			if(TRUE === @property_exists($this, "dbidentifykey")){
 // 				$calledClassName = strtolower($this->dbidentifykey);
@@ -116,7 +132,7 @@ class GenericDBO {
 			elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN")){
 				$dsn = Configure::DB_DSN;
 			}
-			else{
+			elseif (defined("DB_DSN")){
 				// 定数を使う
 				$dsn = DB_DSN;
 			}
@@ -126,7 +142,64 @@ class GenericDBO {
 			}
 			if(TRUE === @property_exists($this, "dbidentifykey")){
 				$this->dbidentifykey = sha1($dsn);
-// 				$this->dbidentifykey = $calledClassName;
+			}
+			if (TRUE === $argReadable){
+				$readabledsn = NULL;
+				if(NULL !== $ProjectConfigure && NULL !== $ProjectConfigure::constant('DB_DSN_READABLE')){
+					$readabledsn = $ProjectConfigure::DB_DSN_READABLE;
+				}
+				elseif(NULL !== $ProjectConfigure && NULL !== $ProjectConfigure::constant('DB_DSN_READREPLICA')){
+					$readabledsn = $ProjectConfigure::DB_DSN_READREPLICA;
+				}
+				elseif(NULL !== $ProjectConfigure && NULL !== $ProjectConfigure::constant('DB_DSN_REPLICA')){
+					$readabledsn = $ProjectConfigure::DB_DSN_REPLICA;
+				}
+				elseif(0 < strlen($calledClassName) && __CLASS__  != $calledClassName && class_exists("Configure") && NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_READABLE")){
+					$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_READABLE");
+				}
+				elseif(0 < strlen($calledClassName) && __CLASS__  != $calledClassName && class_exists("Configure") && NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_READREPLICA")){
+					$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_READREPLICA");
+				}
+				elseif(0 < strlen($calledClassName) && __CLASS__  != $calledClassName && class_exists("Configure") && NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_REPLICA")){
+					$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_REPLICA");
+				}
+				elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN_READABLE")){
+					$readabledsn = Configure::DB_DSN_READABLE;
+				}
+				elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN_READREPLICA")){
+					$readabledsn = Configure::DB_DSN_READREPLICA;
+				}
+				elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN_REPLICA")){
+					$readabledsn = Configure::DB_DSN_REPLICA;
+				}
+				elseif (defined("DB_DSN_READABLE")){
+					// 定数を使う
+					$readabledsn = DB_DSN_READABLE;
+				}
+				elseif (defined("DB_DSN_READREPLICA")){
+					// 定数を使う
+					$readabledsn = DB_DSN_READREPLICA;
+				}
+				elseif (defined("DB_DSN_REPLICA")){
+					// 定数を使う
+					$readabledsn = DB_DSN_REPLICA;
+				}
+				if (NULL !== $readabledsn){
+					$calledClassName = sha1($readabledsn);
+					if(TRUE === @property_exists($this, "readableDSN")){
+						$this->readableDSN = $readabledsn;
+					}
+					if(TRUE === @property_exists($this, "dbreadableidentifykey")){
+						$this->dbreadableidentifykey = sha1($readabledsn);
+					}
+					// 置き換え
+					$dsn = $readabledsn;
+					logging("initDB first readableDSN=".$dsn, "query");
+				}
+				else {
+					$this->readableDSN = FALSE;
+					$argReadable = FALSE;
+				}
 			}
 		}
 
@@ -137,9 +210,11 @@ class GenericDBO {
 				// DBインスタンス初期化エラー
 				throw new Exception(__CLASS__.PATH_SEPARATOR.__METHOD__.PATH_SEPARATOR.__LINE__);
 			}
-			// XXX Pconnectの場合、直前のエラー終了プロセスのコネクションがコミットされずに残っていて
-			// それを再利用してしまうケースがあるので、まず再利用コネクションをロールバックする事に注意！！！
-			$DBInstance->RollbackTrans();
+			if (FALSE === $argReadable){
+				// XXX Pconnectの場合、直前のエラー終了プロセスのコネクションがコミットされずに残っていて
+				// それを再利用してしまうケースがあるので、まず再利用コネクションをロールバックする事に注意！！！
+				$DBInstance->RollbackTrans();
+			}
 			// インスタンスの保持
 			self::$_DBInstance[$calledClassName] = $DBInstance;
 			self::$_DSN[$calledClassName] = $dsn;
@@ -188,11 +263,17 @@ class GenericDBO {
 		if(FALSE !== strpos(strtolower($argQuery), "update") || FALSE !== strpos(strtolower($argQuery), "insert") || FALSE !== strpos(strtolower($argQuery), "delete")){
 			self::begin();
 		}
+		else if (0 === strpos(strtolower(trim($argQuery)), "select") || 0 === strpos(strtolower(trim($argQuery)), "show")){
+			// リーダブルDBを探してみる
+			$instanceIndex = self::_initDB(TRUE);
+		}
 		self::$_DBInstance[$instanceIndex]->SetFetchMode(ADODB_FETCH_ASSOC);
 		if(NULL === $argBinds){
 			// 新ADODB用の対応
 			$argBinds = FALSE;
 		}
+		logging($instanceIndex, "query");
+		logging(self::$_DSN[$instanceIndex], "query");
 		logging($argQuery . PHP_EOL . var_export($argBinds, TRUE), "query");
 		$response = self::$_DBInstance[$instanceIndex]->Execute($argQuery, $argBinds);
 		$responseBool = FALSE;
@@ -209,7 +290,7 @@ class GenericDBO {
 	 * 件数指定版execute
 	 */
 	public function selectLimit($argQuery, $argRows, $argOffset=1, $argBinds = NULL){
-		$instanceIndex = self::_initDB();
+		$instanceIndex = self::_initDB(TRUE);
 		$response = self::$_DBInstance[$instanceIndex]->SelectLimit($argQuery, $argRows, $argOffset, $argBinds);
 		// logging
 		//logging(array('db'=> __METHOD__, 'query'=>$argQuery, 'binds'=>$argBinds, 'rows'=>$argRows, 'offset'=>$argOffset, 'response'=>$response), 'db');
@@ -220,11 +301,11 @@ class GenericDBO {
 	 * テーブル一覧の取得
 	 */
 	public function getTables(){
-		$instanceIndex = self::_initDB();
+		$instanceIndex = self::_initDB(TRUE);
 		$dsn = self::$_DSN[$instanceIndex];
 		if(0 === strpos($dsn, "mysql")){
 			// mysql
-			$sql = 'SHOW TABLES';
+			$sql = 'SHOW TABLE STATUS';
 		}
 		elseif(0 === strpos($dsn, "postgres")){
 			// postgres
@@ -246,9 +327,22 @@ class GenericDBO {
 		else{
 			$tables = array();
 			$basetables = $response->GetAll();
+			debug($basetables);
 			for($idx=0; $idx < count($basetables); $idx++){
 				$keys = array_keys($basetables[$idx]);
-				$tables[$idx] = $basetables[$idx][$keys[0]];
+				$tables[$idx] = array('name', 'row', 'comment');
+				for ($kidx=0; $kidx < count($keys); $kidx++){
+					$tables[$idx][strtolower($keys[$kidx])] = $basetables[$idx][$keys[$kidx]];
+					if (FALSE !== strpos(strtolower($keys[$kidx]), 'name')){
+						$tables[$idx]['name'] = $basetables[$idx][$keys[$kidx]];
+					}
+					if (FALSE !== strpos(strtolower($keys[$kidx]), 'row') && FALSE === strpos($keys[$kidx], '_')){
+						$tables[$idx]['row'] = $basetables[$idx][$keys[$kidx]];
+					}
+					if (FALSE !== strpos(strtolower($keys[$kidx]), 'comment')){
+						$tables[$idx]['comment'] = $basetables[$idx][$keys[$kidx]];
+					}
+				}
 			}
 			return $tables;
 		}
@@ -258,7 +352,7 @@ class GenericDBO {
 	 * テーブル定義の取得
 	 */
 	public function getTableDescribes($argTable){
-		$instanceIndex = self::_initDB();
+		$instanceIndex = self::_initDB(TRUE);
 		$dsn = self::$_DSN[$instanceIndex];
 		if(0 === strpos($dsn, "mysql")){
 			// MySQL
@@ -558,19 +652,6 @@ class GenericDBO {
 	 * クエリー実行とDBインスタンスの初期化を同時に行う
 	 */
 	public function rollback(){
-		$instanceIndex = self::_initDB();
-		if(TRUE === self::$_transaction[$instanceIndex]){
-			$res = self::$_DBInstance[$instanceIndex]->RollbackTrans();
-			self::$_transaction[$instanceIndex] = FALSE;
-			return $res;
-		}
-		return NULL;
-	}
-
-	/**
-	 * クエリー実行とDBインスタンスの初期化を同時に行う
-	 */
-	public function getDsn(){
 		$instanceIndex = self::_initDB();
 		if(TRUE === self::$_transaction[$instanceIndex]){
 			$res = self::$_DBInstance[$instanceIndex]->RollbackTrans();

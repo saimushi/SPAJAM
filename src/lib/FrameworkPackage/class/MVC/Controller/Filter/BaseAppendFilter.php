@@ -2,7 +2,7 @@
 
 class BaseAppendFilter {
 	public function execute() {
-		return TRUE;
+		return NULL;
 	}
 }
 
