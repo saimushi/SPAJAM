@@ -596,7 +596,7 @@ abstract class GenericModelBase {
 			// BIGINT型チェック
 			throw new Exception("TYPE MISSMATCH BIGINT");
 		}
-		elseif("date" === $this->describes[$argKey]["type"] && 0 === preg_match("/^[1-9][0-9]{3}\-[0-9]{2}\-/[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}$/", $argValue)){
+		elseif("date" === $this->describes[$argKey]["type"] && 0 === preg_match("/^[1-9][0-9]{3}\-[0-9]{2}\-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}$/", $argValue)){
 			// 日付型チェック
 			throw new Exception("TYPE MISSMATCH DATE");
 		}

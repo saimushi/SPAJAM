@@ -45,26 +45,56 @@
 		<!-- オートRESTの定義 -->
 		<REST_RESOURCE_WHITE_LIST><![CDATA[
 			{"familiar.list":
-				{"Method GET":
-					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","id"]}
-				}
-			,"me.device":
-				{"Method GET":
-					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_"]}
-				}
-			,"user.list":
-				{"Method GET":
-					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","id"]}
-				}
-			,"me.activity":
-				{"Method GET":
-					{"user":["id"]}
-				,"Method POST":
-					{"user":["familiar_id","user_id","log","time"]}
+				{"Method HEAD":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
+				,"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]
+					,"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","id"]}
 				}
 			,"activity.list":
 				{"Method GET":
-					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","user_id"]}
+					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","user_id"]
+					,"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]}
+				,"Method HEAD":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
+				}
+			,"me.activity":
+				{"Method POST":
+					{"user":["familiar_id","user_id","log","time"]}
+				}
+			,"index.list":
+				{"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","_"]}
+				}
+			,"familiar":
+				{"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","_"]}
+				}
+			,"sessiondata.list":
+				{"Method HEAD":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
+				,"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]}
+				}
+			,"session.list":
+				{"Method HEAD":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
+				,"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]}
+				}
+			,"me.familiar":
+				{"Method PUT":
+					{"user":["familiar_count"]}
+				}
+			,"me.user":
+				{"Method POST":
+					{"user":["familiar_id"]}
+				}
+			,"device.list":
+				{"Method HEAD":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
+				,"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]}
 				}
 			}
 		]]></REST_RESOURCE_WHITE_LIST>

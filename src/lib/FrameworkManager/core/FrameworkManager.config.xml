@@ -44,13 +44,27 @@
 		<SESSION_DATA_TBL_NAME>sessiondata</SESSION_DATA_TBL_NAME>
 		<SESSION_DATA_TBL_PKEY_NAME>identifier</SESSION_DATA_TBL_PKEY_NAME>
 		<SESSION_DATA_DATE_KEY_NAME>modified</SESSION_DATA_DATE_KEY_NAME>
-		<SESSION_EXPIRED_TIME>300</SESSION_EXPIRED_TIME>
+		<SESSION_EXPIRED_TIME>3600</SESSION_EXPIRED_TIME>
 		<!-- オートRESTの定義 -->
 		<REST_RESOURCE_WHITE_LIST><![CDATA[
 			{"project.list":
-				{"GET":["fwmuser"]},
-			"me.fwmuser":
-				{"GET":["fwmuser"]}
+				{"Method GET":
+					{"fwmuser":["_c_","_a_","_deep_","_r_","_o_","_"]}
+				}
+			,"me.fwmuser":
+				{"Method GET":
+					{"fwmuser":["_c_","_a_","_deep_","_r_","_o_","_"]}
+				}
+			,"index.list":
+				{"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","_"]}
+				}
+			,"fwmuser.list":
+				{"Method HEAD":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
+				,"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]}
+				}
 			}
 		]]></REST_RESOURCE_WHITE_LIST>
 		<REST_UIDAUTH_USER_TBL_NAME>user</REST_UIDAUTH_USER_TBL_NAME>
