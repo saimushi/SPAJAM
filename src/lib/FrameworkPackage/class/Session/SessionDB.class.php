@@ -248,7 +248,7 @@ class SessionDB extends SessionDataDB implements SessionIO {
 						logging('is identifier! '.$identifier, 'session');
 						// SESSIONレコードを走査
 						$binds = array(self::$_sessionPKeyName => $token, 'expierddate' => Utilities::modifyDate('-' . (string)self::$_expiredtime . 'sec', 'Y-m-d H:i:s', NULL, NULL, 'GMT'));
-						$Session = ORMapper::getModel(self::$_DBO, self::$_sessionTblName, '`' . self::$_sessionPKeyName . '` = :' . self::$_sessionPKeyName . ' AND `' . self::$_sessionDateKeyName . '` >= :expierddate ORDER BY `' . self::$_sessionDateKeyName . '` DESC limit 1', $binds);
+						$Session = ORMapper::getModel(self::$_DBO, self::$_sessionTblName, '`' . self::$_sessionPKeyName . '` = :' . self::$_sessionPKeyName . ' AND `' . self::$_sessionDateKeyName . '` >= :expierddate ORDER BY `' . self::$_sessionDateKeyName . '` DESC limit 1', $binds, FALSE);
 						logging('is session! '.$Session->{self::$_sessionPKeyName}, 'session');
 						if(strlen($Session->{self::$_sessionPKeyName}) > 0){
 							// tokenとして認める
@@ -299,7 +299,7 @@ class SessionDB extends SessionDataDB implements SessionIO {
 		//setcookie($argTokenKey, self::$_token, 0, self::$_path, self::$_domain);
 		// SESSHONレコードを更新
 		$binds = array(self::$_sessionPKeyName => self::$_token, 'expierddate' => Utilities::modifyDate('-' . (string)self::$_expiredtime . 'sec', 'Y-m-d H:i:s', NULL, NULL, 'GMT'));
-		$Session = ORMapper::getModel(self::$_DBO, self::$_sessionTblName, '`' . self::$_sessionPKeyName . '` = :' . self::$_sessionPKeyName . ' AND `' . self::$_sessionDateKeyName . '` >= :expierddate ORDER BY `' . self::$_sessionDateKeyName . '` DESC limit 1', $binds);
+		$Session = ORMapper::getModel(self::$_DBO, self::$_sessionTblName, '`' . self::$_sessionPKeyName . '` = :' . self::$_sessionPKeyName . ' AND `' . self::$_sessionDateKeyName . '` >= :expierddate ORDER BY `' . self::$_sessionDateKeyName . '` DESC limit 1', $binds, FALSE);
 		$Session->{'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', self::$_sessionPKeyName)))}(self::$_token);
 		$Session->{'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', self::$_sessionDateKeyName)))}(Utilities::date('Y-m-d H:i:s', NULL, NULL, 'GMT'));
 		$Session->save();
@@ -408,7 +408,7 @@ class SessionDB extends SessionDataDB implements SessionIO {
 			$token = $_COOKIE[self::$_tokenKeyName];
 			// SESSIONレコードを走査
 			$binds = array(self::$_sessionPKeyName => $token);
-			$Session = ORMapper::getModel(self::$_DBO, self::$_sessionTblName, '`' . self::$_sessionPKeyName . '` = :' . self::$_sessionPKeyName. ' limit 1', $binds);
+			$Session = ORMapper::getModel(self::$_DBO, self::$_sessionTblName, '`' . self::$_sessionPKeyName . '` = :' . self::$_sessionPKeyName. ' limit 1', $binds, FALSE);
 			if(strlen($Session->{self::$_sessionPKeyName}) > 0){
 				// 該当レコードを削除
 				$Session->remove();

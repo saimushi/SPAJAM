@@ -618,7 +618,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 			if(TRUE === $this->rootREST && FALSE === $prepend){
 				$prepend = TRUE;
 				// 外部からのGETのQUERYとJOINは危険なので、FILTERで許可されていなければ削除する
-				if (TRUE !== $this->filtered){
+				if (TRUE !== $this->allowed){
 					$_GET['QUERY'] = '';
 					$_GET['JOIN'] = '';
 					unset($_GET['QUERY']);
@@ -662,6 +662,92 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 
 			$classHint = str_replace(' ', '', ucwords(str_replace(' ', '', $this->restResourceModel)));
 			debug('$classHint='.$classHint);
+			debug('whitelistcheck allowed='.var_export($this->allowed,TRUE));
+
+			if(TRUE !== isTest() && !isset($this->AuthUser) && TRUE !== $this->allowed){
+				// アクセスエラー！
+				throw new RESTException(__CLASS__.PATH_SEPARATOR.__METHOD__.PATH_SEPARATOR.__LINE__, 405);
+			}
+			else if (isset($this->AuthUser) && TRUE !== $this->allowed){
+				// ホワイトリストフィルター
+				if (TRUE === $this->rootREST){
+					// 現在のホワイトリストの一覧を取得
+					$nowWhiteList = stripslashes(trim(getConfig('REST_RESOURCE_WHITE_LIST')));
+					debug("whitelistcheck now whiteList=". $nowWhiteList);
+					$whiteList = json_decode($nowWhiteList, TRUE);
+					$resourcePath = $this->restResource["model"];
+					if (TRUE === $this->restResource["me"]){
+						$resourcePath = "me.".$resourcePath;
+					}
+					if (TRUE !== $this->restResource["me"] && TRUE === $this->restResource["listed"]){
+						$resourcePath .= ".list";
+					}
+					debug("whitelistcheck resourcePath=". $resourcePath);
+					if (NULL === $nowWhiteList && 0 === strlen($nowWhiteList)){
+						// アクセスエラー！
+						throw new RESTException(__CLASS__.PATH_SEPARATOR.__METHOD__.PATH_SEPARATOR.__LINE__, 405);
+					}
+					else {
+						debug("whitelistcheck isTest=". var_export(isTest(), true));
+						debug("whitelistcheck whiteList=". var_export($whiteList, true));
+						$paramKeys = array_keys($this->getRequestParams());
+						$allowUser = '*';
+						if (isset($this->AuthUser) && NULL !== $this->AuthUser && 0 < strlen($this->AuthUser->tableName)){
+							$allowUser = $this->AuthUser->tableName;
+						}
+						if (!isTest()){
+							// テスト環境の場合は、ホワイトフィルターを育てる処理
+							$updateWhiteList = FALSE;
+							if (!isset($whiteList[$resourcePath])){
+								$whiteList[$resourcePath] = array("Method ".$this->requestMethod => NULL);
+							}
+							if ('*' !== $allowUser){
+								if (!is_array($whiteList[$resourcePath]["Method ".$this->requestMethod])){
+									$whiteList[$resourcePath]["Method ".$this->requestMethod] = array();
+								}
+								// ホワイトリストに追加
+								$whiteList[$resourcePath]["Method ".$this->requestMethod][$allowUser] = $paramKeys;
+							}
+							else{
+								$whiteList[$resourcePath]["Method ".$this->requestMethod] = $allowUser;
+							}
+							$newWhiteList = json_encode($whiteList);
+							debug("whitelistcheck new whiteList=". $newWhiteList);
+							debug("whitelistcheck now whiteList=". $nowWhiteList);
+							// Configに書き出す
+							if ($nowWhiteList != $newWhiteList){
+								debug("whitelistcheck modify whiteList=". $newWhiteList);
+								modifiyConfig('REST_RESOURCE_WHITE_LIST', PHP_EOL.PHP_TAB.PHP_TAB.PHP_TAB.
+									str_replace("\"]},\"Method ", "\"]}".PHP_EOL.PHP_TAB.PHP_TAB.PHP_TAB.PHP_TAB.",\"Method ", 
+										str_replace("\":{\"", "\":".PHP_EOL.PHP_TAB.PHP_TAB.PHP_TAB.PHP_TAB.PHP_TAB."{\"", 
+											str_replace(":{\"Method ", ":".PHP_EOL.PHP_TAB.PHP_TAB.PHP_TAB.PHP_TAB."{\"Method ", 
+												str_replace("}}", "}".PHP_EOL.PHP_TAB.PHP_TAB.PHP_TAB."}", 
+													str_replace("\"]}}", "\"]}".PHP_EOL.PHP_TAB.PHP_TAB.PHP_TAB.PHP_TAB."}".PHP_EOL.PHP_TAB.PHP_TAB.PHP_TAB, json_encode($whiteList)))))).PHP_EOL.PHP_TAB.PHP_TAB);
+							}
+						}
+						else {
+							debug("whitelistcheck new is??");
+							// ホワイトリストによるリソースアクセスチェック！
+							if (!(isset($whiteList[$resourcePath]) && isset($whiteList[$resourcePath]["Method ".$this->requestMethod]))){
+								// アクセスエラー！
+								throw new RESTException(__CLASS__.PATH_SEPARATOR.__METHOD__.PATH_SEPARATOR.__LINE__, 405);
+							}
+							else if(is_array($whiteList[$resourcePath]["Method ".$this->requestMethod])){
+								if(0 < count(array_diff($paramKeys, $whiteList[$resourcePath]["Method ".$this->requestMethod][$allowUser]))){
+									// アクセスエラー！
+									throw new RESTException(__CLASS__.PATH_SEPARATOR.__METHOD__.PATH_SEPARATOR.__LINE__, 405);
+								}
+							}
+							else if ("*" !== $whiteList[$resourcePath]["Method ".$this->requestMethod]){
+								// アクセスエラー！
+								throw new RESTException(__CLASS__.PATH_SEPARATOR.__METHOD__.PATH_SEPARATOR.__LINE__, 405);
+							}
+							// 許可されたRESTへのアクセス
+							debug("whitelistcheck new is ok!");
+						}
+					}
+				}
+			}
 
 			// 指定リソースの絶対的なPrepend
 			$filerName = $classHint . 'PrependFilter';
@@ -696,7 +782,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 				$RestController->appVersion = $this->appVersion;
 				$RestController->appleReviewd = $this->appleReviewd;
 				$RestController->mustAppVersioned = $this->mustAppVersioned;
-				$RestController->filtered = $this->filtered;
+				$RestController->allowed = $this->allowed;
 				$RestController->deepRESTMode = $this->deepRESTMode;
 				if (!isset($RestController->virtualREST)){
 					$RestController->virtualREST = $this->virtualREST;
@@ -734,7 +820,7 @@ abstract class RestControllerBase extends APIControllerBase implements RestContr
 				$this->appVersion = $RestController->appVersion;
 				$this->appleReviewd = $RestController->appleReviewd;
 				$this->mustAppVersioned = $RestController->mustAppVersioned;
-				$this->filtered = $RestController->filtered;
+				$this->allowed = $RestController->allowed;
 				$this->deepRESTMode = $RestController->deepRESTMode;
 				$this->virtualREST = $RestController->virtualREST;
 				$this->restResource = $RestController->restResource;

@@ -17,14 +17,14 @@ class GenericORMapper {
 	/**
 	 * エイリアス
 	 */
-	public static function getModel($argDBO, $argModelName, $argExtractionCondition=NULL, $argBinds=NULL, $argSeqQuery=NULL){
-		return self::getAutoGenerateModel($argDBO, $argModelName, $argExtractionCondition, $argBinds, $argSeqQuery);
+	public static function getModel($argDBO, $argModelName, $argExtractionCondition=NULL, $argBinds=NULL, $argAutoReadable=TRUE, $argSeqQuery=NULL){
+		return self::getAutoGenerateModel($argDBO, $argModelName, $argExtractionCondition, $argBinds, $argAutoReadable, $argSeqQuery);
 	}
 
 	/**
 	 * モデルクラスを自動生成して返す
 	 */
-	public static function getAutoGenerateModel($argDBO, $argModelName, $argExtractionCondition=NULL, $argBinds=NULL, $argSeqQuery=NULL){
+	public static function getAutoGenerateModel($argDBO, $argModelName, $argExtractionCondition=NULL, $argBinds=NULL, $argAutoReadable=TRUE, $argSeqQuery=NULL){
 
 		// モデルクラス名とテーブル名を特定する
 		$tableName = $argModelName;
@@ -122,7 +122,7 @@ class GenericORMapper {
 				}
 			}
 		}
-		$model = new self::$_models[$tableName]($argDBO, $argExtractionCondition, $argBinds);
+		$model = new self::$_models[$tableName]($argDBO, $argExtractionCondition, $argBinds, $argAutoReadable);
 		$model->className = $modelName;
 
 		// テーブル定義のハッシュ値を取っておく

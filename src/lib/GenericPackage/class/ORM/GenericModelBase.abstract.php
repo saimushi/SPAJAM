@@ -90,10 +90,16 @@ abstract class GenericModelBase {
 	public $index = NULL;
 
 	/**
+	 * 自動リードレプリカ参照フラグ
+	 */
+	public $autoReadable = TRUE;
+
+	/**
 	 * コンストラクタ
 	 */
-	public function __construct($argDBO, $argExtractionCondition=NULL, $argBinds=NULL){
+	public function __construct($argDBO, $argExtractionCondition=NULL, $argBinds=NULL, $argAutoReadable=TRUE){
 		$this->_DBO = $argDBO;
+		$this->autoReadable = $argAutoReadable;
 		$this->load($argExtractionCondition, $argBinds);
 	}
 
@@ -118,7 +124,7 @@ abstract class GenericModelBase {
 				}
 				if(FALSE !== strpos($argExtractionCondition,"SELECT") && strpos($argExtractionCondition,"SELECT") <= 1){
 					// SELECT文での指定
-					$response = $this->_DBO->execute($argExtractionCondition . " ");
+					$response = $this->_DBO->execute($argExtractionCondition . " ", NULL, $this->autoReadable);
 				}
 				elseif(strlen($argExtractionCondition) > 0){
 					// フィールド指定句を生成
@@ -134,16 +140,16 @@ abstract class GenericModelBase {
 					// 抽出条件が何なのか
 					// WHERE句での指定
 					if(FALSE !== strpos($argExtractionCondition,"WHERE") && strpos($argExtractionCondition,"WHERE") <= 1){
-						$response = $this->_DBO->execute("SELECT " . $field. " FROM `" . strtolower($this->tableName) . "` " . $join . $argExtractionCondition . " ", $argBinds);
+						$response = $this->_DBO->execute("SELECT " . $field. " FROM `" . strtolower($this->tableName) . "` " . $join . $argExtractionCondition . " ", $argBinds, $this->autoReadable);
 					}
 					elseif(FALSE !== strpos($argExtractionCondition,"=")){
 						// 条件のみでの指定
-						$response = $this->_DBO->execute("SELECT " . $field. " FROM `" . strtolower($this->tableName) . "` " . $join . " WHERE " . $argExtractionCondition . " ", $argBinds);
+						$response = $this->_DBO->execute("SELECT " . $field. " FROM `" . strtolower($this->tableName) . "` " . $join . " WHERE " . $argExtractionCondition . " ", $argBinds, $this->autoReadable);
 					}else{
 						// Pkey指定として扱う
 						$binds = array();
 						$binds[$this->pkeyName] = $argExtractionCondition;
-						$response = $this->_DBO->execute("SELECT " . $field. " FROM `" . strtolower($this->tableName) . "` WHERE `" . $this->pkeyName . "` = :" .$this->pkeyName . " ", $binds);
+						$response = $this->_DBO->execute("SELECT " . $field. " FROM `" . strtolower($this->tableName) . "` WHERE `" . $this->pkeyName . "` = :" .$this->pkeyName . " ", $binds, $this->autoReadable);
 					}
 				}
 				else{

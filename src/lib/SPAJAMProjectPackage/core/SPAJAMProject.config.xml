@@ -41,8 +41,33 @@
 		<SESSION_DATA_TBL_NAME>sessiondata</SESSION_DATA_TBL_NAME>
 		<SESSION_DATA_TBL_PKEY_NAME>identifier</SESSION_DATA_TBL_PKEY_NAME>
 		<SESSION_DATA_DATE_KEY_NAME>modified</SESSION_DATA_DATE_KEY_NAME>
-		<SESSION_EXPIRED_TIME>3600</SESSION_EXPIRED_TIME>
+		<SESSION_EXPIRED_TIME>300</SESSION_EXPIRED_TIME>
 		<!-- オートRESTの定義 -->
+		<REST_RESOURCE_WHITE_LIST><![CDATA[
+			{"familiar.list":
+				{"Method GET":
+					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","id"]}
+				}
+			,"me.device":
+				{"Method GET":
+					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_"]}
+				}
+			,"user.list":
+				{"Method GET":
+					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","id"]}
+				}
+			,"me.activity":
+				{"Method GET":
+					{"user":["id"]}
+				,"Method POST":
+					{"user":["familiar_id","user_id","log","time"]}
+				}
+			,"activity.list":
+				{"Method GET":
+					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","user_id"]}
+				}
+			}
+		]]></REST_RESOURCE_WHITE_LIST>
 		<REST_UIDAUTH_USER_TBL_NAME>user</REST_UIDAUTH_USER_TBL_NAME>
 		<REST_UIDAUTH_USER_CREATE_DATE_KEY_NAME>created</REST_UIDAUTH_USER_CREATE_DATE_KEY_NAME>
 		<REST_UIDAUTH_USER_MODIFY_DATE_KEY_NAME>modified</REST_UIDAUTH_USER_MODIFY_DATE_KEY_NAME>
@@ -52,6 +77,6 @@
 		<REST_RESOURCE_MODIFY_DATE_KEY_NAME>modified</REST_RESOURCE_MODIFY_DATE_KEY_NAME>
 		<REST_RESOURCE_AVAILABLE_KEY_NAME>available</REST_RESOURCE_AVAILABLE_KEY_NAME>
 		<REST_RESOURCE_RELAY_PREFIX>target_</REST_RESOURCE_RELAY_PREFIX>
-		<REST_RESOURCE_RELAY_SUFFIX></REST_RESOURCE_RELAY_SUFFIX>
+		<REST_RESOURCE_RELAY_SUFFIX/>
 	</SPAJAMProject>
 </xml>

@@ -114,7 +114,7 @@ abstract class SessionDataDB {
 	protected static function _initializeData($argPKey){
 		if(NULL === self::$_sessionData){
 			$binds = array(self::$_sessionDataPKeyName => $argPKey, 'expierddate' => Utilities::modifyDate('-' . (string)self::$_expiredtime . 'sec', 'Y-m-d H:i:s', NULL, NULL, 'GMT'));
-			$Session = ORMapper::getModel(self::$_DBO, self::$_sessionDataTblName, '`' . self::$_sessionDataPKeyName . '` = :' . self::$_sessionDataPKeyName . ' AND `' . self::$_sessionDataDateKeyName . '` >= :expierddate ORDER BY `' . self::$_sessionDataDateKeyName . '` DESC limit 1', $binds);
+			$Session = ORMapper::getModel(self::$_DBO, self::$_sessionDataTblName, '`' . self::$_sessionDataPKeyName . '` = :' . self::$_sessionDataPKeyName . ' AND `' . self::$_sessionDataDateKeyName . '` >= :expierddate ORDER BY `' . self::$_sessionDataDateKeyName . '` DESC limit 1', $binds, FALSE);
 			if(strlen($Session->{self::$_sessionDataPKeyName}) > 0){
 				self::$_sessionData = json_decode($Session->{self::$_serializeKeyName}, TRUE);
 			}
@@ -133,7 +133,7 @@ abstract class SessionDataDB {
 	protected static function _finalizeData($argPKey){
 		if(is_array(self::$_sessionData) && count(self::$_sessionData) > 0){
 			$binds = array(self::$_sessionDataPKeyName => $argPKey, 'expierddate' => Utilities::modifyDate('-' . (string)self::$_expiredtime . 'sec', 'Y-m-d H:i:s', NULL, NULL, 'GMT'));
-			$Session = ORMapper::getModel(self::$_DBO, self::$_sessionDataTblName, $argPKey);
+			$Session = ORMapper::getModel(self::$_DBO, self::$_sessionDataTblName, $argPKey, NULL, FALSE);
 			// XXX identifierが変えられたかもしれないので、もう一度セット
 			$Session->{'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', self::$_sessionDataPKeyName)))}($argPKey);
 			$Session->{'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', self::$_serializeKeyName)))}(json_encode(self::$_sessionData));
@@ -268,7 +268,7 @@ abstract class SessionDataDB {
 			self::_init($argExpiredtime, $argDSN);
 		}
 		$binds = array(self::$_sessionDataPKeyName => $argPKey);
-		$Session = ORMapper::getModel(self::$_DBO, self::$_sessionDataTblName, '`' . self::$_sessionDataPKeyName . '` = :' . self::$_sessionDataPKeyName . ' limit 1', $binds);
+		$Session = ORMapper::getModel(self::$_DBO, self::$_sessionDataTblName, '`' . self::$_sessionDataPKeyName . '` = :' . self::$_sessionDataPKeyName . ' limit 1', $binds, FALSE);
 		$Session->remove();
 		return TRUE;
 	}

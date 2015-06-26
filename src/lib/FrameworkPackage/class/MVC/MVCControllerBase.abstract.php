@@ -13,7 +13,7 @@ abstract class MVCControllerBase implements MVCController {
 	public $appVersion = "1.0.0";
 	public $appleReviewd = FALSE;
 	public $mustAppVersioned = FALSE;
-	public $filtered = NULL;
+	public $allowed = NULL;
 
 	public function execute(){
 		return FALSE;

@@ -123,18 +123,66 @@ class GenericDBO {
 			if(defined('PROJECT_NAME') && strlen(PROJECT_NAME) > 0 && class_exists(PROJECT_NAME . 'Configure')){
 				$ProjectConfigure = PROJECT_NAME . 'Configure';
 			}
+			$readabledsn = NULL;
 			if(NULL !== $ProjectConfigure && NULL !== $ProjectConfigure::constant('DB_DSN')){
 				$dsn = $ProjectConfigure::DB_DSN;
+				if (TRUE === $argReadable){
+					if(NULL !== $ProjectConfigure::constant('DB_DSN_READABLE')){
+						$readabledsn = $ProjectConfigure::DB_DSN_READABLE;
+					}
+					elseif(NULL !== $ProjectConfigure::constant('DB_DSN_READREPLICA')){
+						$readabledsn = $ProjectConfigure::DB_DSN_READREPLICA;
+					}
+					elseif(NULL !== $ProjectConfigure::constant('DB_DSN_REPLICA')){
+						$readabledsn = $ProjectConfigure::DB_DSN_REPLICA;
+					}
+				}
 			}
 			elseif(0 < strlen($calledClassName) && __CLASS__  != $calledClassName && class_exists("Configure") && NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN")){
 				$dsn = Configure::constant(strtoupper($calledClassName) . "_DSN");
+				if (TRUE === $argReadable){
+					if(NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_READABLE")){
+						$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_READABLE");
+					}
+					elseif(NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_READREPLICA")){
+						$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_READREPLICA");
+					}
+					elseif(NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_REPLICA")){
+						$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_REPLICA");
+					}
+				}
 			}
 			elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN")){
 				$dsn = Configure::DB_DSN;
+				if (TRUE === $argReadable){
+					if(NULL !== Configure::constant("DB_DSN_READABLE")){
+						$readabledsn = Configure::DB_DSN_READABLE;
+					}
+					elseif(NULL !== Configure::constant("DB_DSN_READREPLICA")){
+						$readabledsn = Configure::DB_DSN_READREPLICA;
+					}
+					elseif(NULL !== Configure::constant("DB_DSN_REPLICA")){
+						$readabledsn = Configure::DB_DSN_REPLICA;
+					}
+				}
 			}
 			elseif (defined("DB_DSN")){
 				// 定数を使う
 				$dsn = DB_DSN;
+				if (TRUE === $argReadable){
+					if (defined("DB_DSN_READABLE")){
+						// 定数を使う
+						$readabledsn = DB_DSN_READABLE;
+					}
+					elseif (defined("DB_DSN_READREPLICA")){
+						// 定数を使う
+						$readabledsn = DB_DSN_READREPLICA;
+					}
+					elseif (defined("DB_DSN_REPLICA")){
+						// 定数を使う
+						$readabledsn = DB_DSN_REPLICA;
+					}
+				}
 			}
 			$calledClassName = sha1($dsn);
 			if(TRUE === @property_exists($this, "DSN")){
@@ -143,47 +191,8 @@ class GenericDBO {
 			if(TRUE === @property_exists($this, "dbidentifykey")){
 				$this->dbidentifykey = sha1($dsn);
 			}
+
 			if (TRUE === $argReadable){
-				$readabledsn = NULL;
-				if(NULL !== $ProjectConfigure && NULL !== $ProjectConfigure::constant('DB_DSN_READABLE')){
-					$readabledsn = $ProjectConfigure::DB_DSN_READABLE;
-				}
-				elseif(NULL !== $ProjectConfigure && NULL !== $ProjectConfigure::constant('DB_DSN_READREPLICA')){
-					$readabledsn = $ProjectConfigure::DB_DSN_READREPLICA;
-				}
-				elseif(NULL !== $ProjectConfigure && NULL !== $ProjectConfigure::constant('DB_DSN_REPLICA')){
-					$readabledsn = $ProjectConfigure::DB_DSN_REPLICA;
-				}
-				elseif(0 < strlen($calledClassName) && __CLASS__  != $calledClassName && class_exists("Configure") && NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_READABLE")){
-					$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_READABLE");
-				}
-				elseif(0 < strlen($calledClassName) && __CLASS__  != $calledClassName && class_exists("Configure") && NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_READREPLICA")){
-					$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_READREPLICA");
-				}
-				elseif(0 < strlen($calledClassName) && __CLASS__  != $calledClassName && class_exists("Configure") && NULL !== Configure::constant(strtoupper($calledClassName) . "_DSN_REPLICA")){
-					$readabledsn = Configure::constant(strtoupper($calledClassName) . "_DSN_REPLICA");
-				}
-				elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN_READABLE")){
-					$readabledsn = Configure::DB_DSN_READABLE;
-				}
-				elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN_READREPLICA")){
-					$readabledsn = Configure::DB_DSN_READREPLICA;
-				}
-				elseif(class_exists("Configure") && NULL !== Configure::constant("DB_DSN_REPLICA")){
-					$readabledsn = Configure::DB_DSN_REPLICA;
-				}
-				elseif (defined("DB_DSN_READABLE")){
-					// 定数を使う
-					$readabledsn = DB_DSN_READABLE;
-				}
-				elseif (defined("DB_DSN_READREPLICA")){
-					// 定数を使う
-					$readabledsn = DB_DSN_READREPLICA;
-				}
-				elseif (defined("DB_DSN_REPLICA")){
-					// 定数を使う
-					$readabledsn = DB_DSN_REPLICA;
-				}
 				if (NULL !== $readabledsn){
 					$calledClassName = sha1($readabledsn);
 					if(TRUE === @property_exists($this, "readableDSN")){
@@ -236,7 +245,7 @@ class GenericDBO {
 	 * @param array $argBinds バインド
 	 * @return 実行結果
 	 */
-	public function execute($argQuery, $argBinds = NULL){
+	public function execute($argQuery, $argBinds = NULL, $argAutoReadable = TRUE){
 		$instanceIndex = self::_initDB();
 		// MYSQLの時にBindを変換してあげる処理
 		if(NULL !== $argBinds && is_array($argBinds)){
@@ -265,7 +274,9 @@ class GenericDBO {
 		}
 		else if (0 === strpos(strtolower(trim($argQuery)), "select") || 0 === strpos(strtolower(trim($argQuery)), "show")){
 			// リーダブルDBを探してみる
-			$instanceIndex = self::_initDB(TRUE);
+			$instanceIndex = self::_initDB($argAutoReadable);
+			logging("initDB use readableDSN=".$instanceIndex, "query");
+			logging("initDB readable query=".$argQuery, "query");
 		}
 		self::$_DBInstance[$instanceIndex]->SetFetchMode(ADODB_FETCH_ASSOC);
 		if(NULL === $argBinds){

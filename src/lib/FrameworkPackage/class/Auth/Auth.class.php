@@ -246,7 +246,7 @@ class Auth
 		$userID = self::getDecryptedAuthIdentifier($sessionIdentifier);
 		debug("decrypted userID=".$userID);
 		if(strlen($userID) > 0){
-			$User = ORMapper::getModel(self::$_DBO, self::$authTable, $userID);
+			$User = ORMapper::getModel(self::$_DBO, self::$authTable, $userID, NULL, FALSE);
 			debug("DBGet userID=".$User->{self::$authPKeyField});
 			if(isset($User->{self::$authPKeyField}) && NULL !== $User->{self::$authPKeyField} && FALSE === is_object($User->{self::$authPKeyField}) && strlen((string)$User->{self::$authPKeyField}) > 0){
 				// UserIDが特定出来た
@@ -373,7 +373,7 @@ class Auth
 		debug($id.':'.$pass);
 		$query = '`' . self::$authIDField . '` = :' . self::$authIDField . ' AND `' . self::$authPassField . '` = :' . self::$authPassField . ' ';
 		$binds = array(self::$authIDField => self::_resolveEncrypted($id, self::$authIDEncrypted), self::$authPassField => self::_resolveEncrypted($pass, self::$authPassEncrypted));
-		$User = ORMapper::getModel(self::$_DBO, self::$authTable, $query, $binds);
+		$User = ORMapper::getModel(self::$_DBO, self::$authTable, $query, $binds, FALSE);
 		if(isset($User->{self::$authPKeyField}) && NULL !== $User->{self::$authPKeyField} && FALSE === is_object($User->{self::$authPKeyField}) && strlen((string)$User->{self::$authPKeyField}) > 0){
 			// 登録済みのユーザーIDを返す
 			return $User;
@@ -433,7 +433,7 @@ class Auth
 		}
 		$query = '`' . self::$authIDField . '` = :' . self::$authIDField . ' AND `' . self::$authPassField . '` = :' . self::$authPassField . ' ';
 		$binds = array(self::$authIDField => $id, self::$authPassField => $pass);
-		$User = ORMapper::getModel(self::$_DBO, self::$authTable, $query, $binds);
+		$User = ORMapper::getModel(self::$_DBO, self::$authTable, $query, $binds, FALSE);
 		$User->{'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', self::$authIDField)))}($id);
 		$User->{'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', self::$authPassField)))}($pass);
 		$User->{'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', self::$authCreatedField)))}($argDate);

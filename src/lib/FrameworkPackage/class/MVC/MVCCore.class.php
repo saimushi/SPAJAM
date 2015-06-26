@@ -233,13 +233,13 @@ class MVCCore {
 				// フィルター処理
 				if (self::loadMVCFilter ( 'StaticPrependFilter' )) {
 					$PrependFilter = new StaticPrependFilter ();
-					$filtered = $PrependFilter->execute ();
-					if (FALSE === $filtered) {
+					$allowed = $PrependFilter->execute ();
+					if (FALSE === $allowed) {
 						// XXX フィルターエラー
 						throw new Exception ( 'access denied.' );
 					}
-					elseif (TRUE !== $filtered){
-						$res = $filtered;
+					elseif (TRUE !== $allowed){
+						$res = $allowed;
 					}
 				}
 				if (FALSE === $res) {
@@ -277,8 +277,8 @@ class MVCCore {
 				// フィルター処理
 				if (self::loadMVCFilter ( 'StaticAppendFilter' )) {
 					$AppendFilter = new StaticAppendFilter ();
-					$filtered = $AppendFilter->execute ();
-					if (FALSE === $filtered) {
+					$allowed = $AppendFilter->execute ();
+					if (FALSE === $allowed) {
 						// XXX フィルターエラー
 						throw new Exception ( 'access denied.' );
 					}
@@ -286,13 +286,13 @@ class MVCCore {
 			} else {
 				$controlerClassName = $res;
 				// フィルター処理
-				$filtered = NULL;
+				$allowed = NULL;
 				$filres = self::loadMVCFilter ( 'MVCPrependFilter' );
 				debug ( 'mvccore ' . $filres );
 				if (FALSE !== $filres && 0 < strlen ( $filres )) {
 					$PrependFilter = new MVCPrependFilter ();
-					$filtered = $PrependFilter->execute ();
-					if (FALSE === $filtered) {
+					$allowed = $PrependFilter->execute ();
+					if (FALSE === $allowed) {
 						// XXX フィルターエラー
 						throw new Exception ( 'access denied.' );
 					}
@@ -308,7 +308,7 @@ class MVCCore {
 				self::$CurrentController->appVersion = self::$appVersion;
 				self::$CurrentController->appleReviewd = self::$appleReviewd;
 				self::$CurrentController->mustAppVersioned = self::$mustAppVersioned;
-				self::$CurrentController->filtered = $filtered;
+				self::$CurrentController->allowed = $allowed;
 				$res = self::$CurrentController->$actionMethodName ();
 				if (FALSE === $res) {
 					throw new Exception ( $actionMethodName . ' executed faild.' );
@@ -316,8 +316,8 @@ class MVCCore {
 				// フィルター処理
 				if (self::loadMVCFilter ( 'MVCAppendFilter' )) {
 					$AppendFilter = new MVCAppendFilter ();
-					$filtered = $AppendFilter->execute ();
-					if (FALSE === $filtered) {
+					$allowed = $AppendFilter->execute ();
+					if (FALSE === $allowed) {
 						// XXX フィルターエラー
 						throw new Exception ( 'access denied.' );
 					}

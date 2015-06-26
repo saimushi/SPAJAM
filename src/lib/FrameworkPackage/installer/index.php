@@ -2752,7 +2752,7 @@ elseif(isset($_GET["a"])){
 					for($didx=0; $didx < $depth; $didx++){
 						$pathCode = "dirname(".$pathCode.")";
 					}
-					// CDATAで追加追加
+					// CDATAで追加
 					// XXX 空にしとく
 					$confXML->ROOT_PATH = "";
 					$node = dom_import_simplexml($confXML->ROOT_PATH);
