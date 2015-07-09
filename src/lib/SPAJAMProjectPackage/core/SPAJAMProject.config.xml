@@ -4,7 +4,7 @@
 		<PROJECT_ROOT_PATH code="TRUE"><![CDATA[dirname(dirname(__FILE__)).'/']]></PROJECT_ROOT_PATH>
 		<PACKAGE_CONFIG_XML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'core/'.PROJECT_NAME.'.package.xml']]></PACKAGE_CONFIG_XML_PATH>
 		<DB_DSN>mysqli://spajamuser:spajampass@localhost/spajam</DB_DSN>
-		<DB_DSN_READABLE>mysqli://spajamuser:spajampass@localhost/spajam_readable</DB_DSN_READABLE>
+		<!--DB_DSN_READABLE>mysqli://spajamuser:spajampass@localhost/spajam_readable</DB_DSN_READABLE-->
 		<!-- MVCフレームワークの定義 -->
 		<FLOWXML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'class/MVC/Controller/']]></FLOWXML_PATH>
 		<TEMPLATEHTML_PATH code="TRUE"><![CDATA[%PROJECT_ROOT_PATH%.'template/']]></TEMPLATEHTML_PATH>
@@ -49,7 +49,7 @@
 					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
 				,"Method GET":
 					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]
-					,"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","id"]}
+					,"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_"]}
 				}
 			,"activity.list":
 				{"Method GET":
@@ -95,6 +95,24 @@
 					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
 				,"Method GET":
 					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]}
+				}
+			,"device":
+				{"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","_"]}
+				}
+			,"tmp.list":
+				{"Method HEAD":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIKE","_"]}
+				,"Method GET":
+					{"::1":["_c_","_a_","_deep_","_r_","_o_","_p_","LIMIT","OFFSET","total","ORDER","LIKE","_"]}
+				}
+			,"me.device":
+				{"Method GET":
+					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_"]}
+				}
+			,"user.list":
+				{"Method GET":
+					{"user":["_c_","_a_","_r_","_o_","_deep_","_v_","_dv_","id"]}
 				}
 			}
 		]]></REST_RESOURCE_WHITE_LIST>
